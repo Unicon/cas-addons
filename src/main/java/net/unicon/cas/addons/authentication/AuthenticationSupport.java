@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * Helper strategy API to ease retrieving CAS' <code>Authentication</code> object and its associated components
- * from available CAS SSO String token called <i>Ticket Granting Ticket (TGT</i>
+ * from available CAS SSO String token called <i>Ticket Granting Ticket (TGT)</i>
  *
  * <p>Note: this API is only intended to be called by CAS server code e.g. any custom CAS server overlay extension, etc.</p>
  *
@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public interface AuthenticationSupport {
     
-    Authentication getAutheticationFrom(String ticketGrantingTicketId) throws RuntimeException;
+    Authentication getAuthenticationFrom(String ticketGrantingTicketId) throws RuntimeException;
 
     Principal getAuthenticatedPrincipalFrom(String ticketGrantingTicketId) throws RuntimeException;
 
