@@ -19,10 +19,28 @@ import java.util.Map;
  * @since 0.1
  */
 public interface AuthenticationSupport {
-    
+
+    /**
+     * Retrieve a valid Authentication object identified by the provided TGT SSO token
+     * @param ticketGrantingTicketId an SSO token identifying the requested Authentication
+     * @return valid Authentication OR <b>NULL</b> if there is no valid SSO session present identified by the provided TGT id SSO token
+     * @throws RuntimeException
+     */
     Authentication getAuthenticationFrom(String ticketGrantingTicketId) throws RuntimeException;
 
+    /**
+     * Retrieve a valid Principal object identified by the provided TGT SSO token
+     * @param ticketGrantingTicketId an SSO token identifying the requested authenticated Principal
+     * @return valid Principal OR <b>NULL</b> if there is no valid SSO session present identified by the provided TGT id SSO token
+     * @throws RuntimeException
+     */
     Principal getAuthenticatedPrincipalFrom(String ticketGrantingTicketId) throws RuntimeException;
 
+    /**
+     * Retrieve a valid Principal's map of attributes identified by the provided TGT SSO token
+     * @param ticketGrantingTicketId an SSO token identifying the requested authenticated Principal's attributes
+     * @return valid Principal's attributes OR <b>NULL</b> if there is no valid SSO session present identified by the provided TGT id SSO token
+     * @throws RuntimeException
+     */
     Map<String, Object> getPrincipalAttributesFrom(String ticketGrantingTicketId) throws RuntimeException;
 }
