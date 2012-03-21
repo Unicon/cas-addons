@@ -23,6 +23,7 @@
         <groovy.version>1.8.6</groovy.version>
 		<servlet.version>2.5</servlet.version>
 		<junit.version>4.10</junit.version>
+        <jackson.version>1.9.2</jackson.version>
     </properties>
     
 	<dependencies>        
@@ -37,6 +38,12 @@
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <version>${groovy.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
 
         <dependency>
