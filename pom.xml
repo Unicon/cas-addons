@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <name>Jasig Central Authentication Service Add Ons</name>
+	<description>A collection of useful Jasig CAS SSO Server add ons and extensions</description>
+    <groupId>net.unicon.cas</groupId>
+    <artifactId>cas-addons</artifactId>
+    <version>0.1</version>
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
+	<licenses>
+		<license>
+	    	<name>Apache License v2.0</name>
+	        <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+	    </license>
+	</licenses>
+    
+    <properties>        
+        <cas.version>3.4.11</cas.version>
+        <groovy.version>1.8.6</groovy.version>
+		<servlet.version>2.5</servlet.version>
+		<junit.version>4.10</junit.version>
+    </properties>
+    
+	<dependencies>        
+
+        <dependency>
+            <groupId>org.jasig.cas</groupId>
+            <artifactId>cas-server-core</artifactId>
+            <version>${cas.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        
+		<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+
+    <!-- Jasig CAS Repository -->
+    <repositories>
+        <repository>
+            <id>ja-sig</id>
+            <url>http://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+    </repositories>
+
+</project>

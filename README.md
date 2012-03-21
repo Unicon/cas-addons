@@ -1,0 +1,3 @@
+# An open source collection of useful JASIG-CAS server add ons distributed as a Maven jar artifact
+
+This is pre-0.1 work in progress...
