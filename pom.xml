@@ -17,6 +17,11 @@
 	        <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
 	    </license>
 	</licenses>
+	
+	<scm>
+	    <url>https://github.com/Unicon/cas-addons</url>
+	    <connection>https://github.com/Unicon/cas-addons</connection>
+	  </scm>
     
     <properties>        
         <cas.version>3.4.11</cas.version>
