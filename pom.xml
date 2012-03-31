@@ -19,9 +19,10 @@
 	</licenses>
 	
 	<scm>
+	    <connection>scm:git:git@github.com:Unicon/cas-addons.git</connection>
+	    <developerConnection>scm:git:git@github.com:Unicon/cas-addons.git</developerConnection>
 	    <url>https://github.com/Unicon/cas-addons</url>
-	    <connection>https://github.com/Unicon/cas-addons</connection>
-	  </scm>
+	 </scm>
     
     <properties>        
         <cas.version>3.4.11</cas.version>
