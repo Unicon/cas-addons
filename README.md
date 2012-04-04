@@ -1,3 +1,8 @@
-# An open source collection of useful JASIG-CAS server add ons distributed as a Maven jar artifact
+# An open source collection of useful JASIG-CAS server add ons
 
-This is pre-0.1 work in progress...
+## Version 0.1 components
+
+* [AuthenticationSupport](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/AuthenticationSupport.java)
+* [PasswordExpirationStatusPolicy](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/PasswordExpirationStatusPolicy.java)
+* [RegisteredServiceWithAttributes](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/RegisteredServiceWithAttributes.java)
+* [JSON-based ServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/JsonServiceRegistryDao.groovy)
