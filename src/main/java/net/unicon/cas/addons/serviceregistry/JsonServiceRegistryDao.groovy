@@ -52,7 +52,7 @@ class JsonServiceRegistryDao implements ServiceRegistryDao {
     }
 
     void init() {
-        def servicesCollection = this.mapper.readValue(servicesConfigFile.file, RegisteredServicesCollection.class)
+        def servicesCollection = this.objectMapper.readValue(servicesConfigFile.file, RegisteredServicesCollection.class)
         this.delegateServiceRegistryDao.registeredServices = servicesCollection.services
     }
 
