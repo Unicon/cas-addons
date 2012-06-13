@@ -28,6 +28,8 @@ class JsonServiceRegistryDao implements ServiceRegistryDao {
      */
     Resource servicesConfigFile;
 
+    final def registeredServicesMutexMonitor = new Object()
+
     @Override
     RegisteredService save(RegisteredService registeredService) {
         return this.delegateServiceRegistryDao.save(registeredService)
@@ -40,7 +42,7 @@ class JsonServiceRegistryDao implements ServiceRegistryDao {
 
     @Override
     List<RegisteredService> load() {
-        synchronized (this.delegateServiceRegistryDao.registeredServices) {
+        synchronized (this.registeredServicesMutexMonitor) {
             init()
             return this.delegateServiceRegistryDao.registeredServices
         }
