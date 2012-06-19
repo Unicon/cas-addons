@@ -5,7 +5,9 @@ import org.jasig.cas.services.RegisteredService
 import org.jasig.cas.services.InMemoryServiceRegistryDaoImpl
 import org.springframework.core.io.Resource
 import org.codehaus.jackson.map.ObjectMapper
-import org.jasig.cas.services.RegisteredServiceImpl
+
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 /**
  * In-memory implementation of <code>ServiceRegistryDao</code> that reads services definition from JSON configuration file at the Spring Application Context
@@ -16,6 +18,7 @@ import org.jasig.cas.services.RegisteredServiceImpl
  * @since 0.1
  */
 class JsonServiceRegistryDao implements ServiceRegistryDao {
+    private def logger = LoggerFactory.getLogger(JsonServiceRegistryDao.class)
 
     InMemoryServiceRegistryDaoImpl delegateServiceRegistryDao = new InMemoryServiceRegistryDaoImpl()
 
@@ -26,7 +29,7 @@ class JsonServiceRegistryDao implements ServiceRegistryDao {
     /**
      * A configuration file containing JSON representation of the Services attributes. REQUIRED.
      */
-    Resource servicesConfigFile;
+    Resource servicesConfigFile
 
     final def registeredServicesMutexMonitor = new Object()
 
@@ -55,12 +58,25 @@ class JsonServiceRegistryDao implements ServiceRegistryDao {
 
     void init() {
         def servicesCollection = this.objectMapper.readValue(servicesConfigFile.file, RegisteredServicesCollection.class)
-        this.delegateServiceRegistryDao.registeredServices = servicesCollection.services
+        logger.debug("Reading JSON ServiceRegistry from ${servicesConfigFile.file}")
+
+        //Cast the services to correct types
+        def resolvedServices = []
+        servicesCollection.services.each { i ->
+                if(i.serviceId.startsWith("^")){
+                    logger.debug("Detected Regex-based matching serviceId")
+                    resolvedServices.add(i as RegexRegisteredServiceWithAttributes)
+                } else {
+                    logger.debug("Using standard ant-based serviceId")
+                    resolvedServices.add(i as RegisteredServiceWithAttributesImpl)
+                }
+        }
+        this.delegateServiceRegistryDao.registeredServices = resolvedServices
     }
 
     //Here to provide a top level 'container' for Jackson mapper
     static class RegisteredServicesCollection {
-        List<RegisteredServiceWithAttributesImpl> services
+        List<Object> services
     }
 
 }
