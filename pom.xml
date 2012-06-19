@@ -53,7 +53,7 @@
 	    </developers>
     
     <properties>        
-        <cas.version>3.4.11</cas.version>
+        <cas.version>3.5.0-RC2</cas.version>
         <groovy.version>1.8.6</groovy.version>
 		<servlet.version>2.5</servlet.version>
 		<junit.version>4.10</junit.version>
