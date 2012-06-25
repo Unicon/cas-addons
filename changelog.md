@@ -1,7 +1,7 @@
 # CAS-ADDONS CHANGELOG
 
-Changes in version 0.5
-======================
+Changes in version 0.5 (2012-06-25)
+===================================
 
 * added [RegexRegisteredServiceWithAttributes](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/RegexRegisteredServiceWithAttributes.java)
 * added support for RegexRegisteredServiceWithAttributes in [JsonServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/JsonServiceRegistryDao.groovy)
