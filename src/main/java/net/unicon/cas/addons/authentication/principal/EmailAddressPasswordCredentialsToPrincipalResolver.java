@@ -13,6 +13,8 @@ import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
  * <p>Note: this API is only intended to be called by CAS server code e.g. any custom CAS server overlay extension, etc.</p>
  * 
  * @author <a href="mailto:mmoayyed@unicon.net">Misagh Moayyed</a>
+ * @author Unicon, inc.
+ * @since 0.6
  */
 public class EmailAddressPasswordCredentialsToPrincipalResolver extends AbstractPersonDirectoryCredentialsToPrincipalResolver {
 
@@ -23,14 +25,16 @@ public class EmailAddressPasswordCredentialsToPrincipalResolver extends Abstract
 
     @Override
     protected String extractPrincipalId(final Credentials credentials) {
-        if (credentials == null)
+        if (credentials == null) {
             return null;
+		}
 
         final UsernamePasswordCredentials usernamePasswordCredentials = (UsernamePasswordCredentials) credentials;
 
-        if (StringUtils.isBlank(usernamePasswordCredentials.getUsername()))
+        if (StringUtils.isBlank(usernamePasswordCredentials.getUsername())) {
             return null;
+		}
 
-        return PrincipalUtils.getTransformedUserId(usernamePasswordCredentials.getUsername());
+        return PrincipalUtils.parseNamePartFromEmailAddressIfNecessary(usernamePasswordCredentials.getUsername());
     }
 }

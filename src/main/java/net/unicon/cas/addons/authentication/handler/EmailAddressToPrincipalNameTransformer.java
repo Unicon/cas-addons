@@ -11,11 +11,13 @@ import org.jasig.cas.authentication.handler.PrincipalNameTransformer;
  * <p>Note: this API is only intended to be called by CAS server code e.g. any custom CAS server overlay extension, etc.</p>
  * 
  * @author <a href="mailto:mmoayyed@unicon.net">Misagh Moayyed</a>
+ * @author Unicon, inc.
+ * @since 0.6
  */
 public class EmailAddressToPrincipalNameTransformer implements PrincipalNameTransformer {
 
     @Override
-    public String transform(final String arg0) {
-        return PrincipalUtils.getTransformedUserId(arg0);
+    public String transform(final String principalId) {
+        return PrincipalUtils.parseNamePartFromEmailAddressIfNecessary(principalId);
     }
 }
