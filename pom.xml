@@ -1,129 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
     </parent>
     <name>Jasig Central Authentication Service Add Ons</name>
-	<description>A collection of useful Jasig CAS SSO Server add ons and extensions</description>
+    <description>A collection of useful Jasig CAS SSO Server add ons and extensions</description>
     <groupId>net.unicon.cas</groupId>
     <artifactId>cas-addons</artifactId>
     <version>0.6-SNAPSHOT</version>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
-	<inceptionYear>2012</inceptionYear>
-	
-	<organization>
-	        <name>Unicon, inc.</name>
-	        <url>http://unicon.net</url>
-	    </organization>
+    <inceptionYear>2012</inceptionYear>
 
-	<licenses>
-		<license>
-	    	<name>Apache License v2.0</name>
-	        <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-	    </license>
-	</licenses>
-	
-	<scm>
-	    <connection>scm:git:git@github.com:Unicon/cas-addons.git</connection>
-	    <developerConnection>scm:git:git@github.com:Unicon/cas-addons.git</developerConnection>
-	    <url>https://github.com/Unicon/cas-addons</url>
-		<tag>master</tag>
-	 </scm>
-	
-	 <issueManagement>
-	 	<url>https://github.com/Unicon/cas-addons/issues</url>
-	    <system>Github</system>
-	 </issueManagement>
-	
-	 <developers>
-	        <developer>
-	            <id>dima767</id>
-	            <name>Dmitriy Kopylenko</name>
-	            <email>dkopylenko@unicon.net</email>
-	            <organization>Unicon, inc.</organization>
-	            <organizationUrl>http://unicon.net</organizationUrl>
-	            <roles>
-	                <role>Developer</role>
-	            </roles>
-	        </developer>	        
-	    </developers>
-    
-    <properties>        
+    <organization>
+        <name>Unicon, inc.</name>
+        <url>http://unicon.net</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Apache License v2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:Unicon/cas-addons.git</connection>
+        <developerConnection>scm:git:git@github.com:Unicon/cas-addons.git</developerConnection>
+        <url>https://github.com/Unicon/cas-addons</url>
+        <tag>master</tag>
+    </scm>
+
+    <issueManagement>
+        <url>https://github.com/Unicon/cas-addons/issues</url>
+        <system>Github</system>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <id>dima767</id>
+            <name>Dmitriy Kopylenko</name>
+            <email>dkopylenko@unicon.net</email>
+            <organization>Unicon, inc.</organization>
+            <organizationUrl>http://unicon.net</organizationUrl>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <properties>
         <cas.version>3.5.0-RC2</cas.version>
-        <groovy.version>1.8.6</groovy.version>
-		<servlet.version>2.5</servlet.version>
-		<junit.version>4.10</junit.version>
-        <jackson.version>1.9.2</jackson.version>
+        <groovy.version>2.0.0</groovy.version>
+        <servlet.version>2.5</servlet.version>
+        <junit.version>4.10</junit.version>
+        <jackson.version>2.0.4</jackson.version>
         <commons-codec.version>1.6</commons-codec.version>
     </properties>
 
-	<build>
-			<testResources>
-				<testResource>
-					<directory>${basedir}/src/test/resources</directory>
-				</testResource>
-			</testResources>
-			<plugins>
-				  <plugin>
-				  	<groupId>org.apache.maven.plugins</groupId>
-				    <artifactId>maven-compiler-plugin</artifactId>
-				    <version>2.5.1</version>
-				    <configuration>
-				      <source>1.6</source>
-					  <target>1.6</target>
-				      <compilerId>groovy-eclipse-compiler</compilerId>
-				      <verbose>true</verbose>
-				    </configuration>
-				    <dependencies>
-				      <dependency>
-				        <groupId>org.codehaus.groovy</groupId>
-				        <artifactId>groovy-eclipse-compiler</artifactId>
-				        <version>2.6.0-01</version>
-				      </dependency>
-				    </dependencies>
-				  </plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<configuration>
-						<includes>
-							<include>**/*Tests.java</include>
-						</includes>
-						<excludes>
-							<exclude>**/Abstract*.java</exclude>
-						</excludes>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<configuration>
-						<archive>
-							<manifest>
-								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							</manifest>
-						</archive>
-					</configuration>
-				</plugin>
+    <build>
+        <testResources>
+            <testResource>
+                <directory>${basedir}/src/test/resources</directory>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerId>groovy-eclipse-compiler</compilerId>
+                    <verbose>true</verbose>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-eclipse-compiler</artifactId>
+                        <version>2.6.0-01</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/*Tests.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/Abstract*.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
 
-	            <plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-release-plugin</artifactId>
-						<version>2.1</version>
-						<configuration>
-							<mavenExecutorId>forked-path</mavenExecutorId>
-							<useReleaseProfile>false</useReleaseProfile>
-							<arguments>-Psonatype-oss-release</arguments>
-						</configuration>
-					</plugin>	            
-			</plugins>
-		</build>
-    
-	<dependencies>        
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <arguments>-Psonatype-oss-release</arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
 
         <dependency>
             <groupId>org.jasig.cas</groupId>
@@ -138,8 +139,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
 
@@ -155,8 +156,8 @@
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
-        
-		<dependency>
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
