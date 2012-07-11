@@ -5,6 +5,7 @@ import org.jasig.services.persondir.IPersonAttributes;
 import org.jasig.services.persondir.support.ComplexStubPersonAttributeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
@@ -26,37 +27,38 @@ public class JsonBackedComplexStubPersonAttributeDao extends ComplexStubPersonAt
 	/**
 	 * A configuration file containing JSON representation of the stub person attributes. REQUIRED.
 	 */
-	final Resource personAttributesConfigFile;
+	private final Resource personAttributesConfigFile;
 
-	final ObjectMapper jacksonObjectMapper = new ObjectMapper();
+	private final ObjectMapper jacksonObjectMapper = new ObjectMapper();
 
-	final static Logger logger = LoggerFactory.getLogger(JsonBackedComplexStubPersonAttributeDao.class);
+	private final static Logger logger = LoggerFactory.getLogger(JsonBackedComplexStubPersonAttributeDao.class);
 
-	final Object synchronizationMonitor = new Object();
+	private final Object synchronizationMonitor = new Object();
 
 	public JsonBackedComplexStubPersonAttributeDao(Resource personAttributesConfigFile) {
 		this.personAttributesConfigFile = personAttributesConfigFile;
 	}
 
 	/**
-	 * Init method un-marshals JSON representation of the person attributes. This method could also be used
-	 * by an external periodic poller to reload the attributes.
+	 * Init method un-marshals JSON representation of the person attributes.
 	 */
 	@SuppressWarnings("unchecked")
-	public void init() {
+	public void init() throws Exception {
 		Map<String, Map<String, List<Object>>> backingMap;
-		try {
-			logger.info("Un-marshaling person attributes from the config file [{}] ...", this.personAttributesConfigFile.getFile());
-			backingMap = this.jacksonObjectMapper.readValue(this.personAttributesConfigFile.getFile(), Map.class);
-			logger.debug("Person attributes have been successfully read into a Map<String, Map<String, List<Object>>>: {}", backingMap);
-		}
-		catch (IOException ex) {
-			logger.warn("An exception is caught while trying to de-serialize JSON configuration file", ex);
-			return;
-		}
+
+		logger.info("Un-marshaling person attributes from the config file [{}] ...", this.personAttributesConfigFile.getFile());
+		backingMap = this.jacksonObjectMapper.readValue(this.personAttributesConfigFile.getFile(), Map.class);
+		logger.debug("Person attributes have been successfully read into a Map<String, Map<String, List<Object>>>: {}", backingMap);
+
 		synchronized (this.synchronizationMonitor) {
-			super.setBackingMap(backingMap);
+			try {
+				super.setBackingMap(backingMap);
+			}
+			//If we get to this point, the JSON file is well-formed, but its structure does not map into PersonDir backingMap generic type - fail fast.
+			catch (ClassCastException ex) {
+				throw new BeanCreationException(String.format("The semantic structure of the person attributes JSON config is not correct: %s. Please fix it in this resource: [%s]",
+						backingMap, this.personAttributesConfigFile.getURI()));
+			}
 		}
 	}
-
 }
