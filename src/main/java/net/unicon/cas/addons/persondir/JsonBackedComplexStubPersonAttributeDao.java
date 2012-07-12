@@ -2,7 +2,6 @@ package net.unicon.cas.addons.persondir;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
-import org.jasig.services.persondir.IPersonAttributes;
 import org.jasig.services.persondir.support.ComplexStubPersonAttributeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,21 +46,13 @@ public class JsonBackedComplexStubPersonAttributeDao extends ComplexStubPersonAt
 	 */
 	@SuppressWarnings("unchecked")
 	public void init() throws Exception {
-		Map<String, Map<String, List<Object>>> backingMap;
-
-		logger.info("Un-marshaling person attributes from the config file [{}] ...", this.personAttributesConfigFile.getFile());
-		backingMap = this.jacksonObjectMapper.readValue(this.personAttributesConfigFile.getFile(), Map.class);
-		logger.debug("Person attributes have been successfully read into a Map<String, Map<String, List<Object>>>: {}", backingMap);
-
-		synchronized (this.synchronizationMonitor) {
-			try {
-				super.setBackingMap(backingMap);
-			}
-			//If we get to this point, the JSON file is well-formed, but its structure does not map into PersonDir backingMap generic type - fail fast.
-			catch (ClassCastException ex) {
-				throw new BeanCreationException(String.format("The semantic structure of the person attributes JSON config is not correct: %s. Please fix it in this resource: [%s]",
-						backingMap, this.personAttributesConfigFile.getURI()));
-			}
+		try {
+			unmarshalAndSetBackingMap();
+		}
+		//If we get to this point, the JSON file is well-formed, but its structure does not map into PersonDir backingMap generic type - fail fast.
+		catch (ClassCastException ex) {
+			throw new BeanCreationException(String.format("The semantic structure of the person attributes JSON config is not correct. Please fix it in this resource: [%s]",
+					this.personAttributesConfigFile.getURI()));
 		}
 	}
 
@@ -85,24 +74,17 @@ public class JsonBackedComplexStubPersonAttributeDao extends ComplexStubPersonAt
 			}
 		}
 		catch (Throwable e) {
+			logger.error("An exception is caught while trying to access JSON resource: ", e);
 			return;
 		}
 
 		final Map savedBackingMap;
 		synchronized (this.synchronizationMonitor) {
-			//Save the current state here in order to restore it should the error occur.
+			//Save the current state here in order to restore it, should the error occur.
 			savedBackingMap = super.getBackingMap();
 		}
 		try {
-			//TODO: refactor into a private method
-			Map<String, Map<String, List<Object>>> newBackingMap;
-			logger.info("Un-marshaling person attributes from the config file [{}] ...", this.personAttributesConfigFile.getFile());
-			newBackingMap = this.jacksonObjectMapper.readValue(this.personAttributesConfigFile.getFile(), Map.class);
-			logger.debug("Person attributes have been successfully read into a Map<String, Map<String, List<Object>>>: {}", newBackingMap);
-
-			synchronized (this.synchronizationMonitor) {
-				super.setBackingMap(newBackingMap);
-			}
+			unmarshalAndSetBackingMap();
 		}
 		catch (Throwable ex) {
 			logger.error("An exception is caught during reloading of the JSON configuration:", ex);
@@ -110,5 +92,16 @@ public class JsonBackedComplexStubPersonAttributeDao extends ComplexStubPersonAt
 			super.setBackingMap(savedBackingMap);
 		}
 	}
+
+	private void unmarshalAndSetBackingMap() throws Exception {
+		Map<String, Map<String, List<Object>>> backingMap;
+		logger.info("Un-marshaling person attributes from the config file [{}] ...", this.personAttributesConfigFile.getFile());
+		backingMap = this.jacksonObjectMapper.readValue(this.personAttributesConfigFile.getFile(), Map.class);
+		logger.debug("Person attributes have been successfully read into a Map<String, Map<String, List<Object>>>: {}", backingMap);
+		synchronized (this.synchronizationMonitor) {
+			super.setBackingMap(backingMap);
+		}
+	}
+
 }
 
