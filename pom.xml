@@ -55,11 +55,13 @@
 
     <properties>
         <cas.version>3.5.0-RC2</cas.version>
+        <cas.client.version>3.2.1</cas.client.version>
         <groovy.version>2.0.0</groovy.version>
         <servlet.version>2.5</servlet.version>
         <junit.version>4.10</junit.version>
         <jackson.version>2.0.4</jackson.version>
         <commons-codec.version>1.6</commons-codec.version>
+        <spring.version>3.1.1.RELEASE</spring.version>
     </properties>
 
     <build>
@@ -123,7 +125,7 @@
             </plugin>
         </plugins>
     </build>
-
+ 
     <dependencies>
 
         <dependency>
@@ -164,6 +166,11 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+        	<groupId>org.jasig.cas.client</groupId>
+        	<artifactId>cas-client-core</artifactId>
+        	<version>${cas.client.version}</version>
+        </dependency>
     </dependencies>
 
 
