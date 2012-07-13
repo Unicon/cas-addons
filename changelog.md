@@ -8,9 +8,9 @@ Changes in version 0.6
 * added [ServiceValidateSuccessJsonView](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/response/ServiceValidateSuccessJsonView.java)
 * added [Cas20ServiceTicketJsonValidationFilter](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/client/validation/Cas20ServiceTicketJsonValidationFilter.java)
 * added [Cas20ServiceTicketJsonValidator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/client/validation/Cas20ServiceTicketJsonValidator.java)
-* upgraded Groovy dependency to 2.0.0
-* upgraded Jackson dependency to 2.0.4
-* upgraded CAS server dependency to 3.5.0
+* upgraded [Groovy dependency to 2.0.0](https://github.com/Unicon/cas-addons/blob/master/pom.xml)
+* upgraded [Jackson dependency to 2.0.4](https://github.com/Unicon/cas-addons/blob/master/pom.xml)
+* upgraded [CAS server dependency to 3.5.0](https://github.com/Unicon/cas-addons/blob/master/pom.xml)
 
 Changes in version 0.5 (2012-06-25)
 ===================================
