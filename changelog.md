@@ -12,7 +12,6 @@ Changes in version 0.6
 * upgraded Jackson dependency to 2.0.4
 * upgraded CAS server dependency to 3.5.0
 
-validation/.java
 Changes in version 0.5 (2012-06-25)
 ===================================
 
