@@ -10,6 +10,7 @@ Changes in version 0.6
 * added [Cas20ServiceTicketJsonValidator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/client/validation/Cas20ServiceTicketJsonValidator.java)
 * upgraded Groovy dependency to 2.0.0
 * upgraded Jackson dependency to 2.0.4
+* upgraded CAS server dependency to 3.5.0
 
 validation/.java
 Changes in version 0.5 (2012-06-25)
