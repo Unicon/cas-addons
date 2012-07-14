@@ -60,6 +60,8 @@
         <junit.version>4.10</junit.version>
         <jackson.version>2.0.4</jackson.version>
         <commons-codec.version>1.6</commons-codec.version>
+        <person.directory.version>1.5.0-RC6</person.directory.version>
+        <shiro.version>1.2.0</shiro.version>
     </properties>
 
     <build>
@@ -148,6 +150,24 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>${commons-codec.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jasig.service</groupId>
+            <artifactId>person-directory-impl</artifactId>
+            <version>${person.directory.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>${shiro.version}</version>
         </dependency>
 
         <dependency>
