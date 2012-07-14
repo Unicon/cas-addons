@@ -89,7 +89,9 @@ public class JsonBackedComplexStubPersonAttributeDao extends ComplexStubPersonAt
 		catch (Throwable ex) {
 			logger.error("An exception is caught during reloading of the JSON configuration:", ex);
 			//Restore the old state. If the error occurs at this stage, well nothing we could do here. Just propagate the exception.
-			super.setBackingMap(savedBackingMap);
+			synchronized (this.synchronizationMonitor) {
+				super.setBackingMap(savedBackingMap);
+			}			
 		}
 	}
 
