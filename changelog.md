@@ -1,6 +1,6 @@
 # CAS-ADDONS CHANGELOG
 
-Changes in version 0.6 (2012-07-25)
+Changes in version 0.6 (2012-07-14)
 ==================================
 
 * added [EmailAddressToPrincipalNameTransformer](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/handler/EmailAddressToPrincipalNameTransformer.java)
