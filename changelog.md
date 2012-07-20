@@ -1,7 +1,15 @@
 # CAS-ADDONS CHANGELOG
 
+Changes in version 0.7 (2012-07-20)
+===================================
+
+* added [JsonBackedComplexStubPersonAttributeDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/persondir/JsonBackedComplexStubPersonAttributeDao.java)
+
+* added [ResourceChangeDetectingEventNotifier](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/support/ResourceChangeDetectingEventNotifier.java)
+
+
 Changes in version 0.6 (2012-07-14)
-==================================
+===================================
 
 * added [EmailAddressToPrincipalNameTransformer](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/handler/EmailAddressToPrincipalNameTransformer.java)
 * added [EmailAddressPasswordCredentialsToPrincipalResolver](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/principal/EmailAddressPasswordCredentialsToPrincipalResolver.java)
