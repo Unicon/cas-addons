@@ -4,10 +4,10 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonSetter;
 import org.jasig.cas.authentication.Authentication;
 import org.jasig.cas.authentication.principal.Principal;
+
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
  * JSON object that represents the json validation response.
@@ -38,17 +38,17 @@ public class TicketValidationJsonResponse {
         setAuthenticationTime(new Date());
     }
 
-    @JsonProperty
+    @JsonSetter
     public Map<String, Object> getAttributes() {
         return this.attributes;
     }
 
-    @JsonProperty
+    @JsonSetter
     public Date getAuthenticationTime() {
         return this.authenticationTime;
     }
 
-    @JsonProperty
+    @JsonSetter
     public String getUser() {
         return this.user;
     }

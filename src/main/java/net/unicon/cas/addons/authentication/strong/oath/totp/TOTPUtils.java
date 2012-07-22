@@ -21,10 +21,6 @@ public class TOTPUtils {
 
     private static final int PASS_CODE_LENGTH = 6;
 
-    private static final int INTERVAL = 10;
-
-    private static final int WINDOW = 0;
-
     private static final String CRYPTO = "HmacSHA1";
 
     private static final Random rand = new Random();

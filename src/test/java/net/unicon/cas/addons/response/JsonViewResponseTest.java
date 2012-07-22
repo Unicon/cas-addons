@@ -6,9 +6,9 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonViewResponseTest {
 

@@ -13,30 +13,32 @@ package net.unicon.cas.addons.authentication.strong;
  */
 public interface AdditionalAuthenticationFactorPolicy {
 
-	/**
-	 * A runtime exception indicating that a principal identified by principalId passed to any of this service's
-	 * operations is not found in the back end configuration store.
-	 */
-	static class PrincipalNotFoundException extends RuntimeException {
+    /**
+     * A runtime exception indicating that a principal identified by principalId passed to any of this service's
+     * operations is not found in the back end configuration store.
+     */
+    static class PrincipalNotFoundException extends RuntimeException {
 
-		public PrincipalNotFoundException(String message) {
-			super(message);
-		}
-	}
+        private static final long serialVersionUID = 1L;
 
-	/**
-	 * Determine if a given principal requires to authenticate with an additional factor.
-	 *
-	 * @param principalId for which to check the requirement for an additional authentication factor
-	 * @return true if additional factor authentication is required, false otherwise.
-	 * @throws PrincipalNotFoundException if no such principal exists in the backing store that this strategy uses to look them up.
-	 */
-	boolean requiresAdditionalAuthenticationFactor(String principalId) throws PrincipalNotFoundException;
+        public PrincipalNotFoundException(final String message) {
+            super(message);
+        }
+    }
 
-	/**
-	 * Get a String representation of authentication method this additional factor represents.
-	 *
-	 * @return String representation of an authentication method.
-	 */
-	String getAdditionalFactorAuthenticationMethod();
+    /**
+     * Get a String representation of authentication method this additional factor represents.
+     *
+     * @return String representation of an authentication method.
+     */
+    String getAdditionalFactorAuthenticationMethod();
+
+    /**
+     * Determine if a given principal requires to authenticate with an additional factor.
+     *
+     * @param principalId for which to check the requirement for an additional authentication factor
+     * @return true if additional factor authentication is required, false otherwise.
+     * @throws PrincipalNotFoundException if no such principal exists in the backing store that this strategy uses to look them up.
+     */
+    boolean requiresAdditionalAuthenticationFactor(String principalId) throws PrincipalNotFoundException;
 }

@@ -6,11 +6,12 @@ import java.util.Map;
 
 import net.unicon.cas.addons.response.TicketValidationJsonResponse;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.jasig.cas.client.validation.Assertion;
 import org.jasig.cas.client.validation.TicketValidationException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Cas20ServiceTicketJsonValidatorTest {
 

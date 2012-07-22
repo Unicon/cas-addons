@@ -1,23 +1,21 @@
 package net.unicon.cas.addons.authentication.handler;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.Credentials;
-import org.apache.http.impl.client.DefaultHttpClient;
+import javax.ws.rs.core.MediaType;
+
 import org.apache.shiro.codec.Base64;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.jasig.cas.authentication.handler.AuthenticationException;
 import org.jasig.cas.authentication.handler.BadCredentialsAuthenticationException;
 import org.jasig.cas.authentication.handler.support.AbstractUsernamePasswordAuthenticationHandler;
 import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.WebResource.Builder;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 
 /**
  *  An authentication handler for <a href="http://www.stormpath.com">Stormpath</a>. Further documentation
@@ -28,36 +26,25 @@ import org.springframework.web.client.RestTemplate;
  * @since 0.8
  */
 public class StormpathBasicAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler {
-
-    private static class StormpathAutenticationRequest {
-
-        private String value = null;
-
-        public StormpathAutenticationRequest(final String encodedCredentials) {
-            this.value = encodedCredentials;
-        }
-
-        @JsonProperty
-        private String getType() {
-            return "basic";
-        }
-
-        @JsonProperty
-        private String getValue() {
-            return this.value;
-        }
-    }
-
-    private String username      = null;
-    private String password      = null;
+    private String accessId      = null;
+    private String secretKey     = null;
     private String applicationId = null;
 
-    public StormpathBasicAuthenticationHandler(final String user, final String password, final String applicationId) {
+    /**
+     * Receives the Stormpath credentials and attempts to do an early bind to verify credentials.
+     * 
+     * @param stormpathAccessId accessId provided by Stormpath, for the user with the created API key.
+     * @param stormpathSecretKey secret key provided by Stormpath, for the user with the created API key.
+     * @param applicationId This is application id configured on Stormpath whose login source will be used to authenticate users.
+     * 
+     *  @throws RuntimeException If credentials cannot be verified by Stormpath.
+     */
+    public StormpathBasicAuthenticationHandler(final String stormpathAccessId, final String stormpathSecretKey, final String applicationId) {
         super();
 
         try {
-            this.username = user;
-            this.password = password;
+            this.accessId = stormpathAccessId;
+            this.secretKey = stormpathSecretKey;
             this.applicationId = applicationId;
 
             verifyStormpathCredentials();
@@ -65,11 +52,18 @@ public class StormpathBasicAuthenticationHandler extends AbstractUsernamePasswor
             this.log.error(e.getMessage(), e);
             throw new RuntimeException(e.getMessage(), e);
         }
-
     }
 
-    private String getApiVersion() {
-        return "v1";
+    private Builder buildRestWebResource(final String resourceName) {
+        final Client c = getRestClient();
+        final String resourceUrl = String.format("%s/%s", getHost(), resourceName);
+        final WebResource r = c.resource(resourceUrl);
+
+        return r.accept(MediaType.APPLICATION_JSON_TYPE).type(MediaType.APPLICATION_JSON_TYPE);
+    }
+
+    private String getAccessId() {
+        return this.accessId;
     }
 
     private String getApplicationId() {
@@ -77,15 +71,23 @@ public class StormpathBasicAuthenticationHandler extends AbstractUsernamePasswor
     }
 
     private String getHost() {
-        return "https://api.stormpath.com";
+        return "https://api.stormpath.com/v1";
     }
 
-    private String getPassword() {
-        return this.password;
+    private Client getRestClient() {
+        final Client c = Client.create();
+        c.addFilter(new HTTPBasicAuthFilter(getAccessId(), getSecretKey()));
+        return c;
     }
 
-    private String getUsername() {
-        return this.username;
+    private String getSecretKey() {
+        return this.secretKey;
+    }
+
+    private void verifyStormpathCredentials() throws Exception {
+        this.log.info("Initilizing Stormpath authentication engine for [{}]...", getAccessId());
+        buildRestWebResource("tenants/current").get(String.class);
+        this.log.info("Initilized Stormpath authentication engine");
     }
 
     @Override
@@ -93,50 +95,26 @@ public class StormpathBasicAuthenticationHandler extends AbstractUsernamePasswor
         try {
             this.log.debug("Attempting to authenticate user {}", cred.getUsername());
 
-            final byte[] bytes = String.format("%s:%s", cred.getUsername(), cred.getPassword()).getBytes("UTF-8");
+            final byte[] bytes = String.format("%s:%s", cred.getUsername(), cred.getPassword()).getBytes();
             final String encodedCredentials = Base64.encodeToString(bytes);
-            final StormpathAutenticationRequest request = new StormpathAutenticationRequest(encodedCredentials);
 
-            final RestTemplate restTemplate = getRestTemplate();
-            final List<HttpMessageConverter<?>> convertersList = new ArrayList<HttpMessageConverter<?>>();
-            convertersList.add(new MappingJacksonHttpMessageConverter());
-            restTemplate.setMessageConverters(convertersList);
+            final String resourceName = String.format("applications/%s/loginAttempts", getApplicationId());
 
-            restTemplate.postForLocation("{host}/{version}/applications/{appId}/loginAttempts", request, getHost(), getApiVersion(),
-                    getApplicationId());
+            final Map<String, String> requestMap = new HashMap<String, String>(2);
+            requestMap.put("type", "basic");
+            requestMap.put("value", encodedCredentials);
 
-            this.log.debug("Authenticated user {} successfully.", cred.getUsername());
+            final ObjectMapper mapper = new ObjectMapper();
+            final String jsonRequest = mapper.writeValueAsString(requestMap);
+
+            buildRestWebResource(resourceName).post(jsonRequest);
+
+            this.log.info("Authenticated user [{}] successfully.", cred.getUsername());
 
             return true;
         } catch (final Exception e) {
+            this.log.error(e.getMessage(), e);
             throw new BadCredentialsAuthenticationException(e);
         }
-    }
-
-    protected RestTemplate getRestTemplate() {
-        final HttpHost targetHost = new HttpHost(getHost());
-        final AuthScope authScope = new AuthScope(targetHost.getHostName(), targetHost.getPort());
-        final Credentials cred = new org.apache.http.auth.UsernamePasswordCredentials(getUsername(), getPassword());
-
-        final DefaultHttpClient httpclient = new DefaultHttpClient();
-        httpclient.getCredentialsProvider().setCredentials(authScope, cred);
-
-        final HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpclient);
-
-        final RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setRequestFactory(requestFactory);
-
-        return restTemplate;
-    }
-
-    protected void verifyStormpathCredentials() {
-        final RestTemplate restTemplate = getRestTemplate();
-
-        this.log.info("Initilizing Stormpath authentication engine for [{}]...", getUsername());
-
-        final ResponseEntity<String> response = restTemplate.getForEntity("{host}/{version}/tenants/current", String.class, getHost(),
-                getApiVersion());
-
-        this.log.info("Initilized Stormpath authentication engine {}.", response.getStatusCode().getReasonPhrase());
     }
 }

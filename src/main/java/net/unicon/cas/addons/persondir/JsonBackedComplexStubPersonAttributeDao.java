@@ -5,13 +5,14 @@ import java.util.Map;
 
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.jasig.services.persondir.support.ComplexStubPersonAttributeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * A convenient wrapper around <code>ComplexStubPersonAttributeDao</code> that reads the configuration for its <i>backingMap</i>
@@ -23,6 +24,7 @@ import org.springframework.core.io.Resource;
  * @author Dmitriy Kopylenko
  * @author Unicon, inc.
  * @since 0.7
+ * @see ResourceChangeDetectingEventNotifier
  */
 public class JsonBackedComplexStubPersonAttributeDao extends ComplexStubPersonAttributeDao implements
 ApplicationListener<ResourceChangeDetectingEventNotifier.ResourceChangedEvent> {
@@ -45,7 +47,6 @@ ApplicationListener<ResourceChangeDetectingEventNotifier.ResourceChangedEvent> {
     /**
      * Init method un-marshals JSON representation of the person attributes.
      */
-    @SuppressWarnings("unchecked")
     public void init() throws Exception {
         try {
             unmarshalAndSetBackingMap();
@@ -66,7 +67,6 @@ ApplicationListener<ResourceChangeDetectingEventNotifier.ResourceChangedEvent> {
      *                             to this JSON config file, so the URI of it needs to be checked first.
      */
     @Override
-    @SuppressWarnings("unchecked")
     public void onApplicationEvent(final ResourceChangeDetectingEventNotifier.ResourceChangedEvent resourceChangedEvent) {
         try {
             if (!resourceChangedEvent.getResourceUri().equals(this.personAttributesConfigFile.getURI())) {
@@ -79,7 +79,7 @@ ApplicationListener<ResourceChangeDetectingEventNotifier.ResourceChangedEvent> {
             return;
         }
 
-        final Map savedBackingMap;
+        final Map<String, Map<String, List<Object>>> savedBackingMap;
         synchronized (this.synchronizationMonitor) {
             //Save the current state here in order to restore it, should the error occur.
             savedBackingMap = super.getBackingMap();
@@ -96,10 +96,11 @@ ApplicationListener<ResourceChangeDetectingEventNotifier.ResourceChangedEvent> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void unmarshalAndSetBackingMap() throws Exception {
-        Map<String, Map<String, List<Object>>> backingMap;
         logger.info("Un-marshaling person attributes from the config file [{}] ...", this.personAttributesConfigFile.getFile());
-        backingMap = this.jacksonObjectMapper.readValue(this.personAttributesConfigFile.getFile(), Map.class);
+        final Map<String, Map<String, List<Object>>> backingMap = this.jacksonObjectMapper.readValue(
+                this.personAttributesConfigFile.getFile(), Map.class);
         logger.debug("Person attributes have been successfully read into a Map<String, Map<String, List<Object>>>: {}", backingMap);
         synchronized (this.synchronizationMonitor) {
             super.setBackingMap(backingMap);

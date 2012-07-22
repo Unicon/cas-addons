@@ -1,8 +1,9 @@
 package net.unicon.cas.addons.serviceregistry;
 
-import org.jasig.cas.services.RegexRegisteredService;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.jasig.cas.services.RegexRegisteredService;
 
 /**
  * An extension to <code>RegexRegisteredService</code> with extra arbitrary attributes
@@ -12,6 +13,7 @@ import java.util.Map;
  */
 
 public class RegexRegisteredServiceWithAttributes extends RegexRegisteredService implements RegisteredServiceWithAttributes {
+    private static final long   serialVersionUID = 1L;
 
     private Map<String, Object> extraAttributes = new HashMap<String, Object>();
 
@@ -20,7 +22,7 @@ public class RegexRegisteredServiceWithAttributes extends RegexRegisteredService
         return this.extraAttributes;
     }
 
-    public void setExtraAttributes(Map<String, Object> extraAttributes) {
+    public void setExtraAttributes(final Map<String, Object> extraAttributes) {
         this.extraAttributes = extraAttributes;
     }
 }

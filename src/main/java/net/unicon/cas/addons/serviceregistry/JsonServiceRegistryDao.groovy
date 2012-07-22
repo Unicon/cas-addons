@@ -1,11 +1,12 @@
 package net.unicon.cas.addons.serviceregistry
 
-import org.codehaus.jackson.map.ObjectMapper
 import org.jasig.cas.services.InMemoryServiceRegistryDaoImpl
 import org.jasig.cas.services.RegisteredService
 import org.jasig.cas.services.ServiceRegistryDao
 import org.slf4j.LoggerFactory
 import org.springframework.core.io.Resource
+
+import com.fasterxml.jackson.databind.ObjectMapper
 
 
 /**
@@ -21,7 +22,7 @@ class JsonServiceRegistryDao implements ServiceRegistryDao {
 
     InMemoryServiceRegistryDaoImpl delegateServiceRegistryDao = new InMemoryServiceRegistryDaoImpl()
 
-    //org.codehaus.jackson.map.ObjectMapper is thread-safe once configured.
+    //ObjectMapper is thread-safe once configured.
     // We don't need any fancy configuration here, so it's just fine to instantiate it here
     ObjectMapper objectMapper = new ObjectMapper()
 

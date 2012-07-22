@@ -8,7 +8,6 @@ import java.util.Map;
 import net.unicon.cas.addons.response.ServiceValidateSuccessJsonView;
 import net.unicon.cas.addons.response.TicketValidationJsonResponse;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.jasig.cas.client.authentication.AttributePrincipalImpl;
 import org.jasig.cas.client.util.CommonUtils;
 import org.jasig.cas.client.util.XmlUtils;
@@ -17,6 +16,7 @@ import org.jasig.cas.client.validation.AssertionImpl;
 import org.jasig.cas.client.validation.Cas20ServiceTicketValidator;
 import org.jasig.cas.client.validation.TicketValidationException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * An implementation of the {@link Cas20ServiceTicketValidator} that expects the ticket validation response to be
