@@ -6,20 +6,21 @@
         <artifactId>oss-parent</artifactId>
         <version>7</version>
     </parent>
-    <name>Jasig Central Authentication Service Add Ons</name>
-    <description>A collection of useful Jasig CAS SSO Server add ons and extensions</description>
+    <name>Jasig Central Authentication Service Add-ons</name>
+    <description>A collection of useful Jasig CAS SSO Server add-ons and extensions.</description>    
     <groupId>net.unicon.cas</groupId>
     <artifactId>cas-addons</artifactId>
     <version>0.8-SNAPSHOT</version>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
     <inceptionYear>2012</inceptionYear>
-
     <organization>
-        <name>Unicon, inc.</name>
+        <name>Unicon Inc.</name>
         <url>http://unicon.net</url>
     </organization>
-
+	
+	<url>http://unicon.github.com/cas-addons/</url>
+	
     <licenses>
         <license>
             <name>Apache License v2.0</name>
@@ -44,7 +45,17 @@
             <id>dima767</id>
             <name>Dmitriy Kopylenko</name>
             <email>dkopylenko@unicon.net</email>
-            <organization>Unicon, inc.</organization>
+            <organization>Unicon, Inc.</organization>
+            <organizationUrl>http://unicon.net</organizationUrl>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>mmoayyed</id>
+            <name>Misagh Moayyed</name>
+            <email>mmoayyed@unicon.net</email>
+            <organization>Unicon, Inc.</organization>
             <organizationUrl>http://unicon.net</organizationUrl>
             <roles>
                 <role>Developer</role>
@@ -53,6 +64,8 @@
     </developers>
 
     <properties>
+  		<github.global.server>github</github.global.server>
+
         <cas.version>3.5.0</cas.version>
         <cas.client.version>3.2.1</cas.client.version>
         <groovy.version>2.0.0</groovy.version>
@@ -66,14 +79,43 @@
         <httpclient.version>4.2.1</httpclient.version>
         <slf4j.version>1.6.6</slf4j.version>
     </properties>
-
+ 
+    <reporting>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.8.1</version>
+        </plugin>
+      </plugins>
+    </reporting>
+  
     <build>
         <testResources>
             <testResource>
                 <directory>${basedir}/src/test/resources</directory>
             </testResource>
         </testResources>
+        
         <plugins>
+            <plugin>
+              <groupId>com.github.github</groupId>
+              <artifactId>site-maven-plugin</artifactId>
+              <version>0.6</version>
+              <configuration>
+                <message>Creating site for ${project.version}</message>
+                <dryRun>false</dryRun>
+              </configuration>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>site</goal>
+                  </goals>
+                  <phase>site</phase>
+                </execution>
+              </executions>
+            </plugin>
+        
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -127,6 +169,13 @@
                     <arguments>-Psonatype-oss-release</arguments>
                 </configuration>
             </plugin>
+            
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <version>2.8.1</version>
+            </plugin>
+             
         </plugins>
     </build>
  

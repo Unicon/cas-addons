@@ -56,7 +56,7 @@ public class TOTP {
      * @param crypto
      *            : the crypto function to use
      *
-     * @return: digits
+     * @return digits
      */
 
     public static int generateTOTP(byte[] key, long time, int digits, String crypto) {
