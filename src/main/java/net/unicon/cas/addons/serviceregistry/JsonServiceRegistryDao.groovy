@@ -1,12 +1,12 @@
 package net.unicon.cas.addons.serviceregistry
 
-import org.jasig.cas.services.ServiceRegistryDao
-import org.jasig.cas.services.RegisteredService
+import org.codehaus.jackson.map.ObjectMapper
 import org.jasig.cas.services.InMemoryServiceRegistryDaoImpl
+import org.jasig.cas.services.RegisteredService
+import org.jasig.cas.services.ServiceRegistryDao
+import org.slf4j.LoggerFactory
 import org.springframework.core.io.Resource
 
-import org.slf4j.LoggerFactory
-import com.fasterxml.jackson.databind.ObjectMapper
 
 /**
  * In-memory implementation of <code>ServiceRegistryDao</code> that reads services definition from JSON configuration file at the Spring Application Context
