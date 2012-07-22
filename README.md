@@ -13,3 +13,13 @@ You can build the project using the following Maven command:
 ```
 mvn clean package
 ```
+
+## Usage
+Declare the project dependency in your `pom.xml` file as:
+```
+<dependency>
+    <groupId>net.unicon.cas</groupId>
+    <artifactId>cas-addons</artifactId>
+    <version>0.7</version>
+</dependency>
+```
