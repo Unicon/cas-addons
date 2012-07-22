@@ -75,8 +75,6 @@
         <commons-codec.version>1.6</commons-codec.version>
         <person.directory.version>1.5.0-RC6</person.directory.version>
         <shiro.version>1.2.0</shiro.version>
-        <spring.version>3.1.1.RELEASE</spring.version>
-        <httpclient.version>4.2.1</httpclient.version>
         <slf4j.version>1.6.6</slf4j.version>
     </properties>
  
