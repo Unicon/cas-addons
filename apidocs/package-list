@@ -1,0 +1,13 @@
+net.unicon.cas.addons.authentication
+net.unicon.cas.addons.authentication.handler
+net.unicon.cas.addons.authentication.internal
+net.unicon.cas.addons.authentication.principal
+net.unicon.cas.addons.authentication.principal.util
+net.unicon.cas.addons.authentication.strong
+net.unicon.cas.addons.authentication.strong.oath.totp
+net.unicon.cas.addons.authentication.support
+net.unicon.cas.addons.client.validation
+net.unicon.cas.addons.persondir
+net.unicon.cas.addons.response
+net.unicon.cas.addons.serviceregistry
+net.unicon.cas.addons.support
