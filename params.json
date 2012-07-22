@@ -1,1 +1,0 @@
-{"name":"Cas-addons","google":"","body":"### Welcome cas-addons\r\n\r\nTo build:\r\n\r\n```\r\n$ mvn clean package\r\n```","note":"Don't delete this file! It's used internally to help with page regeneration.","tagline":"Open source CAS customizations, extensions, and configuration aids."}
