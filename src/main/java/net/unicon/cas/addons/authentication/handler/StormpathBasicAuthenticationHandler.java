@@ -13,108 +13,108 @@ import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 
 /**
- *  An authentication handler for <a href="http://www.stormpath.com">Stormpath</a>. Further documentation
- *  on how the Stormpath REST API operates can be found <a href="https://www.stormpath.com/docs/api/applications#loginAttempts">here</a>.
+ * An authentication handler for <a href="http://www.stormpath.com">Stormpath</a>. Further documentation
+ * on how the Stormpath REST API operates can be found <a href="https://www.stormpath.com/docs/api/applications#loginAttempts">here</a>.
  *
  * @author <a href="mailto:mmoayyed@unicon.net">Misagh Moayyed</a>
  * @author Unicon, inc.
  * @since 0.8
  */
 public class StormpathBasicAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler {
-    private String accessId      = null;
-    private String secretKey     = null;
-    private String applicationId = null;
 
-    /**
-     * Receives the Stormpath credentials and attempts to do an early bind to verify credentials.
-     * 
-     * @param stormpathAccessId accessId provided by Stormpath, for the user with the created API key.
-     * @param stormpathSecretKey secret key provided by Stormpath, for the user with the created API key.
-     * @param applicationId This is application id configured on Stormpath whose login source will be used to authenticate users.
-     * 
-     *  @throws RuntimeException If credentials cannot be verified by Stormpath.
-     */
-    public StormpathBasicAuthenticationHandler(final String stormpathAccessId, final String stormpathSecretKey, final String applicationId) {
-        super();
+	private final String accessId;
 
-        try {
-            this.accessId = stormpathAccessId;
-            this.secretKey = stormpathSecretKey;
-            this.applicationId = applicationId;
+	private final String secretKey;
 
-            verifyStormpathCredentials();
-        } catch (final Exception e) {
-            this.log.error(e.getMessage(), e);
-            throw new RuntimeException(e.getMessage(), e);
-        }
-    }
+	private final String applicationId;
 
-    private Builder buildRestWebResource(final String resourceName) {
-        final Client c = getRestClient();
-        final String resourceUrl = String.format("%s/%s", getHost(), resourceName);
-        final WebResource r = c.resource(resourceUrl);
+	private final static String STORMPATH_API_BASE_URI = "https://api.stormpath.com/v1";
 
-        return r.accept(MediaType.APPLICATION_JSON_TYPE).type(MediaType.APPLICATION_JSON_TYPE);
-    }
+	private final static String TENANTS_CURRENT_URI = "/tenants/current";
 
-    private String getAccessId() {
-        return this.accessId;
-    }
+	private final static String LOGIN_ATTEMPTS_URI = "/applications/%s/loginAttempts";
 
-    private String getApplicationId() {
-        return this.applicationId;
-    }
+	/**
+	 * Representation of the Stormpath tenants/current REST resource
+	 */
+	private final Builder tennantsCurrentWebResource;
 
-    private String getHost() {
-        return "https://api.stormpath.com/v1";
-    }
+	/**
+	 * Representation of the Stormpath login attempts REST resource
+	 */
+	private final Builder loginAttemptsWebResource;
 
-    private Client getRestClient() {
-        final Client c = Client.create();
-        c.addFilter(new HTTPBasicAuthFilter(getAccessId(), getSecretKey()));
-        return c;
-    }
+	/**
+	 * The instance is thread-safe
+	 */
+	private final ObjectMapper jacksonMapper = new ObjectMapper();
 
-    private String getSecretKey() {
-        return this.secretKey;
-    }
+	/**
+	 * Receives the Stormpath credentials and attempts to do an early bind to verify credentials.
+	 *
+	 * @param stormpathAccessId  accessId provided by Stormpath, for the user with the created API key.
+	 * @param stormpathSecretKey secret key provided by Stormpath, for the user with the created API key.
+	 * @param applicationId      This is application id configured on Stormpath whose login source will be used to authenticate users.
+	 * @throws RuntimeException If credentials cannot be verified by Stormpath.
+	 */
+	public StormpathBasicAuthenticationHandler(final String stormpathAccessId, final String stormpathSecretKey, final String applicationId) {
+		super();
 
-    private void verifyStormpathCredentials() throws Exception {
-        this.log.info("Initilizing Stormpath authentication engine for [{}]...", getAccessId());
-        buildRestWebResource("tenants/current").get(String.class);
-        this.log.info("Initilized Stormpath authentication engine");
-    }
+		this.accessId = stormpathAccessId;
+		this.secretKey = stormpathSecretKey;
+		this.applicationId = applicationId;
 
-    @Override
-    protected boolean authenticateUsernamePasswordInternal(final UsernamePasswordCredentials cred) throws AuthenticationException {
-        try {
-            this.log.debug("Attempting to authenticate user {}", cred.getUsername());
+		final Client restClient = Client.create();
+		//HTTP Basic Auth
+		restClient.addFilter(new HTTPBasicAuthFilter(this.accessId, this.secretKey));
 
-            final byte[] bytes = String.format("%s:%s", cred.getUsername(), cred.getPassword()).getBytes();
-            final String encodedCredentials = Base64.encodeToString(bytes);
+		//Create 2 Stormpath REST resources. Once configured, the instances are thread-safe
+		this.tennantsCurrentWebResource = restClient.resource(STORMPATH_API_BASE_URI + TENANTS_CURRENT_URI)
+				.accept(MediaType.APPLICATION_JSON_TYPE).type(MediaType.APPLICATION_JSON_TYPE);
 
-            final String resourceName = String.format("applications/%s/loginAttempts", getApplicationId());
+		this.loginAttemptsWebResource = restClient.resource(STORMPATH_API_BASE_URI + String.format(LOGIN_ATTEMPTS_URI, this.applicationId))
+				.accept(MediaType.APPLICATION_JSON_TYPE).type(MediaType.APPLICATION_JSON_TYPE);
+		try {
+			verifyStormpathCredentials();
+		}
+		catch (final Exception e) {
+			this.log.error(e.getMessage(), e);
+			throw new RuntimeException(e.getMessage(), e);
+		}
+	}
 
-            final Map<String, String> requestMap = new HashMap<String, String>(2);
-            requestMap.put("type", "basic");
-            requestMap.put("value", encodedCredentials);
+	private void verifyStormpathCredentials() throws Exception {
+		this.log.info("Initilizing Stormpath authentication engine for [{}]...", this.accessId);
+		this.tennantsCurrentWebResource.get(String.class);
+		this.log.info("Initilized Stormpath authentication engine");
+	}
 
-            final ObjectMapper mapper = new ObjectMapper();
-            final String jsonRequest = mapper.writeValueAsString(requestMap);
+	@Override
+	protected boolean authenticateUsernamePasswordInternal(final UsernamePasswordCredentials cred) throws AuthenticationException {
+		try {
+			this.log.debug("Attempting to authenticate user {}", cred.getUsername());
 
-            buildRestWebResource(resourceName).post(jsonRequest);
+			final byte[] bytes = String.format("%s:%s", cred.getUsername(), cred.getPassword()).getBytes();
+			final String encodedCredentials = Base64.encodeToString(bytes);
 
-            this.log.info("Authenticated user [{}] successfully.", cred.getUsername());
+			//Build resource entity body payload
+			final Map<String, String> requestMap = new HashMap<String, String>(2);
+			requestMap.put("type", "basic");
+			requestMap.put("value", encodedCredentials);
+			final String jsonRequest = this.jacksonMapper.writeValueAsString(requestMap);
 
-            return true;
-        } catch (final Exception e) {
-            this.log.error(e.getMessage(), e);
-            throw new BadCredentialsAuthenticationException(e);
-        }
-    }
+			this.loginAttemptsWebResource.post(jsonRequest);
+			this.log.info("Authenticated user [{}] successfully.", cred.getUsername());
+
+			return true;
+		}
+		catch (final Exception e) {
+			this.log.error(e.getMessage(), e);
+			throw new BadCredentialsAuthenticationException(e);
+		}
+	}
 }
