@@ -1,7 +1,7 @@
 ## CAS-Addons Changelog
 
-###Changes in version 0.8  
-===================================
+###Changes in version 0.8 (2012-07-27) 
+======================================
 
 * added [StormpathBasicAuthenticationHandler](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/handler/StormpathBasicAuthenticationHandler.java)
 
