@@ -10,7 +10,7 @@
     <description>A collection of useful Jasig CAS SSO Server add-ons and extensions.</description>    
     <groupId>net.unicon.cas</groupId>
     <artifactId>cas-addons</artifactId>
-    <version>0.8</version>
+    <version>0.9-SNAPSHOT</version>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
     <inceptionYear>2012</inceptionYear>
