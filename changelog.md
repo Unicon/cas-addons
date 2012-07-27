@@ -5,6 +5,8 @@
 
 * added [StormpathBasicAuthenticationHandler](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/handler/StormpathBasicAuthenticationHandler.java)
 
+* refactored [JsonServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/JsonServiceRegistryDao.java) as a 'raw' Java class instead of a Groovy one
+
 ###Changes in version 0.7 (2012-07-20)
 ======================================
 
