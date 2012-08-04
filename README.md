@@ -1,5 +1,5 @@
 # CAS Addons
-CAS Addons is An open source collection of useful JASIG-CAS server add ons.
+CAS Addons is an open source collection of useful JASIG-CAS server addons.
 
 ==========================================================================
 ## Project Information
