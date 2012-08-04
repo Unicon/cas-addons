@@ -1,5 +1,5 @@
 /**
- * Classes providing support managing the <code>Person Directory</code> api.
+ * Classes implementing One Time Passcode (OTP) strong authentication based on the OATH model.
  */
 package net.unicon.cas.addons.authentication.strong.oath.totp;
 
