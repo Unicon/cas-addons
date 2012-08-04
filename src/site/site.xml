@@ -12,6 +12,12 @@
         <fluidoSkin>
             <sideBarEnabled>true</sideBarEnabled>
             <topBarEnabled>true</topBarEnabled>
+            <topBarIcon>
+              <name>Maven Fluido Skin</name>
+              <alt>Maven Fluido Skin</alt>
+              <src>/images/logo.png</src>
+              <href>/index.html</href>
+            </topBarIcon>
             <googlePlusOne />
             <googleSearch>
               <sitesearch/>
