@@ -20,6 +20,6 @@ Declare the project dependency in your `pom.xml` file as:
 <dependency>
     <groupId>net.unicon.cas</groupId>
     <artifactId>cas-addons</artifactId>
-    <version>0.7</version>
+    <version>0.8</version>
 </dependency>
 ```
