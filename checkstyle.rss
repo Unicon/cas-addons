@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>Jasig Central Authentication Service Add-ons - Checkstyle report</title>
+    <link>http://unicon.github.com/cas-addons/</link>
+    <description>Jasig Central Authentication Service Add-ons - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2012 Unicon Inc.</copyright>
+    <item>
+      <title>File: 36,
+             Errors: 612,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>http://unicon.github.com/cas-addons//checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://unicon.github.com/cas-addons//checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.package-info.java">net/unicon/cas/addons/authentication/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.principal.package-info.java">net/unicon/cas/addons/authentication/principal/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.RegisteredServiceWithAttributesImpl.java">net/unicon/cas/addons/serviceregistry/RegisteredServiceWithAttributesImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.strong.package-info.java">net/unicon/cas/addons/authentication/strong/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.principal.util.package-info.java">net/unicon/cas/addons/authentication/principal/util/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.strong.oath.totp.package-info.java">net/unicon/cas/addons/authentication/strong/oath/totp/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.persondir.package-info.java">net/unicon/cas/addons/persondir/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.response.package-info.java">net/unicon/cas/addons/response/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.strong.oath.totp.TotpOathDetailsSource.java">net/unicon/cas/addons/authentication/strong/oath/totp/TotpOathDetailsSource.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao.java">net/unicon/cas/addons/persondir/JsonBackedComplexStubPersonAttributeDao.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  38
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.PasswordExpirationStatusPolicy.java">net/unicon/cas/addons/authentication/PasswordExpirationStatusPolicy.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  30
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.response.ServiceValidateSuccessJsonView.java">net/unicon/cas/addons/response/ServiceValidateSuccessJsonView.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.RegexRegisteredServiceWithAttributes.java">net/unicon/cas/addons/serviceregistry/RegexRegisteredServiceWithAttributes.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.principal.util.PrincipalUtils.java">net/unicon/cas/addons/authentication/principal/util/PrincipalUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.support.PasswordExpirationStatusPolicySupport.java">net/unicon/cas/addons/authentication/support/PasswordExpirationStatusPolicySupport.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  30
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.package-info.java">net/unicon/cas/addons/serviceregistry/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.strong.oath.totp.TOTP.java">net/unicon/cas/addons/authentication/strong/oath/totp/TOTP.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  27
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.support.package-info.java">net/unicon/cas/addons/authentication/support/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.handler.StormpathBasicAuthenticationHandler.java">net/unicon/cas/addons/authentication/handler/StormpathBasicAuthenticationHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  117
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao.java">net/unicon/cas/addons/serviceregistry/JsonServiceRegistryDao.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  88
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.client.validation.Cas20ServiceTicketJsonValidationFilter.java">net/unicon/cas/addons/client/validation/Cas20ServiceTicketJsonValidationFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.RegisteredServiceWithAttributes.java">net/unicon/cas/addons/serviceregistry/RegisteredServiceWithAttributes.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.handler.package-info.java">net/unicon/cas/addons/authentication/handler/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier.java">net/unicon/cas/addons/support/ResourceChangeDetectingEventNotifier.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  44
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.internal.package-info.java">net/unicon/cas/addons/authentication/internal/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.strong.oath.totp.TOTPUtils.java">net/unicon/cas/addons/authentication/strong/oath/totp/TOTPUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.strong.AdditionalAuthenticationFactorPolicy.java">net/unicon/cas/addons/authentication/strong/AdditionalAuthenticationFactorPolicy.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.handler.EmailAddressToPrincipalNameTransformer.java">net/unicon/cas/addons/authentication/handler/EmailAddressToPrincipalNameTransformer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.client.validation.Cas20ServiceTicketJsonValidator.java">net/unicon/cas/addons/client/validation/Cas20ServiceTicketJsonValidator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.support.package-info.java">net/unicon/cas/addons/support/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.client.validation.package-info.java">net/unicon/cas/addons/client/validation/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.AuthenticationSupport.java">net/unicon/cas/addons/authentication/AuthenticationSupport.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  24
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.internal.DefaultAuthenticationSupport.java">net/unicon/cas/addons/authentication/internal/DefaultAuthenticationSupport.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.strong.oath.totp.TotpAuthenticationHandler.java">net/unicon/cas/addons/authentication/strong/oath/totp/TotpAuthenticationHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.principal.EmailAddressPasswordCredentialsToPrincipalResolver.java">net/unicon/cas/addons/authentication/principal/EmailAddressPasswordCredentialsToPrincipalResolver.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  14
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.response.TicketValidationJsonResponse.java">net/unicon/cas/addons/response/TicketValidationJsonResponse.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  25
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
