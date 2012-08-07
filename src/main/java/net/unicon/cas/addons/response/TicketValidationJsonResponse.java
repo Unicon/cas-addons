@@ -38,17 +38,17 @@ public class TicketValidationJsonResponse {
         setAuthenticationTime(new Date());
     }
 
-    @JsonSetter
+
     public Map<String, Object> getAttributes() {
         return this.attributes;
     }
 
-    @JsonSetter
+
     public Date getAuthenticationTime() {
         return this.authenticationTime;
     }
 
-    @JsonSetter
+
     public String getUser() {
         return this.user;
     }

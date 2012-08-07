@@ -1,5 +1,11 @@
 ## CAS-Addons Changelog
 
+###Changes in version 0.9
+=========================
+
+* added [GrouperPersonAttributeDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/persondir/GrouperPersonAttributeDao.java)
+
+
 ###Changes in version 0.8 (2012-07-27) 
 ======================================
 
@@ -11,7 +17,6 @@
 ======================================
 
 * added [JsonBackedComplexStubPersonAttributeDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/persondir/JsonBackedComplexStubPersonAttributeDao.java)
-
 * added [ResourceChangeDetectingEventNotifier](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/support/ResourceChangeDetectingEventNotifier.java)
 
 
