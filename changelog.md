@@ -1,7 +1,7 @@
 ## CAS-Addons Changelog
 
-###Changes in version 0.9
-=========================
+###Changes in version 0.9 (2012-08-11)
+======================================
 
 * added [GrouperPersonAttributeDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/persondir/GrouperPersonAttributeDao.java)
 
