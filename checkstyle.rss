@@ -8,8 +8,8 @@
     <language>en-us</language>
     <copyright>&#169;2012 Unicon Inc.</copyright>
     <item>
-      <title>File: 36,
-             Errors: 612,
+      <title>File: 38,
+             Errors: 707,
              Warnings: 0,
              Infos: 0
       </title>
@@ -141,20 +141,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.strong.oath.totp.TotpOathDetailsSource.java">net/unicon/cas/addons/authentication/strong/oath/totp/TotpOathDetailsSource.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  17
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao.java">net/unicon/cas/addons/persondir/JsonBackedComplexStubPersonAttributeDao.java</a>
                 </td>
                 <td>
@@ -165,6 +151,20 @@
                 </td>
                 <td>
                   38
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.strong.oath.totp.TotpOathDetailsSource.java">net/unicon/cas/addons/authentication/strong/oath/totp/TotpOathDetailsSource.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
                 </td>
               </tr>
                           <tr>
@@ -221,6 +221,20 @@
                 </td>
                 <td>
                   8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.JsonServiceRegistryResourceChangedEventListener.java">net/unicon/cas/addons/serviceregistry/JsonServiceRegistryResourceChangedEventListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
                 </td>
               </tr>
                           <tr>
@@ -501,6 +515,20 @@
                 </td>
                 <td>
                   23
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.persondir.GrouperPersonAttributeDao.java">net/unicon/cas/addons/persondir/GrouperPersonAttributeDao.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  74
                 </td>
               </tr>
                           <tr>
