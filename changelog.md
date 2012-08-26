@@ -1,16 +1,19 @@
 ## CAS-Addons Changelog
 
+###Changes in version 0.9.5 
+======================================
+
+* added [JsonServiceRegistryResourceChangedEventListener](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/JsonServiceRegistryResourceChangedEventListener.java) 
+
 ###Changes in version 0.9 (2012-08-11)
 ======================================
 
 * added [GrouperPersonAttributeDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/persondir/GrouperPersonAttributeDao.java)
 
-
 ###Changes in version 0.8 (2012-07-27) 
 ======================================
 
 * added [StormpathBasicAuthenticationHandler](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/handler/StormpathBasicAuthenticationHandler.java)
-
 * refactored [JsonServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/JsonServiceRegistryDao.java) as a 'raw' Java class instead of a Groovy one
 
 ###Changes in version 0.7 (2012-07-20)
@@ -18,7 +21,6 @@
 
 * added [JsonBackedComplexStubPersonAttributeDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/persondir/JsonBackedComplexStubPersonAttributeDao.java)
 * added [ResourceChangeDetectingEventNotifier](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/support/ResourceChangeDetectingEventNotifier.java)
-
 
 ###Changes in version 0.6 (2012-07-14)
 ======================================

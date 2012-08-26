@@ -3,7 +3,6 @@ package net.unicon.cas.addons.serviceregistry;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jasig.cas.services.InMemoryServiceRegistryDaoImpl;
 import org.jasig.cas.services.RegisteredService;
-import org.jasig.cas.services.ReloadableServicesManager;
 import org.jasig.cas.services.ServiceRegistryDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,7 +71,7 @@ public final class JsonServiceRegistryDao implements ServiceRegistryDao {
 			final Map<String, List> m = this.objectMapper.readValue(this.servicesConfigFile.getFile(), Map.class);
 			final Iterator<Map> i = m.get(SERVICES_KEY).iterator();
 			while (i.hasNext()) {
-				Map record = i.next();
+				Map<?,?> record = i.next();
 				if (((String) record.get(SERVICES_ID_KEY)).startsWith(REGEX_PREFIX)) {
 					resolvedServices.add(this.objectMapper.convertValue(record, RegexRegisteredServiceWithAttributes.class));
 					logger.debug("Unmarshaled RegexRegisteredServiceWithAttributes: {}", record);
