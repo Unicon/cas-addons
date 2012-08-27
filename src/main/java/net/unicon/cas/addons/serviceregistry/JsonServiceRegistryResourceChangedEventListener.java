@@ -28,34 +28,49 @@ import javax.validation.constraints.NotNull;
 import org.jasig.cas.services.ReloadableServicesManager;
 
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
-import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier.ResourceChangedEvent;
+import org.springframework.core.io.Resource;
+
 
 /**
- * Implementation of an {@link ApplicationListener} the receives {@link ResourceChangedEvent} events, 
+ * Implementation of an {@link ApplicationListener} the receives {@link net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier.ResourceChangedEvent} events,
  * when the {@link ResourceChangeDetectingEventNotifier} issues the appropriate callback in the event
- * that the services registry configuration file is modified. 
- * 
+ * that the services registry configuration file is modified.
+ *
  * @author <a href="mailto:mmoayyed@unicon.net">Misagh Moayyed</a>
  * @author Unicon, Inc.
- * @since 0.9.5
- * 
  * @see JsonServiceRegistryDao
  * @see ReloadableServicesManager
+ * @since 0.9.5
  */
-public final class JsonServiceRegistryResourceChangedEventListener implements ApplicationListener<ResourceChangedEvent> {
-    private static final Logger log = LoggerFactory.getLogger(JsonServiceRegistryResourceChangedEventListener.class);
+public final class JsonServiceRegistryResourceChangedEventListener implements
+		ApplicationListener<ResourceChangeDetectingEventNotifier.ResourceChangedEvent> {
 
-    @NotNull
-    private final ReloadableServicesManager servicesManager;
+	private static final Logger logger = LoggerFactory.getLogger(JsonServiceRegistryResourceChangedEventListener.class);
 
-    public JsonServiceRegistryResourceChangedEventListener(final ReloadableServicesManager servicesManager) {
-        super();
-        this.servicesManager = servicesManager;
-    }
+	@NotNull
+	private final ReloadableServicesManager servicesManager;
 
-    public void onApplicationEvent(final ResourceChangedEvent event) {
-      final ResourceChangedEvent resourceEvent = (ResourceChangedEvent) event;
-      log.debug("Received change event for JSON resource {}. Reloading services...", resourceEvent.getResourceUri());
-      this.servicesManager.reload();
-    }
+	@NotNull
+	private final Resource servicesRegistryWatchedConfigFile;
+
+
+	public JsonServiceRegistryResourceChangedEventListener(final ReloadableServicesManager servicesManager, final Resource servicesRegistryWatchedConfigFile) {
+		this.servicesManager = servicesManager;
+		this.servicesRegistryWatchedConfigFile = servicesRegistryWatchedConfigFile;
+	}
+
+	public void onApplicationEvent(final ResourceChangeDetectingEventNotifier.ResourceChangedEvent resourceChangedEvent) {
+		try {
+			if (!resourceChangedEvent.getResourceUri().equals(this.servicesRegistryWatchedConfigFile.getURI())) {
+				//Not our resource. Just get out of here.
+				return;
+			}
+		}
+		catch (final Throwable e) {
+			logger.error("An exception is caught while trying to access JSON resource: ", e);
+			return;
+		}
+		logger.debug("Received change event for JSON resource {}. Reloading services...", resourceChangedEvent.getResourceUri());
+		this.servicesManager.reload();
+	}
 }
