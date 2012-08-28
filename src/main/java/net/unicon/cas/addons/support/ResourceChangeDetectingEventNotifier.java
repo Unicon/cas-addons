@@ -39,7 +39,7 @@ public class ResourceChangeDetectingEventNotifier implements ApplicationEventPub
     public static class ResourceChangedEvent extends ApplicationEvent {
         private static final long serialVersionUID = 1L;
 
-        private final URI         resourceUri;
+        private final URI resourceUri;
 
         public ResourceChangedEvent(final Object source, final URI resourceUri) {
             super(source);
