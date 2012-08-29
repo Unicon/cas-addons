@@ -1,9 +1,15 @@
 ## CAS-Addons Changelog
 
-###Changes in version 0.9.5 
-======================================
+###Changes in version 0.9.5 (2012-08-29)
+========================================
 
-* added [JsonServiceRegistryResourceChangedEventListener](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/JsonServiceRegistryResourceChangedEventListener.java) 
+* added [ReloadableServicesManagerSuppressionAspect](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/ReloadableServicesManagerSuppressionAspect.java)
+* refactored [JsonServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/JsonServiceRegistryDao.java) to support real time reloading using resource change notify/listen framework
+* added [ThreadSafe](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/support/ThreadSafe.java)
+* added [NotThreadSafe](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/support/NotThreadSafe.java)
+* added [GuardedBy](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/support/GuardedBy.java)
+* added [Immutable](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/support/Immutable.java)
+* added Spock tests support. The first Spock test: [Immutable](https://github.com/Unicon/cas-addons/blob/master/src/main/test/groovy/net/unicon/cas/addons/authentication/internal/DefaultAuthenticationSupportTests.groovy)
 
 ###Changes in version 0.9 (2012-08-11)
 ======================================
