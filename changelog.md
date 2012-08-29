@@ -9,7 +9,6 @@
 * added [NotThreadSafe](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/support/NotThreadSafe.java)
 * added [GuardedBy](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/support/GuardedBy.java)
 * added [Immutable](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/support/Immutable.java)
-* added Spock tests support. The first Spock test: [Immutable](https://github.com/Unicon/cas-addons/blob/master/src/main/test/groovy/net/unicon/cas/addons/authentication/internal/DefaultAuthenticationSupportTests.groovy)
 
 ###Changes in version 0.9 (2012-08-11)
 ======================================

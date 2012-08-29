@@ -95,9 +95,6 @@
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-client:1.12" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.spockframework:spock-core:0.7-groovy-2.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: junit:junit-dep:4.10" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.groovy:groovy-all:2.0.1" level="project" />
   </component>
 </module>
 
