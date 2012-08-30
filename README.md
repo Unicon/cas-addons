@@ -17,7 +17,7 @@ mvn clean package
 
 ## Usage
 Declare the project dependency in your `pom.xml` file as:
-```
+```xml
 <dependency>
     <groupId>net.unicon.cas</groupId>
     <artifactId>cas-addons</artifactId>
