@@ -9,7 +9,7 @@ CAS Addons is an open source collection of useful JASIG-CAS server addons.
 * [JavaDocs](http://unicon.github.com/cas-addons/apidocs/index.html)
 * [Wiki](https://github.com/Unicon/cas-addons/wiki)
 
-## Build
+## Build [![Build Status](https://secure.travis-ci.org/Unicon/cas-addons.png)](http://travis-ci.org/Unicon/cas-addons)
 You can build the project from source using the following Maven command:
 ```
 mvn clean package
