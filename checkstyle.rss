@@ -8,8 +8,8 @@
     <language>en-us</language>
     <copyright>&#169;2012 Unicon Inc.</copyright>
     <item>
-      <title>File: 38,
-             Errors: 707,
+      <title>File: 43,
+             Errors: 819,
              Warnings: 0,
              Infos: 0
       </title>
@@ -27,6 +27,34 @@
             </tr>
           </thead>
           <tbody>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.support.NotThreadSafe.java">net/unicon/cas/addons/support/NotThreadSafe.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.support.Immutable.java">net/unicon/cas/addons/support/Immutable.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
                           <tr>
                 <td>
                   <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.package-info.java">net/unicon/cas/addons/authentication/package-info.java</a>
@@ -225,20 +253,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.JsonServiceRegistryResourceChangedEventListener.java">net/unicon/cas/addons/serviceregistry/JsonServiceRegistryResourceChangedEventListener.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  21
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.support.PasswordExpirationStatusPolicySupport.java">net/unicon/cas/addons/authentication/support/PasswordExpirationStatusPolicySupport.java</a>
                 </td>
                 <td>
@@ -263,6 +277,20 @@
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.MongoServiceRegistryDao.java">net/unicon/cas/addons/serviceregistry/MongoServiceRegistryDao.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  56
                 </td>
               </tr>
                           <tr>
@@ -318,7 +346,7 @@
                   0
                 </td>
                 <td>
-                  88
+                  125
                 </td>
               </tr>
                           <tr>
@@ -361,6 +389,20 @@
                 </td>
                 <td>
                   1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.ReloadableServicesManagerSuppressionAspect.java">net/unicon/cas/addons/serviceregistry/ReloadableServicesManagerSuppressionAspect.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  14
                 </td>
               </tr>
                           <tr>
@@ -458,7 +500,7 @@
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
               </tr>
                           <tr>
@@ -557,6 +599,34 @@
                 </td>
                 <td>
                   25
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.support.ThreadSafe.java">net/unicon/cas/addons/support/ThreadSafe.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.support.GuardedBy.java">net/unicon/cas/addons/support/GuardedBy.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
                 </td>
               </tr>
                       </tbody>
