@@ -72,7 +72,7 @@
         <junit.version>4.10</junit.version>
         <jackson.version>2.0.5</jackson.version>
         <commons-codec.version>1.6</commons-codec.version>
-        <person.directory.version>1.5.0-RC6</person.directory.version>
+        <person.directory.version>1.5.1</person.directory.version>
         <shiro.version>1.2.1</shiro.version>
         <slf4j.version>1.6.6</slf4j.version>
         <grouper.client.version>2.1.0</grouper.client.version>
@@ -232,7 +232,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jasig.service</groupId>
+            <groupId>org.jasig.service.persondir</groupId>
             <artifactId>person-directory-impl</artifactId>
             <version>${person.directory.version}</version>
             <exclusions>
@@ -244,7 +244,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jasig.service</groupId>
+            <groupId>org.jasig.service.persondir</groupId>
             <artifactId>person-directory-api</artifactId>
             <version>${person.directory.version}</version>
             <exclusions>
