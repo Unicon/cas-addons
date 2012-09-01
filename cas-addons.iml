@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -20,12 +21,12 @@
     <orderEntry type="library" name="Maven: javax.validation:validation-api:1.0.0.GA" level="project" />
     <orderEntry type="library" name="Maven: org.jasig.service:person-directory-impl:1.5.0-RC6" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.1.12" level="project" />
-    <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.2" level="project" />
+    <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.2" level="project" />
     <orderEntry type="library" name="Maven: javax.xml.stream:stax-api:1.0-2" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />
-    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.4" level="project" />
+    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.5" level="project" />
     <orderEntry type="library" name="Maven: org.jasig.service:person-directory-api:1.5.0-RC6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:3.1.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:3.1.1.RELEASE" level="project" />
@@ -69,6 +70,8 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.0.5" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.0.5" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.0.5" level="project" />
+    <orderEntry type="library" name="Maven: org.jasig.service.persondir:person-directory-impl:1.5.1" level="project" />
+    <orderEntry type="library" name="Maven: org.jasig.service.persondir:person-directory-api:1.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-core:1.2.1" level="project" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
@@ -94,6 +97,13 @@
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4.1" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-client:1.12" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.12" level="project" />
+    <orderEntry type="library" name="Maven: com.stormpath.sdk:stormpath-sdk-api:0.4.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.stormpath.sdk:stormpath-sdk-httpclient:0.4.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.stormpath.sdk:stormpath-sdk-impl:0.4.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.7" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.7" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.httpcomponents:httpclient:4.2.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.httpcomponents:httpcore:4.2.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
   </component>
 </module>
