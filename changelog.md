@@ -1,5 +1,12 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.0-M1 (2012-09-16)
+=========================================
+
+* updated JASIG's Person Directory Service to 1.5.1
+* refactored `StormpathBasicAuthenticationHandler -> StormpathAuthenticationHandler` to use Stormpath's Java SDK instead of a low level REST API
+
+
 ###Changes in version 0.9.5 (2012-08-29)
 ========================================
 
