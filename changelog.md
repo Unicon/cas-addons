@@ -1,5 +1,10 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.0-M2 (2012-09-17)
+=========================================
+
+* fixed bug preventing real-time reloading of JSON-based configured registered services
+
 ###Changes in version 1.0-M1 (2012-09-16)
 =========================================
 
