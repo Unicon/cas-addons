@@ -3,6 +3,7 @@ package net.unicon.cas.addons.serviceregistry;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +21,13 @@ public final class ReloadableServicesManagerSuppressionAspect {
 
 	private static final Logger logger = LoggerFactory.getLogger(ReloadableServicesManagerSuppressionAspect.class);
 
-	@Around("execution(public void org.jasig.cas.services.ReloadableServicesManager+.reload(..))")
+	@Pointcut("execution(public void org.jasig.cas.services.ReloadableServicesManager+.reload(..))")
+	public void reloadMethodExecution(){}
+
+	@Pointcut("cflowbelow(execution(* net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao.*(..)))")
+	public void calledByCasAddonsCode(){}
+
+	@Around("reloadMethodExecution() && !calledByCasAddonsCode()")
 	public void suppressDefaultCasReloadCall(ProceedingJoinPoint target) {
 		logger.debug("Suppressing default reloading behavior of [{}]...", target.getSignature().toString());
 	}

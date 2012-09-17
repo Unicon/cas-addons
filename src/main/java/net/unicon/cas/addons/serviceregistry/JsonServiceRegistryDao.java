@@ -4,13 +4,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.unicon.cas.addons.support.GuardedBy;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 import net.unicon.cas.addons.support.ThreadSafe;
-import org.jasig.cas.services.InMemoryServiceRegistryDaoImpl;
-import org.jasig.cas.services.RegisteredService;
-import org.jasig.cas.services.ServiceRegistryDao;
+import org.jasig.cas.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,6 +44,9 @@ public final class JsonServiceRegistryDao implements ServiceRegistryDao,
 
 	private final Resource servicesConfigFile;
 
+	private ReloadableServicesManager servicesManager;
+
+
 	private final Object mutexMonitor = new Object();
 
 	private static final String REGEX_PREFIX = "^";
@@ -49,8 +57,13 @@ public final class JsonServiceRegistryDao implements ServiceRegistryDao,
 
 	private static final Logger logger = LoggerFactory.getLogger(JsonServiceRegistryDao.class);
 
+
 	public JsonServiceRegistryDao(Resource servicesConfigFile) {
 		this.servicesConfigFile = servicesConfigFile;
+	}
+
+	public void setServicesManager(ReloadableServicesManager servicesManager) {
+		this.servicesManager = servicesManager;
 	}
 
 	@Override
@@ -126,7 +139,29 @@ public final class JsonServiceRegistryDao implements ServiceRegistryDao,
 			return;
 		}
 		logger.debug("Received change event for JSON resource {}. Reloading services...", resourceChangedEvent.getResourceUri());
-		loadServices();
+		synchronized (this.mutexMonitor) {
+			loadServices();
+			this.servicesManager.reload();
+		}
+	}
+
+	/**
+	 * Spring infrastructure class to support circular references DI of ReloadableServicesManager and JsonServiceRegistryDao
+	 * required to make real-time reloading behavior work with disabling the default CAS periodic polling
+	 * reloading behavior which avoids unnecessary additional reloading.
+	 */
+	@Component
+	public static class ServicesManagerInjectableBeanPostProcessor implements BeanFactoryPostProcessor {
+		@Override
+		public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+			ReloadableServicesManager servicesManager = beanFactory.getBean(ReloadableServicesManager.class);
+			JsonServiceRegistryDao serviceRegistryDao = beanFactory.getBean(JsonServiceRegistryDao.class);
+			if(servicesManager == null) {
+				return;
+			}
+			if(serviceRegistryDao != null) {
+				serviceRegistryDao.setServicesManager(servicesManager);
+			}
+		}
 	}
 }
-
