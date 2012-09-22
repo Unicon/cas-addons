@@ -1,5 +1,10 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.0-RC1 (2012-09-22)
+=========================================
+
+* updated CAS dependency to 3.5.1-RC1
+
 ###Changes in version 1.0-M2 (2012-09-17)
 =========================================
 
