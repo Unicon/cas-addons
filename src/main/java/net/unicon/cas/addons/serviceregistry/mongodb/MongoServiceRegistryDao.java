@@ -31,15 +31,29 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Implementation of <code>ServiceRegistryDao</code> that uses a MongoDb repository as the backend persistence mechanism. 
+ * The repository is configured by the Spring application context. 
+ * 
+ * <p>The class will automatically create a default collection to use with services. The name of the collection may be specified
+ * through {@link #setCollectionName(String)}. It also presents the ability to drop an existing collection and start afresh
+ * through the use of {@link #setDropCollection(boolean)}.</p>
+ *
+ * @author <a href="mailto:mmoayyed@unicon.net">Misagh Moayyed</a>
+ * @author Unicon, inc.
+ * @since 1.0.1
+ */
 @Repository
 public final class MongoServiceRegistryDao implements ServiceRegistryDao, InitializingBean {
-    private static final Logger   log            = LoggerFactory.getLogger(MongoServiceRegistryDao.class);
+    private static final Logger   log                     = LoggerFactory.getLogger(MongoServiceRegistryDao.class);
+    private static final String   MONGODB_COLLECTION_NAME = RegisteredService.class.getSimpleName();
 
-    private String                collectionName = RegisteredService.class.getSimpleName();
+    private String                collectionName          = MONGODB_COLLECTION_NAME;
 
-    private boolean               dropCollection = false;
+    private boolean               dropCollection          = false;
+
     @Autowired
-    private final MongoOperations mongoTemplate  = null;
+    private final MongoOperations mongoTemplate           = null;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -81,10 +95,17 @@ public final class MongoServiceRegistryDao implements ServiceRegistryDao, Initia
         return this.findServiceById(svc.getId());
     }
 
+    /**
+     * Optionally, specify the name of the mongodb collection where services are to be kept. 
+     * By default, the name of the collection is specified by the constant {@link #MONGODB_COLLECTION_NAME}
+     */
     public void setCollectionName(final String name) {
         this.collectionName = name;
     }
 
+    /**
+     * When set to true, the collection will be dropped first before proceeding with other operations.
+     */
     public void setDropCollection(final boolean dropCollection) {
         this.dropCollection = dropCollection;
     }
