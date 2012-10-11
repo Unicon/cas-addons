@@ -38,7 +38,7 @@
  	</mongo:mongo>
  	
  	<mongo:db-factory id="mongoDbFactory"
- 					  dbname="${cas.service.registry.mongo.db:CasMongoServiceRegistry"
+ 					  dbname="${cas.service.registry.mongo.db}"
  					  mongo-ref="mongo" username="${mongodb.userId}" 
  					  password="${mongodb.userPassword}"/>
  					  
