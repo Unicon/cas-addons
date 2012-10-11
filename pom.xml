@@ -77,6 +77,7 @@
         <slf4j.version>1.6.6</slf4j.version>
         <grouper.client.version>2.1.0</grouper.client.version>
         <stormpath.sdk.version>0.4.1</stormpath.sdk.version>
+        <spring.data.mongo.version>1.0.3.RELEASE</spring.data.mongo.version>
         <!-- <spock.version>0.7-groovy-2.0-SNAPSHOT</spock.version> -->
     </properties>
 
@@ -119,6 +120,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jdepend-maven-plugin</artifactId>
+                <version>2.0-beta-2</version>
             </plugin>
         </plugins>
     </reporting>
@@ -345,6 +347,12 @@
             <scope>runtime</scope>
         </dependency>
 
+		<dependency>	
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>${spring.data.mongo.version}</version>
+		</dependency>
+		
         <!-- Dependencies for testing -->
         <dependency>
             <groupId>junit</groupId>
@@ -360,9 +368,8 @@
             <version>${spock.version}</version>
             <scope>test</scope>
         </dependency> -->
-
+        
     </dependencies>
-
 
     <!-- Jasig CAS Repository -->
     <repositories>
@@ -375,8 +382,6 @@
             <id>snapshots</id>
             <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
-
-
     </repositories>
 
 </project>
