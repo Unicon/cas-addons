@@ -78,7 +78,7 @@
         <grouper.client.version>2.1.0</grouper.client.version>
         <stormpath.sdk.version>0.4.1</stormpath.sdk.version>
         <spring.data.mongo.version>1.0.3.RELEASE</spring.data.mongo.version>
-        <!-- <spock.version>0.7-groovy-2.0-SNAPSHOT</spock.version> -->
+        <spock.version>0.7-groovy-2.0</spock.version>
     </properties>
 
     <reporting>
@@ -362,12 +362,12 @@
         </dependency>
 
         <!-- Disable until spock version compatible with Groovy 2.x gets released -->
-        <!-- <dependency>
+        <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
             <version>${spock.version}</version>
             <scope>test</scope>
-        </dependency> -->
+        </dependency>
         
     </dependencies>
 
