@@ -1,5 +1,11 @@
 ## CAS-Addons Changelog
 
+
+###Changes in version 1.0.1
+=====================================
+
+* added [MongoServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/mongodb/MongoServiceRegistryDao.java)
+
 ###Changes in version 1.0 (2012-10-07)
 =====================================
 
