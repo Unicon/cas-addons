@@ -2,6 +2,8 @@ package net.unicon.cas.addons.serviceregistry.mongodb;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import org.jasig.cas.services.RegisteredService;
 import org.jasig.cas.services.ServiceRegistryDao;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implementation of <code>ServiceRegistryDao</code> that uses a MongoDb repository as the backend persistence mechanism. 
@@ -35,22 +38,24 @@ public final class MongoServiceRegistryDao implements ServiceRegistryDao, Initia
     private boolean               dropCollection          = false;
 
     @Autowired
+    @NotNull
     private final MongoOperations mongoTemplate           = null;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         if (this.dropCollection) {
-            log.debug("Dropping database collection: {}", RegisteredService.class.getName());
-            this.mongoTemplate.dropCollection(RegisteredService.class);
+            log.debug("Dropping database collection: {}", this.collectionName);
+            this.mongoTemplate.dropCollection(this.collectionName);
         }
 
-        if (!this.mongoTemplate.collectionExists(RegisteredService.class)) {
-            log.debug("Creating database collection: {}", RegisteredService.class.getName());
-            this.mongoTemplate.createCollection(RegisteredService.class);
+        if (!this.mongoTemplate.collectionExists(this.collectionName)) {
+            log.debug("Creating database collection: {}", this.collectionName);
+            this.mongoTemplate.createCollection(this.collectionName);
         }
     }
 
     @Override
+    @Transactional(readOnly = false)
     public boolean delete(final RegisteredService svc) {
         if (this.findServiceById(svc.getId()) != null) {
             this.mongoTemplate.remove(svc, this.collectionName);
@@ -61,16 +66,19 @@ public final class MongoServiceRegistryDao implements ServiceRegistryDao, Initia
     }
 
     @Override
+    @Transactional(readOnly = true)
     public RegisteredService findServiceById(final long svcId) {
         return this.mongoTemplate.findOne(new Query(Criteria.where("id").is(svcId)), RegisteredService.class, this.collectionName);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<RegisteredService> load() {
         return this.mongoTemplate.findAll(RegisteredService.class, this.collectionName);
     }
 
     @Override
+    @Transactional(readOnly = false)
     public RegisteredService save(final RegisteredService svc) {
         this.mongoTemplate.save(svc, this.collectionName);
         log.debug("Saved registered service: {}", svc);
