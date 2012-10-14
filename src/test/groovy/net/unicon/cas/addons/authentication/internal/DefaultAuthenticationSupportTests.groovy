@@ -10,7 +10,6 @@ import spock.lang.Specification
 /**
  * Spock-based tests for ${link DefaultAuthenticationSupport}
  *
- * NOTE: DISABLED UNTIL Spock compatible with Groovy 2.x gets released
  * @author Dmitriy Kopylenko
  * @author Unicon, inc.
  */
