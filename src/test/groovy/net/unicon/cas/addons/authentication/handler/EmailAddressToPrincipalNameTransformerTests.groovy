@@ -28,7 +28,7 @@ class EmailAddressToPrincipalNameTransformerTests extends Specification {
         transformerUnderTest.transform('') == null
     }
 
-    def "Test tranformation from email values to user ids (without the email address part)"() {
+    def "Test transformation from email values to user ids (without the email address part)"() {
         given: "User's email address"
         def emailAddress = 'userId@domain.edu'
 
