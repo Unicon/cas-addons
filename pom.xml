@@ -158,16 +158,7 @@
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
-                    <compilerId>groovy-eclipse-compiler</compilerId>
-                    <verbose>false</verbose>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-eclipse-compiler</artifactId>
-                        <version>2.7.0-01</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -190,8 +181,14 @@
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                     </archive>
+                    <!-- Just include the AspectJ woven class we are interested in. Otherwise, ALL cas-core classes will be packaged in this jar -->
+                    <includes>
+                        <include>net/unicon/**</include>
+                        <include>**/DefaultServicesManagerImpl.class</include>
+                    </includes>
                 </configuration>
             </plugin>
 
@@ -214,7 +211,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.3.1</version>
+                <version>1.4</version>
                 <executions>
                     <execution>
                         <goals>
@@ -225,11 +222,12 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
+                    <showWeaveInfo>true</showWeaveInfo>
                     <weaveDependencies>
-                        <weaveDependency>
+                        <dependency>
                             <groupId>org.jasig.cas</groupId>
                             <artifactId>cas-server-core</artifactId>
-                        </weaveDependency>
+                        </dependency>
                     </weaveDependencies>
                 </configuration>
             </plugin>
