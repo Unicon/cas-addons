@@ -1,14 +1,14 @@
 ## CAS-Addons Changelog
 
 
-###Changes in version 1.0.1
-=====================================
+###Changes in version 1.0.1 (2012-10-26)
+========================================
 
 * added [MongoServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/mongodb/MongoServiceRegistryDao.java)
-* added various classes providing CAS server runtime information in the [info](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/info) package
+* added the [info](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/info) package
 
 ###Changes in version 1.0 (2012-10-07)
-=====================================
+======================================
 
 * updated CAS dependency to 3.5.1 General Availability
 
