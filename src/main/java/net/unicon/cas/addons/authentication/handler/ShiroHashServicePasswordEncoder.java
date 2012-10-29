@@ -30,6 +30,29 @@ public final class ShiroHashServicePasswordEncoder implements PasswordEncoder {
 
 	private int hashIterations;
 
+	/**
+	 * @param digestAlgorithmName one of:
+	 *                            <ul>
+	 *                            <li>MD2</li>
+	 *                            <li>MD5</li>
+	 *                            <li>SHA-1</li>
+	 *                            <li>SHA-256</li>
+	 *                            <li>SHA-384</li>
+	 *                            <li>SHA-512</li>
+	 *                            </ul>
+	 */
+	public void setDigestAlgorithmName(String digestAlgorithmName) {
+		this.digestAlgorithmName = digestAlgorithmName;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public void setHashIterations(int hashIterations) {
+		this.hashIterations = hashIterations;
+	}
+
 	@Override
 	public String encode(String password) {
 		if (password == null) {
