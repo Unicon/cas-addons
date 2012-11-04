@@ -4,6 +4,7 @@
 ========================================
 
 * added [ShiroHashServicePasswordEncoder](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/handler/ShiroHashServicePasswordEncoder.java)
+* added [ServiceAuthorizationCheckWithCustomView](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/flow/ServiceAuthorizationCheckWithCustomView.java)
 
 ###Changes in version 1.0.1 (2012-10-26)
 ========================================
