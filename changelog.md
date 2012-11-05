@@ -1,6 +1,6 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.0.2
+###Changes in version 1.0.2 (2012-11-05)
 ========================================
 
 * added [ShiroHashServicePasswordEncoder](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/handler/ShiroHashServicePasswordEncoder.java)
