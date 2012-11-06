@@ -8,8 +8,8 @@
     <language>en-us</language>
     <copyright>&#169;2012 Unicon Inc.</copyright>
     <item>
-      <title>File: 43,
-             Errors: 819,
+      <title>File: 48,
+             Errors: 979,
              Warnings: 0,
              Infos: 0
       </title>
@@ -281,20 +281,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.MongoServiceRegistryDao.java">net/unicon/cas/addons/serviceregistry/MongoServiceRegistryDao.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  56
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.strong.oath.totp.TOTP.java">net/unicon/cas/addons/authentication/strong/oath/totp/TOTP.java</a>
                 </td>
                 <td>
@@ -323,7 +309,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.handler.StormpathBasicAuthenticationHandler.java">net/unicon/cas/addons/authentication/handler/StormpathBasicAuthenticationHandler.java</a>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.info.package-info.java">net/unicon/cas/addons/info/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -332,7 +318,7 @@
                   0
                 </td>
                 <td>
-                  117
+                  2
                 </td>
               </tr>
                           <tr>
@@ -346,7 +332,7 @@
                   0
                 </td>
                 <td>
-                  125
+                  170
                 </td>
               </tr>
                           <tr>
@@ -379,6 +365,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.info.CasServerVersionInfoEmitter.java">net/unicon/cas/addons/info/CasServerVersionInfoEmitter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  34
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.handler.package-info.java">net/unicon/cas/addons/authentication/handler/package-info.java</a>
                 </td>
                 <td>
@@ -393,6 +393,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.handler.StormpathAuthenticationHandler.java">net/unicon/cas/addons/authentication/handler/StormpathAuthenticationHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  69
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.ReloadableServicesManagerSuppressionAspect.java">net/unicon/cas/addons/serviceregistry/ReloadableServicesManagerSuppressionAspect.java</a>
                 </td>
                 <td>
@@ -402,7 +416,7 @@
                   0
                 </td>
                 <td>
-                  14
+                  28
                 </td>
               </tr>
                           <tr>
@@ -463,6 +477,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.handler.ShiroHashServicePasswordEncoder.java">net/unicon/cas/addons/authentication/handler/ShiroHashServicePasswordEncoder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  67
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.handler.EmailAddressToPrincipalNameTransformer.java">net/unicon/cas/addons/authentication/handler/EmailAddressToPrincipalNameTransformer.java</a>
                 </td>
                 <td>
@@ -515,6 +543,34 @@
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.web.flow.ServiceAuthorizationCheckWithCustomView.java">net/unicon/cas/addons/web/flow/ServiceAuthorizationCheckWithCustomView.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.mongodb.package-info.java">net/unicon/cas/addons/serviceregistry/mongodb/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
                 </td>
               </tr>
                           <tr>
@@ -585,6 +641,20 @@
                 </td>
                 <td>
                   14
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.com/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.mongodb.MongoServiceRegistryDao.java">net/unicon/cas/addons/serviceregistry/mongodb/MongoServiceRegistryDao.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  82
                 </td>
               </tr>
                           <tr>

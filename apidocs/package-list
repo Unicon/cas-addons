@@ -7,7 +7,10 @@ net.unicon.cas.addons.authentication.strong
 net.unicon.cas.addons.authentication.strong.oath.totp
 net.unicon.cas.addons.authentication.support
 net.unicon.cas.addons.client.validation
+net.unicon.cas.addons.info
 net.unicon.cas.addons.persondir
 net.unicon.cas.addons.response
 net.unicon.cas.addons.serviceregistry
+net.unicon.cas.addons.serviceregistry.mongodb
 net.unicon.cas.addons.support
+net.unicon.cas.addons.web.flow
