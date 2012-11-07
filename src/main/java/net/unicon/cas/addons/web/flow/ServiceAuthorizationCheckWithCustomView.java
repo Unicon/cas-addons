@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Performs a basic check if an authentication request for a provided service is authorized to proceed
  * based on the registered services registry configuration (or lack thereof).
- *
+ * <p/>
  * Adds an additional support for a custom <i>unauthorizedUrl</i> attribute in case of a registered service is
  * not enabled.
  *
@@ -28,38 +28,39 @@ import javax.validation.constraints.NotNull;
  */
 public final class ServiceAuthorizationCheckWithCustomView extends AbstractAction {
 
-    @NotNull
-    private final ServicesManager servicesManager;
+	@NotNull
+	private final ServicesManager servicesManager;
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public ServiceAuthorizationCheckWithCustomView(final ServicesManager servicesManager) {
-        this.servicesManager = servicesManager;
-    }
+	public ServiceAuthorizationCheckWithCustomView(final ServicesManager servicesManager) {
+		this.servicesManager = servicesManager;
+	}
 
-    @Override
-    protected Event doExecute(final RequestContext context) throws Exception {
-        final Service service = WebUtils.getService(context);
-        //No service == plain /login request. Return success indicating transition to the login form
-        if (service == null) {
-            return success();
-        }
-        final RegisteredService registeredService = this.servicesManager.findServiceBy(service);
+	@Override
+	protected Event doExecute(final RequestContext context) throws Exception {
+		final Service service = WebUtils.getService(context);
+		//No service == plain /login request. Return success indicating transition to the login form
+		if (service == null) {
+			return success();
+		}
+		final RegisteredService registeredService = this.servicesManager.findServiceBy(service);
 
-        if (registeredService == null) {
-            logger.warn("Unauthorized Service Access for Service: [ {} ] - service is not defined in the service registry.", service.getId());
-            throw new UnauthorizedServiceException();
-        } else if (!registeredService.isEnabled()) {
-            logger.warn("Unauthorized Service Access for Service: [ {} ] - service is not enabled in the service registry.", service.getId());
-            if (registeredService instanceof RegisteredServiceWithAttributes) {
-                String unauthorizedUrl = (String) ((RegisteredServiceWithAttributes) registeredService).getExtraAttributes().get("unauthorizedUrl");
-                if (unauthorizedUrl != null) {
-                    context.getRequestScope().put("unauthorizedUrl", unauthorizedUrl);
-                    return no();
-                }
-            }
-            throw new UnauthorizedServiceException();
-        }
-        return success();
-    }
+		if (registeredService == null) {
+			logger.warn("Unauthorized Service Access for Service: [ {} ] - service is not defined in the service registry.", service.getId());
+			throw new UnauthorizedServiceException();
+		}
+		else if (!registeredService.isEnabled()) {
+			logger.warn("Unauthorized Service Access for Service: [ {} ] - service is not enabled in the service registry.", service.getId());
+			if (registeredService instanceof RegisteredServiceWithAttributes) {
+				String unauthorizedUrl = (String) RegisteredServiceWithAttributes.class.cast(registeredService).getExtraAttributes().get("unauthorizedUrl");
+				if (unauthorizedUrl != null) {
+					context.getRequestScope().put("unauthorizedUrl", unauthorizedUrl);
+					return no();
+				}
+			}
+			throw new UnauthorizedServiceException();
+		}
+		return success();
+	}
 }
