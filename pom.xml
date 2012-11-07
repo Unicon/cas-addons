@@ -70,7 +70,7 @@
         <cas.client.version>3.2.1</cas.client.version>
         <servlet.version>2.5</servlet.version>
         <junit.version>4.10</junit.version>
-        <jackson.version>2.0.5</jackson.version>
+        <jackson.version>2.1.0</jackson.version>
         <commons-codec.version>1.6</commons-codec.version>
         <person.directory.version>1.5.1</person.directory.version>
         <shiro.version>1.2.1</shiro.version>
@@ -79,6 +79,8 @@
         <stormpath.sdk.version>0.4.1</stormpath.sdk.version>
         <spring.data.mongo.version>1.0.3.RELEASE</spring.data.mongo.version>
         <spock.version>0.7-groovy-2.0</spock.version>
+        <jersey.version>1.15</jersey.version>
+        <jaxrs.version>1.1.1</jaxrs.version>
     </properties>
 
     <reporting>
@@ -349,6 +351,58 @@
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>${spring.data.mongo.version}</version>
 		</dependency>
+
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>jsr311-api</artifactId>
+            <version>${jaxrs.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-core</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-servlet</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.jersey.contribs</groupId>
+            <artifactId>jersey-spring</artifactId>
+            <version>${jersey.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 		
         <!-- Dependencies for testing -->
         <dependency>
@@ -358,7 +412,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Disable until spock version compatible with Groovy 2.x gets released -->
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>

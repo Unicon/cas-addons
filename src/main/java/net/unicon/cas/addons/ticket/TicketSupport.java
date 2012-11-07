@@ -1,5 +1,9 @@
 package net.unicon.cas.addons.ticket;
 
+import org.jasig.cas.ticket.TicketGrantingTicket;
+
+import java.util.List;
+
 /**
  * Helper strategy API to ease manipulating CAS' <code>Ticket</code>'s related APIs and add convenience methods on top of them.
  * <p/>
@@ -32,4 +36,14 @@ public interface TicketSupport {
 	 *         <strong>NOTE TO IMPLEMENTERS:</strong> this method should never throw any exceptions - runtime or otherwise
 	 */
 	boolean ticketGrantingTicketExistsAndExpired(String ticketGrantingTicketId);
+
+	/**
+	 * Convenience method to return a collection of active (non-expired at the time of call) from CAS' underlying ticket store.
+	 *
+	 * @return a list of non-expired TGTs OR an empty list and NEVER <b>null</b>
+	 *         <strong>NOTE TO IMPLEMENTERS:</strong> this method should never throw any exceptions other than
+	 *         <code>BulkRetrievalOfTicketsNotSupportedException</code>
+	 * @throws BulkRetrievalOfTicketsNotSupportedException
+	 */
+	List<TicketGrantingTicket> getNonExpiredTicketGrantingTickets() throws BulkRetrievalOfTicketsNotSupportedException;
 }

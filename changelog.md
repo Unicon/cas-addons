@@ -3,6 +3,11 @@
 ###Changes in version 1.0.3
 ========================================
 
+* added [TicketSupport](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/TicketSupport.java)
+* added [SingleSignOnSessionsReport](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/info/SingleSignOnSessionsReport.java)
+* added [SingleSignOnSessionsReportResource](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/info/SingleSignOnSessionsReportResource.java)
+* updated Jackson library dependency to 2.1.0
+
 ###Changes in version 1.0.2 (2012-11-05)
 ========================================
 
