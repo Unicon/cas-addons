@@ -1,6 +1,6 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.0.3
+###Changes in version 1.0.3 (2012-11-11)
 ========================================
 
 * added [TicketSupport](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/TicketSupport.java)
