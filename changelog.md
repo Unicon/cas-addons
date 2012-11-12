@@ -1,5 +1,10 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.0.4 (2012-11-12)
+========================================
+
+* removed tgt_id from Single SignOn Sessions Report
+
 ###Changes in version 1.0.3 (2012-11-11)
 ========================================
 

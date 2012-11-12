@@ -33,8 +33,6 @@ public interface SingleSignOnSessionsReport {
 
 		AUTHENTICATION_DATE("authentication_date"),
 
-		TGT_ID("tgt_id"),
-
 		NUMBER_OF_USES("number_of_uses");
 
 		private String attributeKey;

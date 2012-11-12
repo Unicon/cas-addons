@@ -36,8 +36,7 @@ public class DefaultSingleSignOnSessionsReport implements SingleSignOnSessionsRe
 		final List<Map<String, Object>> activeSessions = new ArrayList<Map<String, Object>>();
 
 		for(TicketGrantingTicket tgt : this.ticketSupport.getNonExpiredTicketGrantingTickets()) {
-			final Map<String, Object> sso = new HashMap<String, Object>(4);
-			sso.put(SsoSessionAttributeKeys.TGT_ID.toString(), tgt.getId());
+			final Map<String, Object> sso = new HashMap<String, Object>(3);
 			sso.put(SsoSessionAttributeKeys.AUTHENTICATED_PRINCIPAL.toString(), tgt.getAuthentication().getPrincipal().getId());
 			sso.put(SsoSessionAttributeKeys.AUTHENTICATION_DATE.toString(), tgt.getAuthentication().getAuthenticatedDate());
 			sso.put(SsoSessionAttributeKeys.NUMBER_OF_USES.toString(), tgt.getCountOfUses());
