@@ -33,6 +33,8 @@ public final class ServiceAuthorizationCheckWithCustomView extends AbstractActio
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	private static final String DISABLED_SERVICE_URL_ATTRIBUTE = "disabledServiceUrl";
+
 	public ServiceAuthorizationCheckWithCustomView(final ServicesManager servicesManager) {
 		this.servicesManager = servicesManager;
 	}
@@ -53,9 +55,9 @@ public final class ServiceAuthorizationCheckWithCustomView extends AbstractActio
 		else if (!registeredService.isEnabled()) {
 			logger.warn("Unauthorized Service Access for Service: [ {} ] - service is not enabled in the service registry.", service.getId());
 			if (registeredService instanceof RegisteredServiceWithAttributes) {
-				String unauthorizedUrl = (String) RegisteredServiceWithAttributes.class.cast(registeredService).getExtraAttributes().get("unauthorizedUrl");
-				if (unauthorizedUrl != null) {
-					context.getRequestScope().put("unauthorizedUrl", unauthorizedUrl);
+				String disabledServiceUrl = (String) RegisteredServiceWithAttributes.class.cast(registeredService).getExtraAttributes().get(DISABLED_SERVICE_URL_ATTRIBUTE);
+				if (disabledServiceUrl != null) {
+					context.getRequestScope().put(DISABLED_SERVICE_URL_ATTRIBUTE, disabledServiceUrl);
 					return no();
 				}
 			}

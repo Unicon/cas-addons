@@ -1,5 +1,10 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.0.5 (2012-11-16)
+========================================
+
+* refactored unauthorized service view attribute `unauthorizedUrl` -> `disabledServiceUrl`
+
 ###Changes in version 1.0.4 (2012-11-12)
 ========================================
 
