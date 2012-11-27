@@ -1,5 +1,10 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.1-RC1
+========================================
+
+* added [CentralAuthenticationServiceEventsPublishingAspect](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/info/events/CentralAuthenticationServiceEventsPublishingAspect.java)
+
 ###Changes in version 1.0.5 (2012-11-16)
 ========================================
 
