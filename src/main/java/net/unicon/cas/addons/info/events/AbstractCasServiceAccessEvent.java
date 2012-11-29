@@ -26,6 +26,14 @@ public class AbstractCasServiceAccessEvent extends ApplicationEvent {
 		this.service = service;
 	}
 
+	public String getServiceTicketId() {
+		return serviceTicketId;
+	}
+
+	public Service getService() {
+		return service;
+	}
+
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + "{" +

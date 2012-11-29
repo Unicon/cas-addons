@@ -21,6 +21,10 @@ public final class CasServiceTicketGrantedEvent extends AbstractCasServiceAccess
 		this.authentication = authentication;
 	}
 
+	public Authentication getAuthentication() {
+		return authentication;
+	}
+
 	@Override
 	public String toString() {
 		return super.toString() + " -- {authentication=" + authentication + "}";

@@ -21,6 +21,10 @@ public final class CasServiceTicketValidatedEvent extends AbstractCasServiceAcce
 		this.assertion = assertion;
 	}
 
+	public Assertion getAssertion() {
+		return assertion;
+	}
+
 	@Override
 	public String toString() {
 		return super.toString() + " -- {assertion=" + assertion + "}";
