@@ -1,7 +1,7 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.1-RC1
-========================================
+###Changes in version 1.1-RC1 (2012-12-07)
+==========================================
 
 * added [Assertions](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/support/Assertions.java)
 * added [ClearpassRetrievingCasAuthenticationProvider](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/client/springsecurity/ClearpassRetrievingCasAuthenticationProvider.java)
