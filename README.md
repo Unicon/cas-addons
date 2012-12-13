@@ -24,7 +24,10 @@ $ mvn clean package
 ```
 
 ## Usage
-Declare the project dependency in your `pom.xml` file as:
+
+`cas-addons` is, not surprisingly, intended to be added on to your CAS server.  The easiest way to do this is to declare `cas-addsons` as a dependency in [your local CAS server build that's structured as a Maven overlay](https://wiki.jasig.org/display/CASUM/Best+Practice+-+Setting+Up+CAS+Locally+using+the+Maven2+WAR+Overlay+Method).
+
+Declare the project dependency in your Local CAS server `pom.xml` file as:
 ```xml
 <dependency>
     <groupId>net.unicon.cas</groupId>
