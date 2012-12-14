@@ -1,5 +1,11 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.1-RC2 
+==========================================
+
+* added [ClearPassProxyTicketValidator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/client/validation/ClearPassProxyTicketValidator.java)
+
+
 ###Changes in version 1.1-RC1 (2012-12-07)
 ==========================================
 
