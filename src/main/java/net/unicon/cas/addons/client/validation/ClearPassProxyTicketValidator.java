@@ -18,10 +18,17 @@ import org.jasig.cas.client.validation.TicketValidationException;
  * @author Unicon, Inc.
  */
 public final class ClearPassProxyTicketValidator extends Cas20ProxyTicketValidator {
+  private boolean acceptAnyProxy;
+  
   public ClearPassProxyTicketValidator(final String casServerUrlPrefix) {
     super(casServerUrlPrefix);
   }
 
+  @Override
+  public void setAcceptAnyProxy(final boolean acceptAnyProxy) {
+    this.acceptAnyProxy = acceptAnyProxy;
+  }
+  
   @Override
   protected void customParseResponse(final String response, final Assertion assertion) throws TicketValidationException {
     final List<String> proxies = XmlUtils.getTextForElements(response, "proxy");
@@ -29,10 +36,9 @@ public final class ClearPassProxyTicketValidator extends Cas20ProxyTicketValidat
 
     log.debug("Validating clearPass proxy response where the number of proxies received is " + proxies.size());
 
-    if (this.isAcceptAnyProxy()) {
+    if (this.acceptAnyProxy) {
       log.debug("The configuration accepts any proxy. Returning assertion...");
       return;
-
     }
 
     if (this.getAllowedProxyChains().contains(proxiedList)) {
