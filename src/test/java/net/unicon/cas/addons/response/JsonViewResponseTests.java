@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JsonViewResponseTest {
+public class JsonViewResponseTests {
 
     @Test
     public void testJsonObjectMapper() throws IOException {
