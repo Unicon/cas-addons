@@ -1,10 +1,11 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.1
-==========================================
+###Changes in version 1.1 (2013-01-02)
+======================================
 
 * removed CAS client related classes and moved them to a sister [cas-java-clients-addons](https://github.com/Unicon/cas-java-clients-addons) project
 * added gmaven plugin to the pom in order for Spock tests to run during the maven build
+* updated pom dependecies to the latest versions (where available)
 
 ###Changes in version 1.1-RC1 (2012-12-07)
 ==========================================
