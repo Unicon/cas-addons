@@ -6,8 +6,6 @@ net.unicon.cas.addons.authentication.principal.util
 net.unicon.cas.addons.authentication.strong
 net.unicon.cas.addons.authentication.strong.oath.totp
 net.unicon.cas.addons.authentication.support
-net.unicon.cas.addons.client.springsecurity
-net.unicon.cas.addons.client.validation
 net.unicon.cas.addons.info
 net.unicon.cas.addons.info.events
 net.unicon.cas.addons.info.internal
