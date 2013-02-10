@@ -1,5 +1,14 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.2
+=====================================
+
+* added [RegisteredServicesPolicies](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/services/RegisteredServicesPolicies.java)
+* added [DefaultRegisteredServicesPolicies](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/services/internal/DefaultRegisteredServicesPolicies.java)
+* added [ServiceInitiatingWebSsoAwareCookieGenerator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/support/ServiceInitiatingWebSsoAwareCookieGenerator.java)
+* added [SsoDestroyingServiceValidateController](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/support/SsoDestroyingServiceValidateController.java)
+
+
 ###Changes in version 1.1 (2013-01-02)
 ======================================
 
