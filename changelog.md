@@ -1,7 +1,7 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.2
-=====================================
+###Changes in version 1.2 (2013-02-18)
+======================================
 
 * added [RegisteredServicesPolicies](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/services/RegisteredServicesPolicies.java)
 * added [DefaultRegisteredServicesPolicies](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/services/internal/DefaultRegisteredServicesPolicies.java)
