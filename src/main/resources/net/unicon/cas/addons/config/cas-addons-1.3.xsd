@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://unicon.net/schema/cas"
+           xmlns="http://unicon.net/schema/cas">
+
+    <xsd:element name="json-services-registry" type="json-services-registryType"/>
+    <xsd:complexType name="json-services-registryType">
+        <xsd:attribute type="xsd:string" name="config-file" default="file:/etc/cas/servicesRegistry.conf"/>
+    </xsd:complexType>
+
+    <xsd:element name="inspektr-log-files-audit-manager" type="xsd:string"/>
+
+</xsd:schema>
+
+

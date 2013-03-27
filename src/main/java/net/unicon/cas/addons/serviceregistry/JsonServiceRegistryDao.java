@@ -8,6 +8,7 @@ import org.jasig.cas.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationListener;
@@ -53,7 +54,6 @@ public final class JsonServiceRegistryDao implements ServiceRegistryDao,
 	private static final String SERVICES_ID_KEY = "serviceId";
 
 	private static final Logger logger = LoggerFactory.getLogger(JsonServiceRegistryDao.class);
-
 
 	public JsonServiceRegistryDao(Resource servicesConfigFile) {
 		this.servicesConfigFile = servicesConfigFile;
@@ -151,14 +151,16 @@ public final class JsonServiceRegistryDao implements ServiceRegistryDao,
 	public static class ServicesManagerInjectableBeanPostProcessor implements BeanFactoryPostProcessor {
 		@Override
 		public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-			ReloadableServicesManager servicesManager = beanFactory.getBean(ReloadableServicesManager.class);
-			JsonServiceRegistryDao serviceRegistryDao = beanFactory.getBean(JsonServiceRegistryDao.class);
-			if(servicesManager == null) {
+			ReloadableServicesManager servicesManager;
+			JsonServiceRegistryDao serviceRegistryDao;
+			try {
+				servicesManager = beanFactory.getBean(ReloadableServicesManager.class);
+				serviceRegistryDao = beanFactory.getBean(JsonServiceRegistryDao.class);
+			}
+			catch (NoSuchBeanDefinitionException e) {
 				return;
 			}
-			if(serviceRegistryDao != null) {
-				serviceRegistryDao.setServicesManager(servicesManager);
-			}
+			serviceRegistryDao.setServicesManager(servicesManager);
 		}
 	}
 }
