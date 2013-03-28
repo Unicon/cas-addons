@@ -5,7 +5,7 @@
       <configuration>
         <fileset id="fileset1" name="Xml Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/mongo-context.xml</file>
-          <file>file://$MODULE_DIR$/src/test/resources/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/test/resources/net/unicon/cas/addons/config/CasNamespaceParsersTests-context.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -137,6 +137,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.spockframework:spock-core:0.7-groovy-2.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit-dep:4.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.groovy:groovy-all:2.0.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-test:3.2.2.RELEASE" level="project" />
   </component>
 </module>
 

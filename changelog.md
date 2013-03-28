@@ -1,5 +1,12 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.3
+======================================
+
+* added [Custom namespace XML schema](https://github.com/Unicon/cas-addons/blob/master/src/main/resources/net/unicon/cas/addons/config/cas-addons-1.3.xsd)
+* added [Custom namespace XML schema parsers](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/config/CasNamespaceHandler.java)
+
+
 ###Changes in version 1.2 (2013-02-18)
 ======================================
 
