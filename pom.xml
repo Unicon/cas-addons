@@ -223,9 +223,12 @@
                         </manifest>
                     </archive>
                     <!-- Just include the AspectJ woven class we are interested in. Otherwise, ALL cas-core classes will be packaged in this jar -->
+                    <!-- Include custom namespace schema Spring metadata -->
                     <includes>
                         <include>net/unicon/**</include>
                         <include>**/DefaultServicesManagerImpl.class</include>
+                        <include>META-INF/spring.handlers</include>
+                        <include>META-INF/spring.schemas</include>
                     </includes>
                 </configuration>
             </plugin>
