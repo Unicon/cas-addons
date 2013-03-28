@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema attributeFormDefault="unqualified"
-           elementFormDefault="qualified"
-           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://unicon.net/schema/cas"
-           xmlns="http://unicon.net/schema/cas">
+            elementFormDefault="qualified"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://unicon.net/schema/cas"
+            xmlns="http://unicon.net/schema/cas">
 
     <xsd:element name="json-services-registry" type="json-services-registryType"/>
     <xsd:complexType name="json-services-registryType">
         <xsd:attribute type="xsd:string" name="config-file" default="file:/etc/cas/servicesRegistry.conf"/>
     </xsd:complexType>
 
+    <xsd:element name="resource-change-detector" type="resource-change-detectorType"/>
+    <xsd:complexType name="resource-change-detectorType">
+        <xsd:attribute type="xsd:string" name="id" use="required"/>
+        <xsd:attribute type="xsd:string" name="watched-resource" use="required"/>
+    </xsd:complexType>
+
     <xsd:element name="inspektr-log-files-audit-manager" type="xsd:string"/>
+
+    <xsd:element name="default-authentication-support" type="xsd:string"/>
+
+    <xsd:element name="default-events-publisher" type="xsd:string"/>
+
+    <xsd:element name="default-registered-services-policies" type="xsd:string"/>
+
+    <xsd:element name="default-health-check-monitor" type="xsd:string"/>
+
+    <xsd:element name="default-test-authentication-manager" type="xsd:string"/>
 
 </xsd:schema>
 
