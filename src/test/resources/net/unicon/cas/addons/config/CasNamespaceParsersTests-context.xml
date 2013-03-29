@@ -16,9 +16,9 @@
 
     <cas:inspektr-log-files-audit-manager/>
 
-    <cas:json-services-registry/>
+    <cas:json-services-registry config-file="classpath:/net/unicon/cas/addons/config/servicesRegistry.conf"/>
 
-    <cas:resource-change-detector id="testChangeDetector" watched-resource="file:/etc/cas/servicesRegistry.conf"/>
+    <cas:resource-change-detector id="testChangeDetector" watched-resource="classpath:/net/unicon/cas/addons/config/servicesRegistry.conf"/>
 
     <cas:default-authentication-support/>
 
