@@ -8,13 +8,13 @@ For versions **1.0+**, the minimum supported version of CAS is **3.5.1**
 
 ## Project Information
 
-* [About](http://unicon.github.com/cas-addons/)
+* [About](http://unicon.github.io/cas-addons/)
 * [Changelog](https://github.com/Unicon/cas-addons/blob/master/changelog.md) 
 * [JavaDocs](http://unicon.github.com/cas-addons/apidocs/index.html)
 * [Wiki](https://github.com/Unicon/cas-addons/wiki)
 
 ## Current version
-`1.2`
+`1.3`
 
 ## Build [![Build Status](https://secure.travis-ci.org/Unicon/cas-addons.png)](http://travis-ci.org/Unicon/cas-addons)
 You can build the project from source using the following Maven command:
@@ -32,7 +32,7 @@ Declare the project dependency in your Local CAS server `pom.xml` file as:
 <dependency>
     <groupId>net.unicon.cas</groupId>
     <artifactId>cas-addons</artifactId>
-    <version>1.2</version>
+    <version>1.3</version>
 </dependency>
 ```
 

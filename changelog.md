@@ -1,6 +1,6 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.3
+###Changes in version 1.3 (2013-04-07)
 ======================================
 
 * added [Custom namespace XML schema](https://github.com/Unicon/cas-addons/blob/master/src/main/resources/net/unicon/cas/addons/config/cas-addons-1.3.xsd)
