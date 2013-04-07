@@ -3,6 +3,7 @@ package net.unicon.cas.addons.config;
 import com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager;
 import net.unicon.cas.addons.authentication.internal.DefaultAuthenticationSupport;
 import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPublishingAspect;
+import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
@@ -27,7 +28,7 @@ import org.w3c.dom.Element;
 import java.util.Arrays;
 
 /**
- * TODO: DOCUMENT ME!
+ * {@link NamespaceHandler} for convenient CAS configuration namespace.
  *
  * @author Dmitriy Kopylenko
  * @author Unicon, inc.
@@ -45,6 +46,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
 		registerBeanDefinitionParser("default-registered-services-policies", new DefaultRegisteredServicesPoliciesBeanDefinitionParser());
 		registerBeanDefinitionParser("default-health-check-monitor", new DefaultHealthCheckMonitorBeanDefinitionParser());
 		registerBeanDefinitionParser("default-test-authentication-manager", new DefaultTestAuthenticationManagerBeanDefinitionParser());
+		registerBeanDefinitionParser("json-attribute-repository", new JsonAttributesRepositoryBeanDefinitionParser());
 	}
 
 	/**
@@ -82,6 +84,28 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
 		@Override
 		protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
 			return "serviceRegistryDao";
+		}
+	}
+
+	/**
+	 * Parses <pre>json-attribute-repository</pre> elements into bean definitions of type {@link net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao}
+	 */
+	private static class JsonAttributesRepositoryBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+
+		@Override
+		protected Class<?> getBeanClass(Element element) {
+			return JsonBackedComplexStubPersonAttributeDao.class;
+		}
+
+		@Override
+		protected void doParse(Element element, BeanDefinitionBuilder builder) {
+			builder.addConstructorArgValue(element.getAttribute("config-file"));
+			builder.setInitMethodName("init");
+		}
+
+		@Override
+		protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
+			return "attributeRepository";
 		}
 	}
 

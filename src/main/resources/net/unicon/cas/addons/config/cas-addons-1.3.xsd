@@ -10,6 +10,11 @@
         <xsd:attribute type="xsd:string" name="config-file" default="file:/etc/cas/servicesRegistry.conf"/>
     </xsd:complexType>
 
+    <xsd:element name="json-attribute-repository" type="json-attribute-repositoryType"/>
+    <xsd:complexType name="json-attribute-repositoryType">
+        <xsd:attribute type="xsd:string" name="config-file" default="file:/etc/cas/person-attributes.conf"/>
+    </xsd:complexType>
+
     <xsd:element name="resource-change-detector" type="resource-change-detectorType"/>
     <xsd:complexType name="resource-change-detectorType">
         <xsd:attribute type="xsd:string" name="id" use="required"/>

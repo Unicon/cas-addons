@@ -18,6 +18,8 @@
 
     <cas:json-services-registry config-file="classpath:/net/unicon/cas/addons/config/servicesRegistry.conf"/>
 
+    <cas:json-attribute-repository config-file="classpath:/net/unicon/cas/addons/config/person-attributes.conf"/>
+
     <cas:resource-change-detector id="testChangeDetector" watched-resource="classpath:/net/unicon/cas/addons/config/servicesRegistry.conf"/>
 
     <cas:default-authentication-support/>

@@ -5,6 +5,7 @@ import static junit.framework.Assert.*;
 import com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager;
 import net.unicon.cas.addons.authentication.internal.DefaultAuthenticationSupport;
 import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPublishingAspect;
+import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
@@ -42,6 +43,8 @@ public class CasNamespaceParsersTests {
 
 	private static final String AUTHENTICATION_MANAGER_BEAN_NAME = "authenticationManager";
 
+	private static final String ATTRIBUTE_REPOSITORY_BEAN_NAME = "attributeRepository";
+
 	@Test
 	public void slf4jAuditTrailManagerBeanDefinitionCorrectlyParsed() {
 		assertTrue(applicationContext.containsBean(AUDIT_TRAIL_MANAGER_BEAN_NAME));
@@ -52,6 +55,12 @@ public class CasNamespaceParsersTests {
 	public void jsonServiceRegistryDaoBeanDefinitionCorrectlyParsed() {
 		assertTrue(applicationContext.containsBean(SERVICE_REGISTRY_DAO_BEAN_NAME));
 		assertTrue(applicationContext.getBeansOfType(JsonServiceRegistryDao.class).size() == 1);
+	}
+
+	@Test
+	public void jsonAttributeRepositoryBeanDefinitionCorrectlyParsed() {
+		assertTrue(applicationContext.containsBean(ATTRIBUTE_REPOSITORY_BEAN_NAME));
+		assertTrue(applicationContext.getBeansOfType(JsonBackedComplexStubPersonAttributeDao.class).size() == 1);
 	}
 
 	@Test
