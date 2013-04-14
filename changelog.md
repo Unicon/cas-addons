@@ -10,6 +10,7 @@
 * added Stormpath related custom XML schema types and parsers
 * renamed `cas-addons-1.3.xsd` to `cas-addons.xsd`
 
+
 ###Changes in version 1.3 (2013-04-07)
 ======================================
 
