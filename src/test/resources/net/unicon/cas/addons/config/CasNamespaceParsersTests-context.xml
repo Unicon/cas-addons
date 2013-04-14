@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cas="http://unicon.net/schema/cas" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cas="http://unicon.net/schema/cas"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://unicon.net/schema/cas
-                           http://unicon.net/schema/cas/cas-addons-1.3.xsd">
+                           http://unicon.net/schema/cas http://unicon.net/schema/cas/cas-addons.xsd">
 
 
     <bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry"/>

@@ -1,20 +1,12 @@
 package net.unicon.cas.addons.authentication.handler;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.ws.rs.core.MediaType;
-
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.application.Application;
 import com.stormpath.sdk.authc.UsernamePasswordRequest;
 import com.stormpath.sdk.client.Client;
 import com.stormpath.sdk.client.DefaultApiKey;
 import com.stormpath.sdk.resource.ResourceException;
-import com.stormpath.sdk.tenant.Tenant;
 import net.unicon.cas.addons.support.Immutable;
-import net.unicon.cas.addons.support.ThreadSafe;
-import org.apache.shiro.codec.Base64;
 import org.jasig.cas.authentication.handler.AuthenticationException;
 import org.jasig.cas.authentication.handler.BadCredentialsAuthenticationException;
 import org.jasig.cas.authentication.handler.support.AbstractUsernamePasswordAuthenticationHandler;
@@ -62,8 +54,8 @@ public class StormpathAuthenticationHandler extends AbstractUsernamePasswordAuth
 	protected boolean authenticateUsernamePasswordInternal(final UsernamePasswordCredentials credentials) throws AuthenticationException {
 		try {
 			this.log.debug("Attempting to authenticate user [{}] against application [{}] in Stormpath cloud...", credentials.getUsername(), this.application.getName());
-			this.application.authenticateAccount(new UsernamePasswordRequest(credentials.getUsername(), credentials.getPassword()));
-			this.log.debug("Successfuly authenticated user [{}]", credentials.getUsername());
+			this.authenticateAccount(credentials);
+			this.log.debug("Successfully authenticated user [{}]", credentials.getUsername());
 			return true;
 		}
 		catch (ResourceException e) {
@@ -71,4 +63,8 @@ public class StormpathAuthenticationHandler extends AbstractUsernamePasswordAuth
 			throw new BadCredentialsAuthenticationException();
 		}
 	}
+
+    public Account authenticateAccount(final UsernamePasswordCredentials credentials) throws ResourceException {
+        return this.application.authenticateAccount(new UsernamePasswordRequest(credentials.getUsername(), credentials.getPassword())).getAccount();
+    }
 }

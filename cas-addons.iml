@@ -116,9 +116,9 @@
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4.1" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-client:1.12" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.16" level="project" />
-    <orderEntry type="library" name="Maven: com.stormpath.sdk:stormpath-sdk-api:0.6.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: com.stormpath.sdk:stormpath-sdk-httpclient:0.6.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: com.stormpath.sdk:stormpath-sdk-impl:0.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.stormpath.sdk:stormpath-sdk-api:0.7.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.stormpath.sdk:stormpath-sdk-httpclient:0.7.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.stormpath.sdk:stormpath-sdk-impl:0.7.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.11" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.11" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.httpcomponents:httpclient:4.2.2" level="project" />
