@@ -1,12 +1,11 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.4
+###Changes in version 1.4 (2013-04-17)
 ======================================
 
 * upgraded Stormpath Java SDK dependency to 0.7.0
 * added [StormpathPrincipal](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/principal/StormpathPrincipal.java)
 * added [StormpathPrincipalResolver](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/principal/StormpathPrincipalResolver.java)
-* refactored [StormpathAuthenticationHandler](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/handler/StormpathAuthenticationHandler.java) to initialize Stormpath SDK in a dedicated initializer method
 * added Stormpath related custom XML schema types and parsers
 * renamed `cas-addons-1.3.xsd` to `cas-addons.xsd`
 
