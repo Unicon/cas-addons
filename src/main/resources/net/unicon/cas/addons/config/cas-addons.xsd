@@ -40,6 +40,13 @@
         <xsd:attribute type="xsd:string" name="application-id" use="required"/>
     </xsd:complexType>
 
+    <xsd:element name="authentication-manager-with-stormpath-handler" type="authentication-manager-with-stormpath-handlerType"/>
+    <xsd:complexType name="authentication-manager-with-stormpath-handlerType">
+        <xsd:attribute type="xsd:string" name="access-id" use="required"/>
+        <xsd:attribute type="xsd:string" name="secret-key" use="required"/>
+        <xsd:attribute type="xsd:string" name="application-id" use="required"/>
+    </xsd:complexType>
+
 </xsd:schema>
 
 

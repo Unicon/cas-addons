@@ -3,23 +3,20 @@ package net.unicon.cas.addons.config;
 import com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager;
 import net.unicon.cas.addons.authentication.handler.StormpathAuthenticationHandler;
 import net.unicon.cas.addons.authentication.internal.DefaultAuthenticationSupport;
+import net.unicon.cas.addons.authentication.principal.StormpathPrincipalResolver;
 import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPublishingAspect;
 import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
-import org.jasig.cas.authentication.AuthenticationManager;
 import org.jasig.cas.authentication.AuthenticationManagerImpl;
-import org.jasig.cas.authentication.handler.AuthenticationHandler;
 import org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler;
 import org.jasig.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler;
 import org.jasig.cas.authentication.principal.HttpBasedServiceCredentialsToPrincipalResolver;
 import org.jasig.cas.authentication.principal.UsernamePasswordCredentialsToPrincipalResolver;
 import org.jasig.cas.monitor.HealthCheckMonitor;
 import org.jasig.cas.monitor.MemoryMonitor;
-import org.jasig.cas.monitor.Monitor;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
-import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.ManagedList;
@@ -49,6 +46,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("default-test-authentication-manager", new DefaultTestAuthenticationManagerBeanDefinitionParser());
         registerBeanDefinitionParser("json-attribute-repository", new JsonAttributesRepositoryBeanDefinitionParser());
         registerBeanDefinitionParser("stormpath-authentication-handler", new StormpathAuthenticationHandlerBeanDefinitionParser());
+        registerBeanDefinitionParser("authentication-manager-with-stormpath-handler", new AuthenticationManagerWithStormpathHandlerBeanDefinitionParser());
     }
 
     /**
@@ -275,6 +273,54 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             builder.addConstructorArgValue(element.getAttribute("access-id"))
                     .addConstructorArgValue(element.getAttribute("secret-key"))
                     .addConstructorArgValue(element.getAttribute("application-id"));
+        }
+    }
+
+    /**
+     * Parses <pre>authentication-manager-with-stormpath-handler</pre> elements into bean definitions of type {@link org.jasig.cas.authentication.AuthenticationManagerImpl}
+     */
+    @SuppressWarnings("unchecked")
+    private static class AuthenticationManagerWithStormpathHandlerBeanDefinitionParser extends AbstractBeanDefinitionParser {
+
+        @Override
+        protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
+            //Create authentication handlers
+            AbstractBeanDefinition stormpathAuthnHandlerBd = BeanDefinitionBuilder.genericBeanDefinition(StormpathAuthenticationHandler.class)
+                    .addConstructorArgValue(element.getAttribute("access-id"))
+                    .addConstructorArgValue(element.getAttribute("secret-key"))
+                    .addConstructorArgValue(element.getAttribute("application-id"))
+                    .getBeanDefinition();
+
+            AbstractBeanDefinition httpBasedAuthnHandlerBd = BeanDefinitionBuilder.genericBeanDefinition(HttpBasedServiceCredentialsAuthenticationHandler.class)
+                    .addPropertyReference("httpClient", "httpClient")
+                    .getBeanDefinition();
+
+            //Create principal resolvers
+            AbstractBeanDefinition stormpathPrincipalResolverBd = BeanDefinitionBuilder.genericBeanDefinition(StormpathPrincipalResolver.class)
+                    .addConstructorArgValue(stormpathAuthnHandlerBd)
+                    .getBeanDefinition();
+
+            AbstractBeanDefinition httpBasedPrincipalResolverBd = BeanDefinitionBuilder.genericBeanDefinition(HttpBasedServiceCredentialsToPrincipalResolver.class)
+                    .getBeanDefinition();
+
+            //CredentialsToPrincipalResolvers list construction
+            ManagedList principalResolversList = new ManagedList(2);
+            principalResolversList.addAll(Arrays.asList(stormpathPrincipalResolverBd, httpBasedPrincipalResolverBd));
+
+            //AuthenticationHandlers list construction
+            ManagedList authnHandlersList = new ManagedList(2);
+            authnHandlersList.addAll(Arrays.asList(httpBasedAuthnHandlerBd, stormpathAuthnHandlerBd));
+
+            //Main authenticationManager bean
+            return BeanDefinitionBuilder.genericBeanDefinition(AuthenticationManagerImpl.class)
+                    .addPropertyValue("credentialsToPrincipalResolvers", principalResolversList)
+                    .addPropertyValue("authenticationHandlers", authnHandlersList)
+                    .getBeanDefinition();
+        }
+
+        @Override
+        protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
+            return "authenticationManager";
         }
     }
 }
