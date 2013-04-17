@@ -33,6 +33,13 @@
 
     <xsd:element name="default-test-authentication-manager" type="xsd:string"/>
 
+    <xsd:element name="stormpath-authentication-handler" type="stormpath-authentication-handlerType"/>
+    <xsd:complexType name="stormpath-authentication-handlerType">
+        <xsd:attribute type="xsd:string" name="access-id" use="required"/>
+        <xsd:attribute type="xsd:string" name="secret-key" use="required"/>
+        <xsd:attribute type="xsd:string" name="application-id" use="required"/>
+    </xsd:complexType>
+
 </xsd:schema>
 
 
