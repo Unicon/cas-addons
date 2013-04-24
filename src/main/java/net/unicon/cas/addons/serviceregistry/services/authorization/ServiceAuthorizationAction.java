@@ -49,10 +49,10 @@ public class ServiceAuthorizationAction extends AbstractAction {
     @Override
     protected Event doExecute(RequestContext requestContext) throws Exception {
         final Principal principal = this.authenticationSupport.getAuthenticatedPrincipalFrom(WebUtils.getTicketGrantingTicketId(requestContext));
-        //Guard against expired SSO sessions resulting in NPE. The exception will be handled by the global transition in the login flow
+        //Guard against expired SSO sessions. 'error' event should trigger the transition to the 'generateLoginTicket' state
         if (principal == null) {
             logger.info("The SSO session is no longer valid. Restarting the login process...");
-            throw new TgtDoesNotExistException();
+            return error();
         }
         final Object principalAttributes = principal.getAttributes();
         final String principalId = principal.getId();
@@ -73,15 +73,8 @@ public class ServiceAuthorizationAction extends AbstractAction {
         }
         logger.info("Principal [{}] is authorized to use service [{}]", principalId, service.getId());
 
-        //Everything is fine. Continue with the main service ticket generation action state execution. No need to signal any event to SWF at this stage.
+        //Everything is fine. Continue with the main service ticket generation action state execution. null will signal to SWF to try execution of the next action in the chain
+        // which should be 'GenerateServiceTicketAction'
         return null;
-    }
-
-    /**
-     * Simple runtime exception to indicate a expiration of the SSO session and avoid NPE at runtime
-     * Should be handled by the global transition in the login flow to restart the login process.
-     */
-    public static class TgtDoesNotExistException extends RuntimeException {
-
     }
 }

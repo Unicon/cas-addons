@@ -1,5 +1,15 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.5
+======================================
+
+* updated Jackson dependency to 2.2.0
+* updated Jersey dependency to 1.17
+* added [RegisteredServiceAuthorizer](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/services/authorization/RegisteredServiceAuthorizer.java)
+* added [DefaultRegisteredServiceAuthorizer](https://github.com/Unicon/cas-addons/blob/master/src/main/groovy/net/unicon/cas/addons/serviceregistry/services/authorization/DefaultRegisteredServiceAuthorizer.groovy)
+* added [RoleBasedServiceAuthorizationException](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/services/authorization/RoleBasedServiceAuthorizationException.java)
+* added [ServiceAuthorizationAction](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/services/authorization/ServiceAuthorizationAction.java)
+
 ###Changes in version 1.4 (2013-04-17)
 ======================================
 
