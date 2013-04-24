@@ -47,6 +47,11 @@
         <xsd:attribute type="xsd:string" name="application-id" use="required"/>
     </xsd:complexType>
 
+    <xsd:element name="service-authorization-action" type="service-authorization-actionType"/>
+    <xsd:complexType name="service-authorization-actionType">
+        <xsd:attribute type="xsd:string" name="authorizer" use="optional"/>
+    </xsd:complexType>
+
 </xsd:schema>
 
 

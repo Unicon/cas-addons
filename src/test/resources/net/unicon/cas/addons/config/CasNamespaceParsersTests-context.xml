@@ -11,7 +11,11 @@
 
     <bean id="httpClient" class="org.jasig.cas.util.HttpClient"/>
 
-    <bean id="attributeRepository" class="org.jasig.services.persondir.support.StubPersonAttributeDao"/>
+    <bean id="serviceManager" class="org.jasig.cas.services.DefaultServicesManagerImpl">
+        <constructor-arg index="0">
+            <bean class="org.jasig.cas.services.InMemoryServiceRegistryDaoImpl"/>
+        </constructor-arg>
+    </bean>
 
     <cas:inspektr-log-files-audit-manager/>
 
@@ -30,5 +34,9 @@
     <cas:default-health-check-monitor/>
 
     <cas:default-test-authentication-manager/>
+
+
+    <bean id="authzBean" class="net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegisteredServiceAuthorizer"/>
+    <cas:service-authorization-action authorizer="authzBean"/>
 
 </beans>

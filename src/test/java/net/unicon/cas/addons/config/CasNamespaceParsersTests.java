@@ -7,6 +7,7 @@ import net.unicon.cas.addons.authentication.internal.DefaultAuthenticationSuppor
 import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPublishingAspect;
 import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
+import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAuthorizationAction;
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 import org.jasig.cas.authentication.AuthenticationManager;
@@ -44,6 +45,8 @@ public class CasNamespaceParsersTests {
 	private static final String AUTHENTICATION_MANAGER_BEAN_NAME = "authenticationManager";
 
 	private static final String ATTRIBUTE_REPOSITORY_BEAN_NAME = "attributeRepository";
+
+    private static final String SERVICE_AUTHORIZATION_ACTION_BEAN_NAME = "serviceAuthorizationAction";
 
 	@Test
 	public void slf4jAuditTrailManagerBeanDefinitionCorrectlyParsed() {
@@ -97,4 +100,10 @@ public class CasNamespaceParsersTests {
 		assertTrue(applicationContext.containsBean(AUTHENTICATION_MANAGER_BEAN_NAME));
 		assertTrue(applicationContext.getBeansOfType(AuthenticationManager.class).size() == 1);
 	}
+
+    @Test
+    public void serviceAuthorizationActionBeanDefinitionCorrectlyParsed() {
+        assertTrue(applicationContext.containsBean(SERVICE_AUTHORIZATION_ACTION_BEAN_NAME));
+        assertTrue(applicationContext.getBeansOfType(ServiceAuthorizationAction.class).size() == 1);
+    }
 }

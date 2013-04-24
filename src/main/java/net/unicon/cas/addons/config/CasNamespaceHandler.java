@@ -7,6 +7,8 @@ import net.unicon.cas.addons.authentication.principal.StormpathPrincipalResolver
 import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPublishingAspect;
 import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
+import net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegisteredServiceAuthorizer;
+import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAuthorizationAction;
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 import org.jasig.cas.authentication.AuthenticationManagerImpl;
@@ -21,6 +23,7 @@ import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.ManagedList;
 import org.springframework.beans.factory.xml.*;
+import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
 import java.util.Arrays;
@@ -47,6 +50,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("json-attribute-repository", new JsonAttributesRepositoryBeanDefinitionParser());
         registerBeanDefinitionParser("stormpath-authentication-handler", new StormpathAuthenticationHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("authentication-manager-with-stormpath-handler", new AuthenticationManagerWithStormpathHandlerBeanDefinitionParser());
+        registerBeanDefinitionParser("service-authorization-action", new ServiceAuthorizationActionBeanDefinitionParser());
     }
 
     /**
@@ -280,7 +284,8 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
      * Parses <pre>authentication-manager-with-stormpath-handler</pre> elements into bean definitions of type {@link org.jasig.cas.authentication.AuthenticationManagerImpl}
      */
     @SuppressWarnings("unchecked")
-    private static class AuthenticationManagerWithStormpathHandlerBeanDefinitionParser extends AbstractBeanDefinitionParser {
+    private static class AuthenticationManagerWithStormpathHandlerBeanDefinitionParser extends
+            AbstractBeanDefinitionParser {
 
         @Override
         protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
@@ -321,6 +326,34 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         @Override
         protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
             return "authenticationManager";
+        }
+    }
+
+    /**
+     * Parses <pre>service-authorization-action</pre> elements into bean definitions of type {@link net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAuthorizationAction}
+     */
+    @SuppressWarnings("unchecked")
+    private static class ServiceAuthorizationActionBeanDefinitionParser extends AbstractBeanDefinitionParser {
+
+        @Override
+        protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
+            final String authorizerRef = element.getAttribute("authorizer");
+            final BeanDefinitionBuilder bdb = BeanDefinitionBuilder.genericBeanDefinition(ServiceAuthorizationAction.class)
+                    .addConstructorArgReference("serviceManager")
+                    .addConstructorArgReference("ticketRegistry");
+
+            if (StringUtils.hasText(authorizerRef)) {
+                bdb.addConstructorArgReference(authorizerRef);
+            }
+            else {
+                bdb.addConstructorArgValue(BeanDefinitionBuilder.genericBeanDefinition(DefaultRegisteredServiceAuthorizer.class).getBeanDefinition());
+            }
+            return bdb.getBeanDefinition();
+        }
+
+        @Override
+        protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
+            return "serviceAuthorizationAction";
         }
     }
 }
