@@ -1,6 +1,5 @@
 package net.unicon.cas.addons.response;
 
-import java.io.Writer;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +13,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 /**
- * An alternative lightweight CAS validation response view that marshals the authenticated principal's attributes as a JSON String.
+ * An alternative lightweight CAS validation response view representing a service ticket validation success
+ * that marshals an authenticated principal's attributes as a JSON String.
  *
  * @author Dmitriy Kopylenko
  * @author Unicon, inc.
@@ -30,13 +30,9 @@ public class ServiceValidateSuccessJsonView extends AbstractCasView {
     @Override
     protected void renderMergedOutputModel(final Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
+
         final Authentication authentication = getAssertionFrom(model).getChainedAuthentications().get(0);
         final Principal principal = authentication.getPrincipal();
-
-        final Writer out = response.getWriter();
-        final TicketValidationJsonResponse jsonResponse = new TicketValidationJsonResponse(authentication, principal);
-
-        this.jacksonObjectMapper.writeValue(out, jsonResponse);
-
+        this.jacksonObjectMapper.writeValue(response.getWriter(), new TicketValidationJsonResponse(authentication, principal));
     }
 }
