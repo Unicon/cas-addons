@@ -1,6 +1,7 @@
 package net.unicon.cas.addons.response;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -16,14 +17,17 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * @author Unicon, inc.
  * @since 0.6
  */
-public class TicketValidationJsonResponse {
-    private String              user               = null;
-    private Date                authenticationTime = null;
-    private Map<String, Object> attributes         = null;
+public final class TicketValidationJsonResponse {
+
+    private String user;
+
+    private Date authenticationTime;
+
+    private Map<String, Object> attributes = new HashMap<String, Object>();
+
 
     public TicketValidationJsonResponse() {
         setAuthenticationTime(new Date());
-        setAttributes(new LinkedHashMap<String, Object>());
     }
 
     public TicketValidationJsonResponse(final Authentication authentication, final Principal principal) {
