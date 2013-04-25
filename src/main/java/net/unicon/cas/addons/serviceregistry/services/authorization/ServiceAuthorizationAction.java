@@ -17,7 +17,7 @@ import org.springframework.webflow.execution.RequestContext;
 /**
  * An action state to be executed for the authorization check based on registered service attributes before vending a service ticket.
  * <p/>
- * It is to be inserted in the <i>on-entry</i> execution block of the <code>generateServiceTicket</code> action state in the login web flow definition.
+ * It is expected that this action is to be inserted as the first action of the <code>generateServiceTicket</code> action state in the login web flow definition.
  *
  * @author Dmitriy Kopylenko
  * @author Unicon, inc.
@@ -51,12 +51,13 @@ public class ServiceAuthorizationAction extends AbstractAction {
         final Principal principal = this.authenticationSupport.getAuthenticatedPrincipalFrom(WebUtils.getTicketGrantingTicketId(requestContext));
         //Guard against expired SSO sessions. 'error' event should trigger the transition to the 'generateLoginTicket' state
         if (principal == null) {
-            logger.info("The SSO session is no longer valid. Restarting the login process...");
+            logger.warn("The SSO session is no longer valid. Restarting the login process...");
             return error();
         }
         final Object principalAttributes = principal.getAttributes();
         final String principalId = principal.getId();
         final Service service = WebUtils.getService(requestContext);
+        final String serviceId = service.getId();
 
         //Now do the actual RBAC authorization comparing the principal's attributes and registered service's defined attributes
         RegisteredServiceWithAttributes registeredService = (RegisteredServiceWithAttributes) this.servicesManager.findServiceBy(service);
@@ -66,12 +67,12 @@ public class ServiceAuthorizationAction extends AbstractAction {
                     registeredService.getServiceId(), serviceAttributes, principalId, principalAttributes));
         }
         if (!this.authorizer.authorized(serviceAttributes, principalAttributes)) {
-            logger.info("Principal [{}] is not authorized to use service [{}]", principalId, service.getId());
+            logger.info("Principal [{}] is not authorized to use service [{}]", principalId, serviceId);
             requestContext.getRequestScope().put(AUTHZ_FAIL_REDIRECT_URL_KEY, registeredService.getExtraAttributes().get(ATTR_URL_KEY));
             //Should be handled in the global transition handler to do the actual external redirect to a specific service's URL
             throw new RoleBasedServiceAuthorizationException();
         }
-        logger.info("Principal [{}] is authorized to use service [{}]", principalId, service.getId());
+        logger.info("Principal [{}] is authorized to use service [{}]", principalId, serviceId);
 
         //Everything is fine. Continue with the main service ticket generation action state execution. null will signal to SWF to try execution of the next action in the chain
         // which should be 'GenerateServiceTicketAction'
