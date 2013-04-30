@@ -1,6 +1,6 @@
 package net.unicon.cas.addons.config;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 import com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager;
 import net.unicon.cas.addons.authentication.internal.DefaultAuthenticationSupport;
