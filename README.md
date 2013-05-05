@@ -92,6 +92,10 @@ To have a more finer-grained controll of transitive dependencies brought into ov
                     <groupId>org.springframework.security</groupId>
                     <artifactId>spring-security-cas</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.yubico</groupId>
+                    <artifactId>yubico-validation-client2</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 ```
