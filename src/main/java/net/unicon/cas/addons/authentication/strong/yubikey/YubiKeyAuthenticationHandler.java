@@ -1,4 +1,4 @@
-package net.unicon.cas.addons.authentication.handler.yubikey;
+package net.unicon.cas.addons.authentication.strong.yubikey;
 
 import com.yubico.client.v2.YubicoClient;
 import com.yubico.client.v2.YubicoResponse;
@@ -9,6 +9,12 @@ import org.jasig.cas.authentication.handler.support.AbstractUsernamePasswordAuth
 import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
 
 /**
+ * An authentication handler that uses the Yubico cloud validation platform to authenticate
+ * one-time password tokens that are issued by a YubiKey device. To use YubiCloud you need a
+ * client id and an API key which must be obtained from Yubico.
+ *
+ * <p>For more info, please visit <a href="http://yubico.github.io/yubico-java-client/">this link</a></p>
+ *
  * @author Misagh Moayyed mmoayyed@unicon.net
  * @since 1.5
  */
@@ -18,16 +24,46 @@ public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthen
 
     private YubicoClient client;
 
+    /**
+     * Prepares the Yubico client with the received clientId and secretKey. By default,
+     * all YubiKey accounts are allowed to authenticate.
+     *
+     * @param clientId
+     * @param secretKey
+     */
     public YubiKeyAuthenticationHandler(final Integer clientId, final String secretKey) {
         this.client = YubicoClient.getClient(clientId);
         this.client.setKey(secretKey);
     }
 
+    /**
+     * Prepares the Yubico client with the received clientId and secretKey. If you wish to
+     * limit the usage of this handler only to a particular set of yubikey accounts for a special
+     * group of users, you may provide an compliant implementation of {@link YubiKeyAccountRegistry}.
+     * By default, all accounts are allowed.
+     *
+     * @param clientId
+     * @param secretKey
+     * @param registry
+     */
     public YubiKeyAuthenticationHandler(final Integer clientId, final String secretKey, final YubiKeyAccountRegistry registry) {
         this(clientId, secretKey);
         this.registry = registry;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Attempts to authenticate the received credentials using the Yubico cloud validation platform.
+     * In this implementation, the {@link org.jasig.cas.authentication.principal.UsernamePasswordCredentials#getUsername()}
+     * is mapped to the <code>uid</code> which will be used by the plugged-in instance of the {@link YubiKeyAccountRegistry}
+     * and the {@link org.jasig.cas.authentication.principal.UsernamePasswordCredentials#getPassword()} is the received
+     * one-time password token issued sby the YubiKey device.
+     *
+     * @param usernamePasswordCredentials
+     * @return true if the authentication succeeds. False, otherwise.
+     * @throws AuthenticationException
+     */
     @Override
     protected boolean authenticateUsernamePasswordInternal(final UsernamePasswordCredentials usernamePasswordCredentials) throws AuthenticationException {
         try {
