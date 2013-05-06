@@ -92,7 +92,7 @@ public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthen
 
     }
 
-    private class WhitelistYubiKeyAccountRegistry implements YubiKeyAccountRegistry {
+    private static class WhitelistYubiKeyAccountRegistry implements YubiKeyAccountRegistry {
 
         @Override
         public boolean isYubiKeyRegisteredFor(final String uid, final String yubikeyPublicId) {
