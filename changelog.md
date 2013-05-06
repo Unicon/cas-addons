@@ -10,6 +10,7 @@
 * added [RoleBasedServiceAuthorizationException](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/services/authorization/RoleBasedServiceAuthorizationException.java)
 * added [ServiceAuthorizationAction](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/services/authorization/ServiceAuthorizationAction.java)
 * added [ServiceValidateFailureJsonView](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/response/ServiceValidateFailureJsonView.java)
+* added [YubiKeyAuthenticationHandler](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/authentication/strong/yubikey/YubiKeyAuthenticationHandler.java)
 
 ###Changes in version 1.4 (2013-04-17)
 ======================================
