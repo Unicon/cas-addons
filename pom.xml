@@ -66,6 +66,7 @@
     <properties>
         <github.global.server>github</github.global.server>
         <jdk.version>1.6</jdk.version>
+        <groovy.provider.selection>1.7</groovy.provider.selection>
         <cas.version>3.5.1</cas.version>        
         <servlet.version>2.5</servlet.version>
         <junit.version>4.11</junit.version>
@@ -180,7 +181,7 @@
                 <artifactId>gmaven-plugin</artifactId>
                 <version>1.3</version>
                 <configuration>
-                    <providerSelection>1.7</providerSelection>
+                    <providerSelection>${groovy.provider.selection}</providerSelection>
                 </configuration>
                 <executions>
                     <execution>
@@ -451,7 +452,14 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        
+        <dependency>
+            <groupId>com.yubico</groupId>
+            <artifactId>yubico-validation-client2</artifactId>
+            <version>2.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+            
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-cas</artifactId>
