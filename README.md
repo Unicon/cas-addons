@@ -36,7 +36,7 @@ Declare the project dependency in your Local CAS server `pom.xml` file as:
 </dependency>
 ```
 
-To have a more finer-grained controll of transitive dependencies brought into overlays by cas-addons and exclude unused features' transitive dependencies, use Maven's exclude mechanism. Example cas-addons dependency with exclusions:
+To have a more finer-grained control of transitive dependencies brought into overlays by cas-addons and exclude unused features' transitive dependencies, use Maven's exclude mechanism. Example cas-addons dependency with exclusions:
 
 ```xml
 <dependency>
