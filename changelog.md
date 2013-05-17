@@ -1,6 +1,6 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.5
+###Changes in version 1.5 (2013-05-17)
 ======================================
 
 * updated Jackson dependency to 2.2.0
