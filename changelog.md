@@ -1,5 +1,10 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.5.1 (2013-05-21)
+========================================
+
+* refactored StormpathPrincipal not to store a reference to Stormpath SDK Account instances as they are not Serialiazble thus preventing it to be stored in EhCacheTicketRegistry
+
 ###Changes in version 1.5 (2013-05-17)
 ======================================
 

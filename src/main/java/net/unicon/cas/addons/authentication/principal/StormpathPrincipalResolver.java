@@ -38,15 +38,16 @@ public class StormpathPrincipalResolver implements CredentialsToPrincipalResolve
     @Override
     public Principal resolvePrincipal(final Credentials credentials) {
         final UsernamePasswordCredentials usernamePasswordCredentials = UsernamePasswordCredentials.class.cast(credentials);
-        Account account = null;
         try {
-            account = this.stormpathAuthenticationHandler.authenticateAccount(usernamePasswordCredentials);
+            final Account account = this.stormpathAuthenticationHandler.authenticateAccount(usernamePasswordCredentials);
+            final Principal principal = new StormpathPrincipal(account);
+            logger.debug("Successfully resolved {}", principal);
+            return principal;
         }
         catch (Throwable e) {
             logger.error("An exception is caught trying to access Stormpath cloud while resolving StormpathPrincipal: {} ", e.getMessage());
             return null;
         }
-        return new StormpathPrincipal(account);
     }
 
     @Override

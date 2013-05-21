@@ -10,29 +10,28 @@ import java.util.*;
 
 /**
  * Implementation of {@link org.jasig.cas.authentication.principal.Principal} which encapsulates an <i>Account</i>
- * entity from Stormpath cloud IAM provider. This principal gets resolved after a successful authentication against Stormpath.
+ * entity's data from Stormpath cloud IAM provider. This principal gets resolved after a successful authentication against Stormpath.
  * <p/>
- * This implementation encapsulates transformation of internally held <i>Account</i> properties into a publicly exposed
+ * This implementation encapsulates transformation of Stormpath <i>Account</i> properties into a publicly exposed
  * <code>Map</code> of attributes.
  * <p/>
  * Note that because Stormpath <i>Account</i>s are strongly-typed (in terms of the data they expose), there is no need
  * for a separate complex implementation of <code>IPersonAttributeDao</code> to separately query for attributes. All the
- * necessary attributes will be available in the <i>Account</i> instance encapsulated by this class.
+ * necessary attributes will be available in the <i>Account</i> instance made available to this class.
  *
  * @author Dmitriy Kopylenko
  * @author Unicon, inc.
  * @since 1.4
+ *
+ * @see Account
  */
 @Immutable
 @ThreadSafe
 public class StormpathPrincipal implements Principal {
 
-    private final Account account;
-
     private final Map<String, Object> attributes = new HashMap<String, Object>();
 
     public StormpathPrincipal(final Account account) {
-        this.account = account;
         this.attributes.put("username", account.getUsername());
         this.attributes.put("email", account.getEmail());
         this.attributes.put("givenName", account.getGivenName());
@@ -49,11 +48,16 @@ public class StormpathPrincipal implements Principal {
 
     @Override
     public String getId() {
-        return this.account.getUsername();
+        return String.class.cast(this.attributes.get("username"));
     }
 
     @Override
     public Map<String, Object> getAttributes() {
         return Collections.unmodifiableMap(this.attributes);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("StormpathPrincipal{ attributes=%s }", attributes);
     }
 }
