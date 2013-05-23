@@ -11,7 +11,7 @@
 
     <bean id="httpClient" class="org.jasig.cas.util.HttpClient"/>
 
-    <bean id="serviceManager" class="org.jasig.cas.services.DefaultServicesManagerImpl">
+    <bean id="servicesManager" class="org.jasig.cas.services.DefaultServicesManagerImpl">
         <constructor-arg index="0">
             <bean class="org.jasig.cas.services.InMemoryServiceRegistryDaoImpl"/>
         </constructor-arg>

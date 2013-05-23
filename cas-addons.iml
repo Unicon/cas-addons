@@ -24,7 +24,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.jasig.cas:cas-server-core:3.5.1" level="project" />
+    <orderEntry type="library" name="Maven: org.jasig.cas:cas-server-core:3.5.2" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.15" level="project" />
     <orderEntry type="library" name="Maven: com.github.inspektr:inspektr-audit:1.0.7.GA" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.6.10" level="project" />
@@ -70,9 +70,7 @@
     <orderEntry type="library" name="Maven: org.opensaml:openws:1.4.2-1" level="project" />
     <orderEntry type="library" name="Maven: org.opensaml:xmltooling:1.3.2-1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:jcl-over-slf4j:1.7.2" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:log4j-over-slf4j:1.6.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jul-to-slf4j:1.6.1" level="project" />
-    <orderEntry type="library" name="Maven: joda-time:joda-time:1.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15:1.45" level="project" />
     <orderEntry type="library" name="Maven: ca.juliusdavies:not-yet-commons-ssl:0.3.9" level="project" />
     <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
@@ -91,6 +89,7 @@
     <orderEntry type="library" name="Maven: org.springframework.webflow:spring-js-resources:2.3.0.RELEASE" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: commons-jexl:commons-jexl:1.1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.0" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.1" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.6.10" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:slf4j-log4j12:1.7.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.2.0" level="project" />

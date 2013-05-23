@@ -339,7 +339,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
             final String authorizerRef = element.getAttribute("authorizer");
             final BeanDefinitionBuilder bdb = BeanDefinitionBuilder.genericBeanDefinition(ServiceAuthorizationAction.class)
-                    .addConstructorArgReference("serviceManager")
+                    .addConstructorArgReference("servicesManager")
                     .addConstructorArgReference("ticketRegistry");
 
             if (StringUtils.hasText(authorizerRef)) {

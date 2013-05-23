@@ -1,5 +1,11 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.5.2 (2013-05-23)
+========================================
+
+* fixed bug resolving default `servicesManager` bean in the implementation of `net.unicon.cas.addons.config.CasNamespaceHandler#ServiceAuthorizationActionBeanDefinitionParser`
+* updated CAS dependency to 3.5.2 General Availability
+
 ###Changes in version 1.5.1 (2013-05-21)
 ========================================
 
