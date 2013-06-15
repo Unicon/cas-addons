@@ -96,6 +96,10 @@ To have a more finer-grained control of transitive dependencies brought into ove
             <groupId>com.yubico</groupId>
             <artifactId>yubico-validation-client2</artifactId>
         </exclusion>
+        <exclusion>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+        </exclusion>
     </exclusions>
 </dependency>
 ```
