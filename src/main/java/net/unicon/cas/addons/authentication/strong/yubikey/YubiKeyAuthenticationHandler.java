@@ -20,13 +20,17 @@ import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
  */
 public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler {
 
-    private YubiKeyAccountRegistry registry = new WhitelistYubiKeyAccountRegistry();
+    private YubiKeyAccountRegistry registry = new AcceptAnyYubiKeyAccountRegistry();
 
     private YubicoClient client;
 
     /**
      * Prepares the Yubico client with the received clientId and secretKey. By default,
      * all YubiKey accounts are allowed to authenticate.
+     * 
+     * WARNING: THIS CONSTRUCTOR RESULTS IN AN EXAMPLE YubiKeyAuthenticationHandler
+     * CONFIGURATION THAT CONSIDERS ALL Yubikeys VALID FOR ALL USERS.  YOU MUST NOT USE
+     * THIS CONSTRUCTOR IN PRODUCTION.
      *
      * @param clientId
      * @param secretKey
@@ -34,6 +38,8 @@ public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthen
     public YubiKeyAuthenticationHandler(final Integer clientId, final String secretKey) {
         this.client = YubicoClient.getClient(clientId);
         this.client.setKey(secretKey);
+        log.warning("YubiKeyAuthenticationHandler instantiated with example accept-any configuration.  " +
+          "THIS IS NOT OKAY IN PRODUCTION. NO. NO. NO.")
     }
 
     /**
@@ -92,7 +98,13 @@ public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthen
 
     }
 
-    private static class WhitelistYubiKeyAccountRegistry implements YubiKeyAccountRegistry {
+    /**
+     * Example implementation of YubiKeyAccountRegistry that considers all yubikey Ids 
+     * registered for all users.
+     * THIS IS OBVIOUSLY COMPLETELY UNACCEPTABLE FOR PRODUCTION USE AND YOU MUST USE
+     * A REGISTRY THAT ACTUALLY REGISTERS IN PRODUCTION.
+     */
+    private static class AcceptAnyYubiKeyAccountRegistry implements YubiKeyAccountRegistry {
 
         @Override
         public boolean isYubiKeyRegisteredFor(final String uid, final String yubikeyPublicId) {
