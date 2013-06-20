@@ -38,8 +38,9 @@ public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthen
     public YubiKeyAuthenticationHandler(final Integer clientId, final String secretKey) {
         this.client = YubicoClient.getClient(clientId);
         this.client.setKey(secretKey);
-        log.warning("YubiKeyAuthenticationHandler instantiated with example accept-any configuration.  " +
-          "THIS IS NOT OKAY IN PRODUCTION. NO. NO. NO.")
+        log.warn("{} instantiated with example accept-any configuration handled via {}. " +
+                "THIS IS NOT OKAY IN PRODUCTION. NO. NO. NO.", this.getClass().getSimpleName(),
+                AcceptAnyYubiKeyAccountRegistry.class.getSimpleName());
     }
 
     /**
