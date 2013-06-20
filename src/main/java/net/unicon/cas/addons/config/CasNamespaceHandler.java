@@ -7,6 +7,7 @@ import net.unicon.cas.addons.authentication.principal.StormpathPrincipalResolver
 import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPublishingAspect;
 import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
+import net.unicon.cas.addons.serviceregistry.ReloadableServicesManagerSuppressionAspect;
 import net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegisteredServiceAuthorizer;
 import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAuthorizationAction;
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
@@ -51,6 +52,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("stormpath-authentication-handler", new StormpathAuthenticationHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("authentication-manager-with-stormpath-handler", new AuthenticationManagerWithStormpathHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("service-authorization-action", new ServiceAuthorizationActionBeanDefinitionParser());
+        registerBeanDefinitionParser("disable-default-registered-services-reloading", new ReloadableServicesManagerSuppressionAspectBeanDefinitionParser());
     }
 
     /**
@@ -354,6 +356,28 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         @Override
         protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
             return "serviceAuthorizationAction";
+        }
+    }
+
+    /**
+     * Parses <pre>disable-default-registered-services-reloading</pre> elements into bean definitions of type {@link ReloadableServicesManagerSuppressionAspect}
+     */
+    private static class ReloadableServicesManagerSuppressionAspectBeanDefinitionParser extends
+            AbstractSingleBeanDefinitionParser {
+
+        @Override
+        protected Class<?> getBeanClass(Element element) {
+            return ReloadableServicesManagerSuppressionAspect.class;
+        }
+
+        @Override
+        protected boolean shouldGenerateId() {
+            return true;
+        }
+
+        @Override
+        protected void doParse(Element element, BeanDefinitionBuilder builder) {
+            builder.setFactoryMethod("aspectOf").addPropertyValue("on", true);
         }
     }
 }

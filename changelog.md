@@ -1,5 +1,12 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.5.3 (2013-06-17)
+========================================
+
+* added flag to `ReloadableServicesManagerSuppressionAspect` to make decisions whether to suppress target calls or not at runtime (suppression is off by default)
+* added the ability to `turn on` ReloadableServicesManagerSuppressionAspect's reloading suppression by means of custom `<cas:disable-default-registered-services-reloading/>` Spring bean element
+
+
 ###Changes in version 1.5.2 (2013-05-23)
 ========================================
 

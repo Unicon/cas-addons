@@ -52,6 +52,8 @@
         <xsd:attribute type="xsd:string" name="authorizer" use="optional"/>
     </xsd:complexType>
 
+    <xsd:element name="disable-default-registered-services-reloading" type="xsd:string"/>
+
 </xsd:schema>
 
 
