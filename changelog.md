@@ -1,5 +1,13 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.5.4
+========================================
+
+* added logic to ServiceAuthorizationAction to allow services without RBAC rules to use CAS
+* renamed default Yubikey account registry to reflect its accept-any behavior
+* added more explicit JavaDoc about how completely not okay it is to accept the default Yubikey account registry in production
+* added warning log message on YubiKeyAuthenticationHandler instantiation with unsafe default config of Yubikey account registry
+
 ###Changes in version 1.5.3 (2013-06-17)
 ========================================
 
