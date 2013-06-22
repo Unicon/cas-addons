@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.unicon.cas.addons.support.GuardedBy;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 import net.unicon.cas.addons.support.ThreadSafe;
+import org.apache.shiro.util.AntPathMatcher;
 import org.jasig.cas.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Implementation of <code>ServiceRegistryDao</code> that reads services definition from JSON configuration file at the Spring Application Context
@@ -32,88 +35,96 @@ import java.util.Map;
  * @since 0.8
  */
 @ThreadSafe
-public final class JsonServiceRegistryDao implements ServiceRegistryDao,
+public class JsonServiceRegistryDao implements ServiceRegistryDao,
 		ApplicationListener<ResourceChangeDetectingEventNotifier.ResourceChangedEvent> {
 
 	@GuardedBy("mutexMonitor")
 	private final InMemoryServiceRegistryDaoImpl delegateServiceRegistryDao = new InMemoryServiceRegistryDaoImpl();
 
-	private final ObjectMapper objectMapper = new ObjectMapper();
+	protected final ObjectMapper objectMapper = new ObjectMapper();
 
-	private final Resource servicesConfigFile;
+	protected final Resource servicesConfigFile;
 
 	private ReloadableServicesManager servicesManager;
-
 
 	private final Object mutexMonitor = new Object();
 
 	private static final String REGEX_PREFIX = "^";
 
-	private static final String SERVICES_KEY = "services";
+	protected static final String SERVICES_KEY = "services";
 
 	private static final String SERVICES_ID_KEY = "serviceId";
 
-	private static final Logger logger = LoggerFactory.getLogger(JsonServiceRegistryDao.class);
+	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public JsonServiceRegistryDao(Resource servicesConfigFile) {
+	public JsonServiceRegistryDao(final Resource servicesConfigFile) {
 		this.servicesConfigFile = servicesConfigFile;
 	}
 
-	public void setServicesManager(ReloadableServicesManager servicesManager) {
+	public final void setServicesManager(final ReloadableServicesManager servicesManager) {
 		this.servicesManager = servicesManager;
 	}
 
 	@Override
-	public RegisteredService save(RegisteredService registeredService) {
+	public final RegisteredService save(RegisteredService registeredService) {
 		synchronized (this.mutexMonitor) {
-			return this.delegateServiceRegistryDao.save(registeredService);
+			return saveInternal(registeredService);
 		}
 	}
 
 	@Override
-	public boolean delete(RegisteredService registeredService) {
+	public final boolean delete(RegisteredService registeredService) {
 		synchronized (this.mutexMonitor) {
-			return this.delegateServiceRegistryDao.delete(registeredService);
+			return deleteInternal(registeredService);
 		}
 	}
 
 	@Override
-	public RegisteredService findServiceById(long id) {
+	public final RegisteredService findServiceById(long id) {
 		synchronized (this.mutexMonitor) {
 			return this.delegateServiceRegistryDao.findServiceById(id);
 		}
 	}
 
 	@Override
-	public List<RegisteredService> load() {
+	public final List<RegisteredService> load() {
 		synchronized (this.mutexMonitor) {
-			return this.delegateServiceRegistryDao.load();
+            return this.delegateServiceRegistryDao.load();
 		}
-
 	}
 
+    protected RegisteredService saveInternal(final RegisteredService registeredService) {
+        return this.delegateServiceRegistryDao.save(registeredService);
+    }
+
+    protected boolean deleteInternal(final RegisteredService registeredService) {
+        return this.delegateServiceRegistryDao.delete(registeredService);
+    }
 	/**
 	 * This method is used as a Spring bean loadServices-method
 	 * as well as the reloading method when the change in the services definition resource is detected at runtime
 	 */
 	@SuppressWarnings("unchecked")
-	public void loadServices() {
+	public final List<RegisteredService> loadServices() {
 		logger.info("Loading Registered Services from: [ {} ]...", this.servicesConfigFile);
-		try {
-			final List<RegisteredService> resolvedServices = new ArrayList<RegisteredService>();
-			final Map<String, List> m = this.objectMapper.readValue(this.servicesConfigFile.getFile(), Map.class);
-			final Iterator<Map> i = m.get(SERVICES_KEY).iterator();
-			while (i.hasNext()) {
-				Map<?, ?> record = i.next();
-				if (((String) record.get(SERVICES_ID_KEY)).startsWith(REGEX_PREFIX)) {
-					resolvedServices.add(this.objectMapper.convertValue(record, RegexRegisteredServiceWithAttributes.class));
-					logger.debug("Unmarshaled RegexRegisteredServiceWithAttributes: {}", record);
-				}
-				else {
-					resolvedServices.add(this.objectMapper.convertValue(record, RegisteredServiceWithAttributesImpl.class));
-					logger.debug("Unmarshaled RegisteredServiceWithAttributes: {}", record);
-				}
-			}
+        final List<RegisteredService> resolvedServices = new ArrayList<RegisteredService>();
+        try {
+
+            if (this.servicesConfigFile.exists() && this.servicesConfigFile.getFile().length() > 0) {
+                final Map<String, List> m = this.objectMapper.readValue(this.servicesConfigFile.getFile(), Map.class);
+                final Iterator<Map> i = m.get(SERVICES_KEY).iterator();
+                while (i.hasNext()) {
+                    final Map<?, ?> record = i.next();
+                    final String svcId = ((String) record.get(SERVICES_ID_KEY));
+                    final RegisteredService svc = getRegisteredServiceInstance(svcId);
+                    if (svc != null) {
+                        resolvedServices.add(this.objectMapper.convertValue(record, svc.getClass()));
+                        logger.debug("Unmarshaled {}: {}", svc.getClass().getSimpleName(), record);
+                    }
+                }
+            } else {
+                logger.warn("Resource [{}] does not exist or has no service definitions.", this.servicesConfigFile.getFilename());
+            }
 			synchronized (this.mutexMonitor) {
 				this.delegateServiceRegistryDao.setRegisteredServices(resolvedServices);
 			}
@@ -121,10 +132,34 @@ public final class JsonServiceRegistryDao implements ServiceRegistryDao,
 		catch (Throwable e) {
 			throw new RuntimeException(e);
 		}
+        return resolvedServices;
 	}
 
-	@Override
-	public void onApplicationEvent(ResourceChangeDetectingEventNotifier.ResourceChangedEvent resourceChangedEvent) {
+    private boolean isValidRegexPattern(final String pattern) {
+        boolean valid = false;
+        try {
+            Pattern.compile(pattern);
+            valid = true;
+        } catch (final PatternSyntaxException e) {
+            logger.debug("Failed to identify [{}] as a regular expression", pattern);
+        }
+        return valid;
+    }
+
+    private RegisteredService getRegisteredServiceInstance(final String id) {
+        if (isValidRegexPattern(id)) {
+            return new RegexRegisteredServiceWithAttributes();
+        }
+
+        if (new AntPathMatcher().isPattern(id)) {
+            return new RegisteredServiceWithAttributesImpl();
+        }
+        return null;
+    }
+
+
+    @Override
+	public final void onApplicationEvent(ResourceChangeDetectingEventNotifier.ResourceChangedEvent resourceChangedEvent) {
 		try {
 			if (!resourceChangedEvent.getResourceUri().equals(this.servicesConfigFile.getURI())) {
 				//Not our resource. Just get out of here.
