@@ -1,6 +1,6 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.5.4
+###Changes in version 1.5.4 (2013-06-24)
 ========================================
 
 * added logic to ServiceAuthorizationAction to allow services without RBAC rules to use CAS
