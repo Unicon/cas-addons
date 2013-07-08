@@ -16,7 +16,12 @@ For versions **1.0+**, the minimum supported version of CAS is **3.5.1**
 ## Current version
 `1.5.4`
 
-## Build [![Build Status](https://secure.travis-ci.org/Unicon/cas-addons.png)](http://travis-ci.org/Unicon/cas-addons)
+## Build 
+
+[![Build Status](https://secure.travis-ci.org/Unicon/cas-addons.png)](http://travis-ci.org/Unicon/cas-addons)
+
+[![Codeship Status for Unicon/cas-addons](https://www.codeship.io/projects/f5a581c0-ca15-0130-5eff-02755495ea38/status?branch=master)](https://www.codeship.io/projects/4827)
+
 You can build the project from source using the following Maven command:
 
 ```bash
