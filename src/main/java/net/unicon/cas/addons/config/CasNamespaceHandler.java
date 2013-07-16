@@ -4,6 +4,7 @@ import com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager;
 import net.unicon.cas.addons.authentication.handler.StormpathAuthenticationHandler;
 import net.unicon.cas.addons.authentication.internal.DefaultAuthenticationSupport;
 import net.unicon.cas.addons.authentication.principal.StormpathPrincipalResolver;
+import net.unicon.cas.addons.authentication.strong.yubikey.YubiKeyAuthenticationHandler;
 import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPublishingAspect;
 import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
@@ -53,6 +54,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("authentication-manager-with-stormpath-handler", new AuthenticationManagerWithStormpathHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("service-authorization-action", new ServiceAuthorizationActionBeanDefinitionParser());
         registerBeanDefinitionParser("disable-default-registered-services-reloading", new ReloadableServicesManagerSuppressionAspectBeanDefinitionParser());
+        registerBeanDefinitionParser("yubikey-authentication-handler", new YubikeyAuthenticationHandlerBeanDefinitionParser());
     }
 
     /**
@@ -378,6 +380,34 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         @Override
         protected void doParse(Element element, BeanDefinitionBuilder builder) {
             builder.setFactoryMethod("aspectOf").addPropertyValue("on", true);
+        }
+    }
+
+    /**
+     * Parses <pre>yubikey-authentication-handler</pre> elements into bean definitions of type {@link net.unicon.cas.addons.authentication.strong.yubikey.YubiKeyAuthenticationHandler}
+     * with bean id of <strong>yubikeyAuthenticationHandler</strong>
+     */
+    private static class YubikeyAuthenticationHandlerBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+
+        @Override
+        protected Class<?> getBeanClass(Element element) {
+            return YubiKeyAuthenticationHandler.class;
+        }
+
+        @Override
+        protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
+            return "yubikeyAuthenticationHandler";
+        }
+
+        @Override
+        protected void doParse(Element element, BeanDefinitionBuilder builder) {
+            builder.addConstructorArgValue(element.getAttribute("client-id"))
+                    .addConstructorArgValue(element.getAttribute("secret-key"));
+
+            final String accountRegistryRef = element.getAttribute("account-registry");
+            if (StringUtils.hasText(accountRegistryRef)) {
+                builder.addConstructorArgReference(accountRegistryRef);
+            }
         }
     }
 }

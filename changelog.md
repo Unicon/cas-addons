@@ -3,6 +3,8 @@
 ###Changes in version 1.6
 ========================================
 
+* added custom XML schema element BeanDefinitionParser implementation for `YubiKeyAuthenticationHandler`
+
 ###Changes in version 1.5.4 (2013-06-24)
 ========================================
 

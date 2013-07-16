@@ -35,8 +35,10 @@
 
     <cas:default-test-authentication-manager/>
 
-
     <bean id="authzBean" class="net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegisteredServiceAuthorizer"/>
     <cas:service-authorization-action authorizer="authzBean"/>
+
+    <bean id="yubikeyAccountRegistry" class="net.unicon.cas.addons.config.CasNamespaceParsersTests$DummyYubiKeyAccountRegistry"/>
+    <cas:yubikey-authentication-handler client-id="1" secret-key="test" account-registry="yubikeyAccountRegistry"/>
 
 </beans>

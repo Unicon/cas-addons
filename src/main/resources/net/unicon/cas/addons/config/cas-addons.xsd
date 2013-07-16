@@ -54,6 +54,15 @@
 
     <xsd:element name="disable-default-registered-services-reloading" type="xsd:string"/>
 
+    <xsd:element name="yubikey-authentication-handler" type="yubikey-authentication-handlerType"/>
+    <xsd:complexType name="yubikey-authentication-handlerType">
+        <xsd:attribute type="xsd:int" name="client-id" use="required"/>
+        <xsd:attribute type="xsd:string" name="secret-key" use="required"/>
+        <xsd:attribute type="xsd:string" name="account-registry" use="optional"/>
+    </xsd:complexType>
+
+
+
 </xsd:schema>
 
 
