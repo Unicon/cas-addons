@@ -297,6 +297,7 @@
             <groupId>org.jasig.cas</groupId>
             <artifactId>cas-server-core</artifactId>
             <version>${cas.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
