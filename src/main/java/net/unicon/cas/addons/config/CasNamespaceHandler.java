@@ -248,10 +248,15 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             ManagedList authnHandlersList = new ManagedList(2);
             authnHandlersList.addAll(Arrays.asList(httpBasedAuthnHandlerBd, simpleTestAuthnHandlerBd));
 
-            return BeanDefinitionBuilder.genericBeanDefinition(AuthenticationManagerImpl.class)
+            BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(AuthenticationManagerImpl.class)
                     .addPropertyValue("credentialsToPrincipalResolvers", principalResolversList)
-                    .addPropertyValue("authenticationHandlers", authnHandlersList)
-                    .getBeanDefinition();
+                    .addPropertyValue("authenticationHandlers", authnHandlersList);
+
+            final String metadataPopulatorsRef = element.getAttribute("metadata-populators");
+            if (StringUtils.hasText(metadataPopulatorsRef)) {
+                builder.addPropertyReference("authenticationMetaDataPopulators", metadataPopulatorsRef);
+            }
+            return builder.getBeanDefinition();
         }
 
         @Override

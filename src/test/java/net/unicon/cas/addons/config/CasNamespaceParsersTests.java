@@ -21,6 +21,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Dmitriy Kopylenko
  * @author Unicon, inc.
