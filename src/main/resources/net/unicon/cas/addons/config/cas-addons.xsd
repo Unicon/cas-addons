@@ -64,7 +64,19 @@
         <xsd:attribute type="xsd:string" name="account-registry" use="optional"/>
     </xsd:complexType>
 
+    <xsd:element name="user" type="userType"/>
+    <xsd:complexType name="userType">
+        <xsd:attribute type="xsd:string" name="name" use="required"/>
+        <xsd:attribute type="xsd:string" name="password" use="required"/>
+    </xsd:complexType>
 
+    <xsd:element name="accept-users-authentication-handler" type="accept-users-authentication-handlerType"/>
+    <xsd:complexType name="accept-users-authentication-handlerType">
+        <xsd:choice minOccurs="1" maxOccurs="unbounded">
+            <xsd:element ref="user"/>
+        </xsd:choice>
+        <xsd:attribute type="xsd:ID" name="id" use="optional"/>
+    </xsd:complexType>
 
 </xsd:schema>
 

@@ -301,6 +301,13 @@
         </dependency>
 
         <dependency>
+            <groupId>org.jasig.cas</groupId>
+            <artifactId>cas-server-support-generic</artifactId>
+            <version>${cas.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>

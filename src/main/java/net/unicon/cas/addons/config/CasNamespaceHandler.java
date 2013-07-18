@@ -13,6 +13,7 @@ import net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegis
 import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAuthorizationAction;
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
+import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManagerImpl;
 import org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler;
 import org.jasig.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler;
@@ -24,11 +25,14 @@ import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.ManagedList;
+import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.beans.factory.xml.*;
 import org.springframework.util.StringUtils;
+import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Element;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * {@link NamespaceHandler} for convenient CAS configuration namespace.
@@ -55,6 +59,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("service-authorization-action", new ServiceAuthorizationActionBeanDefinitionParser());
         registerBeanDefinitionParser("disable-default-registered-services-reloading", new ReloadableServicesManagerSuppressionAspectBeanDefinitionParser());
         registerBeanDefinitionParser("yubikey-authentication-handler", new YubikeyAuthenticationHandlerBeanDefinitionParser());
+        registerBeanDefinitionParser("accept-users-authentication-handler", new AcceptUsersAuthenticationHandlerBeanDefinitionParser());
     }
 
     /**
@@ -413,6 +418,32 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             if (StringUtils.hasText(accountRegistryRef)) {
                 builder.addConstructorArgReference(accountRegistryRef);
             }
+        }
+    }
+
+    /**
+     * Parses <pre>accept-users-authentication-handler</pre> elements into bean definitions of type {@link org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler}
+     */
+    private static class AcceptUsersAuthenticationHandlerBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+
+        @Override
+        protected Class<?> getBeanClass(Element element) {
+            return AcceptUsersAuthenticationHandler.class;
+        }
+
+        @Override
+        protected void doParse(Element element, BeanDefinitionBuilder builder) {
+            final List<Element> userElements = DomUtils.getChildElementsByTagName(element, "user");
+            final ManagedMap<String, String> usersMap = new ManagedMap<String, String>(userElements.size());
+            for (Element e: userElements) {
+                usersMap.put(e.getAttribute("name"), e.getAttribute("password"));
+            }
+            builder.addPropertyValue("users", usersMap);
+        }
+
+        @Override
+        protected boolean shouldGenerateIdAsFallback() {
+            return true;
         }
     }
 }

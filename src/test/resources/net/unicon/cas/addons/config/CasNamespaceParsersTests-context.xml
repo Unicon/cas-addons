@@ -44,4 +44,9 @@
     </util:list>
     <cas:default-test-authentication-manager metadata-populators="metadataPopulators"/>
 
+    <cas:accept-users-authentication-handler id="acceptUsersAuthnHandler">
+        <cas:user name="user1" password="pass1"/>
+        <cas:user name="user2" password="pass2"/>
+    </cas:accept-users-authentication-handler>
+
 </beans>
