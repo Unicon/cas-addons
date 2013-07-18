@@ -23,7 +23,8 @@
 
     <cas:json-attribute-repository config-file="classpath:/net/unicon/cas/addons/config/person-attributes.conf"/>
 
-    <cas:resource-change-detector id="testChangeDetector" watched-resource="classpath:/net/unicon/cas/addons/config/servicesRegistry.conf"/>
+    <cas:resource-change-detector id="testChangeDetector"
+                                  watched-resource="classpath:/net/unicon/cas/addons/config/servicesRegistry.conf"/>
 
     <cas:default-authentication-support/>
 
@@ -33,10 +34,12 @@
 
     <cas:default-health-check-monitor/>
 
-    <bean id="authzBean" class="net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegisteredServiceAuthorizer"/>
+    <bean id="authzBean"
+          class="net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegisteredServiceAuthorizer"/>
     <cas:service-authorization-action authorizer="authzBean"/>
 
-    <bean id="yubikeyAccountRegistry" class="net.unicon.cas.addons.config.CasNamespaceParsersTests$DummyYubiKeyAccountRegistry"/>
+    <bean id="yubikeyAccountRegistry"
+          class="net.unicon.cas.addons.config.CasNamespaceParsersTests$DummyYubiKeyAccountRegistry"/>
     <cas:yubikey-authentication-handler client-id="1" secret-key="test" account-registry="yubikeyAccountRegistry"/>
 
     <util:list id="metadataPopulators">
@@ -48,5 +51,43 @@
         <cas:user name="user1" password="pass1"/>
         <cas:user name="user2" password="pass2"/>
     </cas:accept-users-authentication-handler>
+
+    <cas:bind-ldap-authentication-handler id="ldapAuthnHandler"
+                                          user-dn="user"
+                                          password="pass"
+                                          urls="ldaps://ldap1, ldaps://ldap2"
+                                          filter="sAMAccountName=%u"
+                                          search-base="OU=users"
+                                          is-pooled="false"
+                                          ignore-partial-result-exception="true">
+
+        <cas:ldap-properties>
+            <cas:ldap-prop key="com.sun.jndi.ldap.connect.timeout" value="3000"/>
+            <cas:ldap-prop key="com.sun.jndi.ldap.read.timeout" value="3000"/>
+        </cas:ldap-properties>
+
+    </cas:bind-ldap-authentication-handler>
+
+    <!-- <bean class="org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler"
+          p:filter="sAMAccountName=%u"
+          p:searchBase="DC=something,DC=mnscu,DC=edu"
+          p:contextSource-ref="contextSource"
+          p:ignorePartialResultException="true" />
+
+    <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+        <property name="userDn" value="${ldap.bind.userDn}" />
+        <property name="password" value="${ldap.bind.password}" />
+        <property name="pooled" value="false" />
+        <property name="url" value="${ldap.server.url}" />
+        <property name="baseEnvironmentProperties">
+            <map>
+                <entry key="com.sun.jndi.ldap.connect.timeout" value="3000" />
+                <entry key="com.sun.jndi.ldap.read.timeout" value="3000" />
+                <entry key="java.naming.security.authentication" value="simple" />
+                <entry key="java.naming.referral" value="follow" />
+            </map>
+        </property>
+    </bean> -->
+
 
 </beans>

@@ -6,6 +6,7 @@
 * added custom XML schema element BeanDefinitionParser implementation for `YubiKeyAuthenticationHandler`
 * added `metadata-populators` attribute to `cas:default-test-authentication-manager` element and refactored the corresponding BeanDefinitionParser implementation
 * added custom XML schema element BeanDefinitionParser implementation for `AcceptUsersAuthenticationHandler`
+* added custom XML schema element BeanDefinitionParser implementation for `BindLdapAuthenticationHandler`
 
 ###Changes in version 1.5.4 (2013-06-24)
 ========================================

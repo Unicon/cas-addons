@@ -14,6 +14,7 @@ import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAutho
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
+import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManagerImpl;
 import org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler;
 import org.jasig.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler;
@@ -27,6 +28,7 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.ManagedList;
 import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.beans.factory.xml.*;
+import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.util.StringUtils;
 import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Element;
@@ -60,6 +62,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("disable-default-registered-services-reloading", new ReloadableServicesManagerSuppressionAspectBeanDefinitionParser());
         registerBeanDefinitionParser("yubikey-authentication-handler", new YubikeyAuthenticationHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("accept-users-authentication-handler", new AcceptUsersAuthenticationHandlerBeanDefinitionParser());
+        registerBeanDefinitionParser("bind-ldap-authentication-handler", new BindLdapAuthenticationHandlerBeanDefinitionParser());
     }
 
     /**
@@ -444,6 +447,51 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         @Override
         protected boolean shouldGenerateIdAsFallback() {
             return true;
+        }
+    }
+
+    /**
+     * Parses <pre>bind-ldap-authentication-handler</pre> elements into bean definitions of type {@link org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler}
+     */
+    private static class BindLdapAuthenticationHandlerBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+
+        @Override
+        protected Class<?> getBeanClass(Element element) {
+            return BindLdapAuthenticationHandler.class;
+        }
+
+        @Override
+        protected void doParse(Element element, BeanDefinitionBuilder builder) {
+            //Create and configure LdapContextSource bean
+            final BeanDefinitionBuilder contextSourceBuilder = BeanDefinitionBuilder.genericBeanDefinition(LdapContextSource.class);
+            contextSourceBuilder.addPropertyValue("userDn", element.getAttribute("user-dn"));
+            contextSourceBuilder.addPropertyValue("password", element.getAttribute("password"));
+            contextSourceBuilder.addPropertyValue("urls", StringUtils.commaDelimitedListToSet(element.getAttribute("urls")));
+            contextSourceBuilder.addPropertyValue("pooled", element.getAttribute("is-pooled"));
+            final Element ldapPropsElem = DomUtils.getChildElementByTagName(element, "ldap-properties");
+            if(ldapPropsElem != null) {
+                parseLdapProps(ldapPropsElem, contextSourceBuilder);
+            }
+
+            //Configure the main bean - BindLdapAuthenticationHandler
+            builder.addPropertyValue("filter", element.getAttribute("filter"));
+            builder.addPropertyValue("searchBase", element.getAttribute("search-base"));
+            builder.addPropertyValue("ignorePartialResultException", element.getAttribute("ignore-partial-result-exception"));
+            builder.addPropertyValue("contextSource", contextSourceBuilder.getBeanDefinition());
+        }
+
+        @Override
+        protected boolean shouldGenerateIdAsFallback() {
+            return true;
+        }
+
+        private static void parseLdapProps(Element element, BeanDefinitionBuilder contextSourceBuilder) {
+            final List<Element> propElements = DomUtils.getChildElementsByTagName(element, "ldap-prop");
+            final ManagedMap<String, String> propsMap = new ManagedMap<String, String>(propElements.size());
+            for (Element e: propElements) {
+                propsMap.put(e.getAttribute("key"), e.getAttribute("value"));
+            }
+            contextSourceBuilder.addPropertyValue("baseEnvironmentProperties", propsMap);
         }
     }
 }
