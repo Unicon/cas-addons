@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cas="http://unicon.net/schema/cas"
+       xmlns:cas="http://unicon.net/schema/cas" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://unicon.net/schema/cas http://unicon.net/schema/cas/cas-addons.xsd">
+                           http://unicon.net/schema/cas http://unicon.net/schema/cas/cas-addons.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 
     <bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry"/>
@@ -23,7 +23,8 @@
 
     <cas:json-attribute-repository config-file="classpath:/net/unicon/cas/addons/config/person-attributes.conf"/>
 
-    <cas:resource-change-detector id="testChangeDetector" watched-resource="classpath:/net/unicon/cas/addons/config/servicesRegistry.conf"/>
+    <cas:resource-change-detector id="testChangeDetector"
+                                  watched-resource="classpath:/net/unicon/cas/addons/config/servicesRegistry.conf"/>
 
     <cas:default-authentication-support/>
 
@@ -33,10 +34,40 @@
 
     <cas:default-health-check-monitor/>
 
-    <cas:default-test-authentication-manager/>
-
-
-    <bean id="authzBean" class="net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegisteredServiceAuthorizer"/>
+    <bean id="authzBean"
+          class="net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegisteredServiceAuthorizer"/>
     <cas:service-authorization-action authorizer="authzBean"/>
+
+    <bean id="yubikeyAccountRegistry"
+          class="net.unicon.cas.addons.config.CasNamespaceParsersTests$DummyYubiKeyAccountRegistry"/>
+    <cas:yubikey-authentication-handler client-id="1" secret-key="test" account-registry="yubikeyAccountRegistry"/>
+
+    <util:list id="metadataPopulators">
+        <bean class="org.jasig.cas.authentication.principal.RememberMeAuthenticationMetaDataPopulator"/>
+    </util:list>
+    <cas:default-test-authentication-manager metadata-populators="metadataPopulators"/>
+
+    <cas:accept-users-authentication-handler id="acceptUsersAuthnHandler">
+        <cas:user name="user1" password="pass1"/>
+        <cas:user name="user2" password="pass2"/>
+    </cas:accept-users-authentication-handler>
+
+    <cas:bind-ldap-authentication-handler id="ldapAuthnHandler"
+                                          user-dn="user"
+                                          password="pass"
+                                          urls="ldaps://ldap1, ldaps://ldap2"
+                                          filter="sAMAccountName=%u"
+                                          search-base="OU=users"
+                                          is-pooled="false"
+                                          ignore-partial-result-exception="true">
+
+        <cas:ldap-properties>
+            <cas:ldap-prop key="com.sun.jndi.ldap.connect.timeout" value="3000"/>
+            <cas:ldap-prop key="com.sun.jndi.ldap.read.timeout" value="3000"/>
+            <cas:ldap-prop key="java.naming.security.authentication" value="simple"/>
+            <cas:ldap-prop key="java.naming.referral" value="follow"/>
+        </cas:ldap-properties>
+
+    </cas:bind-ldap-authentication-handler>
 
 </beans>

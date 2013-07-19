@@ -7,18 +7,20 @@ import org.jasig.cas.authentication.handler.AuthenticationException;
 import org.jasig.cas.authentication.handler.BadUsernameOrPasswordAuthenticationException;
 import org.jasig.cas.authentication.handler.support.AbstractUsernamePasswordAuthenticationHandler;
 import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * An authentication handler that uses the Yubico cloud validation platform to authenticate
  * one-time password tokens that are issued by a YubiKey device. To use YubiCloud you need a
  * client id and an API key which must be obtained from Yubico.
- *
+ * <p/>
  * <p>For more info, please visit <a href="http://yubico.github.io/yubico-java-client/">this link</a></p>
  *
  * @author Misagh Moayyed mmoayyed@unicon.net
  * @since 1.5
  */
-public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler {
+public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler implements
+        InitializingBean {
 
     private YubiKeyAccountRegistry registry = new AcceptAnyYubiKeyAccountRegistry();
 
@@ -27,7 +29,7 @@ public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthen
     /**
      * Prepares the Yubico client with the received clientId and secretKey. By default,
      * all YubiKey accounts are allowed to authenticate.
-     * 
+     * <p/>
      * WARNING: THIS CONSTRUCTOR RESULTS IN AN EXAMPLE YubiKeyAuthenticationHandler
      * CONFIGURATION THAT CONSIDERS ALL Yubikeys VALID FOR ALL USERS.  YOU MUST NOT USE
      * THIS CONSTRUCTOR IN PRODUCTION.
@@ -38,9 +40,6 @@ public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthen
     public YubiKeyAuthenticationHandler(final Integer clientId, final String secretKey) {
         this.client = YubicoClient.getClient(clientId);
         this.client.setKey(secretKey);
-        log.warn("{} instantiated with example accept-any configuration handled via {}. " +
-                "THIS IS NOT OKAY IN PRODUCTION. NO. NO. NO.", this.getClass().getSimpleName(),
-                AcceptAnyYubiKeyAccountRegistry.class.getSimpleName());
     }
 
     /**
@@ -58,9 +57,18 @@ public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthen
         this.registry = registry;
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        if (this.registry instanceof AcceptAnyYubiKeyAccountRegistry) {
+            log.warn("{} instantiated with example accept-any configuration handled via {}. " +
+                    "THIS IS NOT OKAY IN PRODUCTION. NO. NO. NO.", this.getClass().getSimpleName(),
+                    AcceptAnyYubiKeyAccountRegistry.class.getSimpleName());
+        }
+    }
+
     /**
      * {@inheritDoc}
-     *
+     * <p/>
      * Attempts to authenticate the received credentials using the Yubico cloud validation platform.
      * In this implementation, the {@link org.jasig.cas.authentication.principal.UsernamePasswordCredentials#getUsername()}
      * is mapped to the <code>uid</code> which will be used by the plugged-in instance of the {@link YubiKeyAccountRegistry}
@@ -68,7 +76,9 @@ public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthen
      * one-time password token issued sby the YubiKey device.
      *
      * @param usernamePasswordCredentials
+     *
      * @return true if the authentication succeeds. False, otherwise.
+     *
      * @throws AuthenticationException
      */
     @Override
@@ -76,7 +86,7 @@ public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthen
         try {
             final String uid = usernamePasswordCredentials.getUsername();
             final String otp = usernamePasswordCredentials.getPassword();
-            
+
             if (YubicoClient.isValidOTPFormat(otp)) {
 
                 final String publicId = YubicoClient.getPublicId(otp);
@@ -86,26 +96,29 @@ public class YubiKeyAuthenticationHandler extends AbstractUsernamePasswordAuthen
                     log.debug("YubiKey response status {} at {}", response.getStatus(), response.getTimestamp());
                     return (response.getStatus() == YubicoResponseStatus.OK);
 
-                } else {
+                }
+                else {
                     log.debug("YubiKey public id [{}] is not registered for user [{}]", publicId, uid);
                 }
-            } else{
+            }
+            else {
                 log.debug("Invalid OTP format [{}]", otp);
             }
             return false;
-        } catch (final Exception e) {
+        }
+        catch (final Exception e) {
             throw new BadUsernameOrPasswordAuthenticationException(e);
         }
 
     }
 
     /**
-     * Example implementation of YubiKeyAccountRegistry that considers all yubikey Ids 
+     * Example implementation of YubiKeyAccountRegistry that considers all yubikey Ids
      * registered for all users.
      * THIS IS OBVIOUSLY COMPLETELY UNACCEPTABLE FOR PRODUCTION USE AND YOU MUST USE
      * A REGISTRY THAT ACTUALLY REGISTERS IN PRODUCTION.
      */
-    private static class AcceptAnyYubiKeyAccountRegistry implements YubiKeyAccountRegistry {
+    private static final class AcceptAnyYubiKeyAccountRegistry implements YubiKeyAccountRegistry {
 
         @Override
         public boolean isYubiKeyRegisteredFor(final String uid, final String yubikeyPublicId) {

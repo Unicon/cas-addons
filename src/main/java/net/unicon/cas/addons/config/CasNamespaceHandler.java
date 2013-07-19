@@ -4,6 +4,7 @@ import com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager;
 import net.unicon.cas.addons.authentication.handler.StormpathAuthenticationHandler;
 import net.unicon.cas.addons.authentication.internal.DefaultAuthenticationSupport;
 import net.unicon.cas.addons.authentication.principal.StormpathPrincipalResolver;
+import net.unicon.cas.addons.authentication.strong.yubikey.YubiKeyAuthenticationHandler;
 import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPublishingAspect;
 import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
@@ -12,6 +13,8 @@ import net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegis
 import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAuthorizationAction;
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
+import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
+import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManagerImpl;
 import org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler;
 import org.jasig.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler;
@@ -23,11 +26,15 @@ import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.ManagedList;
+import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.beans.factory.xml.*;
+import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.util.StringUtils;
+import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Element;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * {@link NamespaceHandler} for convenient CAS configuration namespace.
@@ -53,6 +60,9 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("authentication-manager-with-stormpath-handler", new AuthenticationManagerWithStormpathHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("service-authorization-action", new ServiceAuthorizationActionBeanDefinitionParser());
         registerBeanDefinitionParser("disable-default-registered-services-reloading", new ReloadableServicesManagerSuppressionAspectBeanDefinitionParser());
+        registerBeanDefinitionParser("yubikey-authentication-handler", new YubikeyAuthenticationHandlerBeanDefinitionParser());
+        registerBeanDefinitionParser("accept-users-authentication-handler", new AcceptUsersAuthenticationHandlerBeanDefinitionParser());
+        registerBeanDefinitionParser("bind-ldap-authentication-handler", new BindLdapAuthenticationHandlerBeanDefinitionParser());
     }
 
     /**
@@ -246,10 +256,15 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             ManagedList authnHandlersList = new ManagedList(2);
             authnHandlersList.addAll(Arrays.asList(httpBasedAuthnHandlerBd, simpleTestAuthnHandlerBd));
 
-            return BeanDefinitionBuilder.genericBeanDefinition(AuthenticationManagerImpl.class)
+            BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(AuthenticationManagerImpl.class)
                     .addPropertyValue("credentialsToPrincipalResolvers", principalResolversList)
-                    .addPropertyValue("authenticationHandlers", authnHandlersList)
-                    .getBeanDefinition();
+                    .addPropertyValue("authenticationHandlers", authnHandlersList);
+
+            final String metadataPopulatorsRef = element.getAttribute("metadata-populators");
+            if (StringUtils.hasText(metadataPopulatorsRef)) {
+                builder.addPropertyReference("authenticationMetaDataPopulators", metadataPopulatorsRef);
+            }
+            return builder.getBeanDefinition();
         }
 
         @Override
@@ -378,6 +393,105 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         @Override
         protected void doParse(Element element, BeanDefinitionBuilder builder) {
             builder.setFactoryMethod("aspectOf").addPropertyValue("on", true);
+        }
+    }
+
+    /**
+     * Parses <pre>yubikey-authentication-handler</pre> elements into bean definitions of type {@link net.unicon.cas.addons.authentication.strong.yubikey.YubiKeyAuthenticationHandler}
+     * with bean id of <strong>yubikeyAuthenticationHandler</strong>
+     */
+    private static class YubikeyAuthenticationHandlerBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+
+        @Override
+        protected Class<?> getBeanClass(Element element) {
+            return YubiKeyAuthenticationHandler.class;
+        }
+
+        @Override
+        protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
+            return "yubikeyAuthenticationHandler";
+        }
+
+        @Override
+        protected void doParse(Element element, BeanDefinitionBuilder builder) {
+            builder.addConstructorArgValue(element.getAttribute("client-id"))
+                    .addConstructorArgValue(element.getAttribute("secret-key"));
+
+            final String accountRegistryRef = element.getAttribute("account-registry");
+            if (StringUtils.hasText(accountRegistryRef)) {
+                builder.addConstructorArgReference(accountRegistryRef);
+            }
+        }
+    }
+
+    /**
+     * Parses <pre>accept-users-authentication-handler</pre> elements into bean definitions of type {@link org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler}
+     */
+    private static class AcceptUsersAuthenticationHandlerBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+
+        @Override
+        protected Class<?> getBeanClass(Element element) {
+            return AcceptUsersAuthenticationHandler.class;
+        }
+
+        @Override
+        protected void doParse(Element element, BeanDefinitionBuilder builder) {
+            final List<Element> userElements = DomUtils.getChildElementsByTagName(element, "user");
+            final ManagedMap<String, String> usersMap = new ManagedMap<String, String>(userElements.size());
+            for (Element e: userElements) {
+                usersMap.put(e.getAttribute("name"), e.getAttribute("password"));
+            }
+            builder.addPropertyValue("users", usersMap);
+        }
+
+        @Override
+        protected boolean shouldGenerateIdAsFallback() {
+            return true;
+        }
+    }
+
+    /**
+     * Parses <pre>bind-ldap-authentication-handler</pre> elements into bean definitions of type {@link org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler}
+     */
+    private static class BindLdapAuthenticationHandlerBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+
+        @Override
+        protected Class<?> getBeanClass(Element element) {
+            return BindLdapAuthenticationHandler.class;
+        }
+
+        @Override
+        protected void doParse(Element element, BeanDefinitionBuilder builder) {
+            //Create and configure LdapContextSource bean
+            final BeanDefinitionBuilder contextSourceBuilder = BeanDefinitionBuilder.genericBeanDefinition(LdapContextSource.class);
+            contextSourceBuilder.addPropertyValue("userDn", element.getAttribute("user-dn"));
+            contextSourceBuilder.addPropertyValue("password", element.getAttribute("password"));
+            contextSourceBuilder.addPropertyValue("urls", StringUtils.commaDelimitedListToSet(element.getAttribute("urls")));
+            contextSourceBuilder.addPropertyValue("pooled", element.getAttribute("is-pooled"));
+            final Element ldapPropsElem = DomUtils.getChildElementByTagName(element, "ldap-properties");
+            if(ldapPropsElem != null) {
+                parseLdapProps(ldapPropsElem, contextSourceBuilder);
+            }
+
+            //Configure the main bean - BindLdapAuthenticationHandler
+            builder.addPropertyValue("filter", element.getAttribute("filter"));
+            builder.addPropertyValue("searchBase", element.getAttribute("search-base"));
+            builder.addPropertyValue("ignorePartialResultException", element.getAttribute("ignore-partial-result-exception"));
+            builder.addPropertyValue("contextSource", contextSourceBuilder.getBeanDefinition());
+        }
+
+        @Override
+        protected boolean shouldGenerateIdAsFallback() {
+            return true;
+        }
+
+        private static void parseLdapProps(Element element, BeanDefinitionBuilder contextSourceBuilder) {
+            final List<Element> propElements = DomUtils.getChildElementsByTagName(element, "ldap-prop");
+            final ManagedMap<String, String> propsMap = new ManagedMap<String, String>(propElements.size());
+            for (Element e: propElements) {
+                propsMap.put(e.getAttribute("key"), e.getAttribute("value"));
+            }
+            contextSourceBuilder.addPropertyValue("baseEnvironmentProperties", propsMap);
         }
     }
 }

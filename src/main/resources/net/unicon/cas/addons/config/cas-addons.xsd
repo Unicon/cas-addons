@@ -31,7 +31,10 @@
 
     <xsd:element name="default-health-check-monitor" type="xsd:string"/>
 
-    <xsd:element name="default-test-authentication-manager" type="xsd:string"/>
+    <xsd:element name="default-test-authentication-manager" type="default-test-authentication-managerType"/>
+    <xsd:complexType name="default-test-authentication-managerType">
+        <xsd:attribute type="xsd:string" name="metadata-populators" use="optional"/>
+    </xsd:complexType>
 
     <xsd:element name="stormpath-authentication-handler" type="stormpath-authentication-handlerType"/>
     <xsd:complexType name="stormpath-authentication-handlerType">
@@ -53,6 +56,53 @@
     </xsd:complexType>
 
     <xsd:element name="disable-default-registered-services-reloading" type="xsd:string"/>
+
+    <xsd:element name="yubikey-authentication-handler" type="yubikey-authentication-handlerType"/>
+    <xsd:complexType name="yubikey-authentication-handlerType">
+        <xsd:attribute type="xsd:int" name="client-id" use="required"/>
+        <xsd:attribute type="xsd:string" name="secret-key" use="required"/>
+        <xsd:attribute type="xsd:string" name="account-registry" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:element name="user" type="userType"/>
+    <xsd:complexType name="userType">
+        <xsd:attribute type="xsd:string" name="name" use="required"/>
+        <xsd:attribute type="xsd:string" name="password" use="required"/>
+    </xsd:complexType>
+
+    <xsd:element name="accept-users-authentication-handler" type="accept-users-authentication-handlerType"/>
+    <xsd:complexType name="accept-users-authentication-handlerType">
+        <xsd:choice minOccurs="1" maxOccurs="unbounded">
+            <xsd:element ref="user"/>
+        </xsd:choice>
+        <xsd:attribute type="xsd:ID" name="id" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:element name="bind-ldap-authentication-handler" type="bind-ldap-authentication-handlerType"/>
+    <xsd:complexType name="bind-ldap-authentication-handlerType">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="ldap-properties">
+                <xsd:complexType>
+                    <xsd:choice minOccurs="1" maxOccurs="unbounded">
+                        <xsd:element name="ldap-prop">
+                            <xsd:complexType>
+                                <xsd:attribute name="key" type="xsd:string" use="required"/>
+                                <xsd:attribute name="value" type="xsd:string" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:choice>
+        <xsd:attribute name="id" type="xsd:ID" use="optional"/>
+        <xsd:attribute name="user-dn" type="xsd:string" use="required"/>
+        <xsd:attribute name="password" type="xsd:string" use="required"/>
+        <xsd:attribute name="urls" type="xsd:string" use="required"/>
+        <xsd:attribute name="filter" type="xsd:string" use="required"/>
+        <xsd:attribute name="search-base" type="xsd:string" use="required"/>
+        <xsd:attribute name="is-pooled" type="xsd:boolean" default="false"/>
+        <xsd:attribute name="ignore-partial-result-exception" type="xsd:boolean" default="true"/>
+    </xsd:complexType>
 
 </xsd:schema>
 
