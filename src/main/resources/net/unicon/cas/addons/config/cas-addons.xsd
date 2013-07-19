@@ -8,6 +8,7 @@
     <xsd:element name="json-services-registry" type="json-services-registryType"/>
     <xsd:complexType name="json-services-registryType">
         <xsd:attribute type="xsd:string" name="config-file" default="file:/etc/cas/servicesRegistry.conf"/>
+        <xsd:attribute type="xsd:boolean" name="read-write" default="false"/>
     </xsd:complexType>
 
     <xsd:element name="json-attribute-repository" type="json-attribute-repositoryType"/>

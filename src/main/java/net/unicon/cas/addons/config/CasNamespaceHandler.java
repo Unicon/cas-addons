@@ -8,6 +8,7 @@ import net.unicon.cas.addons.authentication.strong.yubikey.YubiKeyAuthentication
 import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPublishingAspect;
 import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
+import net.unicon.cas.addons.serviceregistry.ReadWriteJsonServiceRegistryDao;
 import net.unicon.cas.addons.serviceregistry.ReloadableServicesManagerSuppressionAspect;
 import net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegisteredServiceAuthorizer;
 import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAuthorizationAction;
@@ -88,7 +89,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
 
         @Override
         protected Class<?> getBeanClass(Element element) {
-            return JsonServiceRegistryDao.class;
+            return Boolean.valueOf(element.getAttribute("read-write")) ? ReadWriteJsonServiceRegistryDao.class : JsonServiceRegistryDao.class;
         }
 
         @Override
@@ -427,7 +428,8 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
     /**
      * Parses <pre>accept-users-authentication-handler</pre> elements into bean definitions of type {@link org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler}
      */
-    private static class AcceptUsersAuthenticationHandlerBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+    private static class AcceptUsersAuthenticationHandlerBeanDefinitionParser extends
+            AbstractSingleBeanDefinitionParser {
 
         @Override
         protected Class<?> getBeanClass(Element element) {
@@ -438,7 +440,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         protected void doParse(Element element, BeanDefinitionBuilder builder) {
             final List<Element> userElements = DomUtils.getChildElementsByTagName(element, "user");
             final ManagedMap<String, String> usersMap = new ManagedMap<String, String>(userElements.size());
-            for (Element e: userElements) {
+            for (Element e : userElements) {
                 usersMap.put(e.getAttribute("name"), e.getAttribute("password"));
             }
             builder.addPropertyValue("users", usersMap);
@@ -469,7 +471,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             contextSourceBuilder.addPropertyValue("urls", StringUtils.commaDelimitedListToSet(element.getAttribute("urls")));
             contextSourceBuilder.addPropertyValue("pooled", element.getAttribute("is-pooled"));
             final Element ldapPropsElem = DomUtils.getChildElementByTagName(element, "ldap-properties");
-            if(ldapPropsElem != null) {
+            if (ldapPropsElem != null) {
                 parseLdapProps(ldapPropsElem, contextSourceBuilder);
             }
 
@@ -488,7 +490,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         private static void parseLdapProps(Element element, BeanDefinitionBuilder contextSourceBuilder) {
             final List<Element> propElements = DomUtils.getChildElementsByTagName(element, "ldap-prop");
             final ManagedMap<String, String> propsMap = new ManagedMap<String, String>(propElements.size());
-            for (Element e: propElements) {
+            for (Element e : propElements) {
                 propsMap.put(e.getAttribute("key"), e.getAttribute("value"));
             }
             contextSourceBuilder.addPropertyValue("baseEnvironmentProperties", propsMap);
