@@ -50,7 +50,7 @@ class ReadWriteJsonServiceRegistryDaoTests extends Specification {
         def registeredServices = new ArrayList<RegisteredServiceWithAttributesImpl>()
         for (i in 0..2) {
             def reg = new RegisteredServiceWithAttributesImpl()
-            reg.serviceId = "http://www.serviceid" + i + ".edu"
+            reg.serviceId = "^http://www.serviceid" + i + ".edu"
             reg.id = i
             reg.name = "The name" + i
             reg.allowedAttributes = ["attr1, attr2, attr3"]

@@ -147,7 +147,7 @@ public class JsonServiceRegistryDao implements ServiceRegistryDao,
     }
 
     private RegisteredService getRegisteredServiceInstance(final String id) {
-        if (isValidRegexPattern(id)) {
+        if (id.startsWith(REGEX_PREFIX) && isValidRegexPattern(id)) {
             return new RegexRegisteredServiceWithAttributes();
         }
 
@@ -156,7 +156,6 @@ public class JsonServiceRegistryDao implements ServiceRegistryDao,
         }
         return null;
     }
-
 
     @Override
 	public final void onApplicationEvent(ResourceChangeDetectingEventNotifier.ResourceChangedEvent resourceChangedEvent) {
