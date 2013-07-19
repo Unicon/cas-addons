@@ -21,7 +21,7 @@ import java.util.Map;
  *
  * @author Misagh Moayyed
  * @author Unicon, inc.
- * @since 1.5.3
+ * @since 1.6
  */
 public final class ReadWriteJsonServiceRegistryDao extends JsonServiceRegistryDao {
 
