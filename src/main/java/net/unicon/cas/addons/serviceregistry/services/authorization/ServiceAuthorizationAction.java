@@ -60,34 +60,36 @@ public class ServiceAuthorizationAction extends AbstractAction {
         final String serviceId = service.getId();
 
         //Find this service in the service registry
-        RegisteredServiceWithAttributes registeredService = (RegisteredServiceWithAttributes) this.servicesManager.findServiceBy(service); 
+        RegisteredServiceWithAttributes registeredService = (RegisteredServiceWithAttributes) this.servicesManager.findServiceBy(service);
         if (registeredService == null) {
-          logger.warn("Unauthorized Service Access for Service: [ {} ] - service is not defined in the service registry.", serviceId);
-          throw new UnauthorizedServiceException();
-        } else if (!registeredService.isEnabled()) {
-          logger.warn("Unauthorized Service Access for Service: [ {} ] - service is not enabled in the service registry.", serviceId);
-          throw new UnauthorizedServiceException();
+            logger.warn("Unauthorized Service Access for Service: [ {} ] - service is not defined in the service registry.", serviceId);
+            throw new UnauthorizedServiceException();
+        }
+        else if (!registeredService.isEnabled()) {
+            logger.warn("Unauthorized Service Access for Service: [ {} ] - service is not enabled in the service registry.", serviceId);
+            throw new UnauthorizedServiceException();
         }
 
         //Check to see if RBAC rules have been added to this service's configuration
         Object serviceAttributes = registeredService.getExtraAttributes().get(AUTHZ_ATTRS_KEY);
-        if(serviceAttributes == null){
-          logger.info("Service [{}] is not configured for role-based authorization", registeredService.getServiceId());
-        } else {
-          if (logger.isDebugEnabled()) {
-              logger.debug(String.format("SERVICE [%s] ATTRIBUTES: %s | PRINCIPAL [%s] ATTRIBUTES: %s",
-                      registeredService.getServiceId(), serviceAttributes, principalId, principalAttributes));
-          }
-          //Now do the actual RBAC authorization comparing the principal's attributes and registered service's defined attributes
-          if (!this.authorizer.authorized(serviceAttributes, principalAttributes)) {
-              logger.info("Principal [{}] is not authorized to use service [{}]", principalId, serviceId);
-              requestContext.getRequestScope().put(AUTHZ_FAIL_REDIRECT_URL_KEY, registeredService.getExtraAttributes().get(ATTR_URL_KEY));
-              //Should be handled in the global transition handler to do the actual external redirect to a specific service's URL
-              throw new RoleBasedServiceAuthorizationException();
-          }
-          logger.info("Principal [{}] is authorized to use service [{}]", principalId, serviceId);
+        if (serviceAttributes == null) {
+            logger.info("Service [{}] is not configured for role-based authorization", registeredService.getServiceId());
         }
-        
+        else {
+            if (logger.isDebugEnabled()) {
+                logger.debug(String.format("SERVICE [%s] ATTRIBUTES: %s | PRINCIPAL [%s] ATTRIBUTES: %s",
+                        registeredService.getServiceId(), serviceAttributes, principalId, principalAttributes));
+            }
+            //Now do the actual RBAC authorization comparing the principal's attributes and registered service's defined attributes
+            if (!this.authorizer.authorized(serviceAttributes, principalAttributes)) {
+                logger.info("Principal [{}] is not authorized to use service [{}]", principalId, serviceId);
+                requestContext.getRequestScope().put(AUTHZ_FAIL_REDIRECT_URL_KEY, registeredService.getExtraAttributes().get(ATTR_URL_KEY));
+                //Should be handled in the global transition handler to do the actual external redirect to a specific service's URL
+                throw new RoleBasedServiceAuthorizationException();
+            }
+            logger.info("Principal [{}] is authorized to use service [{}]", principalId, serviceId);
+        }
+
         //Everything is fine. Continue with the main service ticket generation action state execution. null will signal to SWF to try execution of the next action in the chain
         // which should be 'GenerateServiceTicketAction'
         return null;
