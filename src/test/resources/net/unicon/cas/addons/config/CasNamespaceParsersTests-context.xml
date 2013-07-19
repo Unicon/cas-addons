@@ -64,30 +64,10 @@
         <cas:ldap-properties>
             <cas:ldap-prop key="com.sun.jndi.ldap.connect.timeout" value="3000"/>
             <cas:ldap-prop key="com.sun.jndi.ldap.read.timeout" value="3000"/>
+            <cas:ldap-prop key="java.naming.security.authentication" value="simple"/>
+            <cas:ldap-prop key="java.naming.referral" value="follow"/>
         </cas:ldap-properties>
 
     </cas:bind-ldap-authentication-handler>
-
-    <!-- <bean class="org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler"
-          p:filter="sAMAccountName=%u"
-          p:searchBase="DC=something,DC=mnscu,DC=edu"
-          p:contextSource-ref="contextSource"
-          p:ignorePartialResultException="true" />
-
-    <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
-        <property name="userDn" value="${ldap.bind.userDn}" />
-        <property name="password" value="${ldap.bind.password}" />
-        <property name="pooled" value="false" />
-        <property name="url" value="${ldap.server.url}" />
-        <property name="baseEnvironmentProperties">
-            <map>
-                <entry key="com.sun.jndi.ldap.connect.timeout" value="3000" />
-                <entry key="com.sun.jndi.ldap.read.timeout" value="3000" />
-                <entry key="java.naming.security.authentication" value="simple" />
-                <entry key="java.naming.referral" value="follow" />
-            </map>
-        </property>
-    </bean> -->
-
 
 </beans>

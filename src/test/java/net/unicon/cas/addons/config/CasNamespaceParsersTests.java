@@ -13,6 +13,7 @@ import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAutho
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
+import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManager;
 import org.jasig.cas.monitor.HealthCheckMonitor;
 import org.junit.Test;
@@ -57,6 +58,8 @@ public class CasNamespaceParsersTests {
     private static final String YUBIKEY_AUTHENTICATION_HANDLER_BEAN_NAME = "yubikeyAuthenticationHandler";
 
     private static final String ACCEPT_USERS_AUTH_HANDLER_BAEN_NAME = "acceptUsersAuthnHandler";
+
+    private static final String BIND_LDAP_AUTH_HANDLER_BAEN_NAME = "ldapAuthnHandler";
 
     @Test
     public void slf4jAuditTrailManagerBeanDefinitionCorrectlyParsed() {
@@ -127,6 +130,12 @@ public class CasNamespaceParsersTests {
     public void acceptUsersAuthenticationHandlerBeanDefinitionCorrectlyParsed() {
         assertTrue(applicationContext.containsBean(ACCEPT_USERS_AUTH_HANDLER_BAEN_NAME));
         assertTrue(applicationContext.getBeansOfType(AcceptUsersAuthenticationHandler.class).size() == 1);
+    }
+
+    @Test
+    public void bindLdapAuthenticationHandlerBeanDefinitionCorrectlyParsed() {
+        assertTrue(applicationContext.containsBean(BIND_LDAP_AUTH_HANDLER_BAEN_NAME));
+        assertTrue(applicationContext.getBeansOfType(BindLdapAuthenticationHandler.class).size() == 1);
     }
 
     /**
