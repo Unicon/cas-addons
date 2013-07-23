@@ -1,7 +1,7 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.6
-========================================
+###Changes in version 1.6 (2013-07-23)
+======================================
 
 * added custom XML schema element BeanDefinitionParser implementation for `YubiKeyAuthenticationHandler`
 * added `metadata-populators` attribute to `cas:default-test-authentication-manager` element and refactored the corresponding BeanDefinitionParser implementation
