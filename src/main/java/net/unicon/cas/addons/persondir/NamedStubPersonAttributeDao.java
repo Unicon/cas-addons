@@ -15,7 +15,7 @@ import java.util.Set;
  * Without the unique identifier that is username, the merge would fail resulting in two distinct attribute sets
  * for the same principal in the ultimate attribute map.
  * @author Misagh Moayyed
- * @since 1.6
+ * @since 1.7
  */
 public class NamedStubPersonAttributeDao extends StubPersonAttributeDao {
 
