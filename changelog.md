@@ -4,6 +4,8 @@
 ======================================
 
 * added [HostNameBasedUniqueTicketIdGenerator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/internal/HostNameBasedUniqueTicketIdGenerator.java)
+* added [NamedStubPersonAttributeDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/persondir/NamedStubPersonAttributeDao.java)
+
 
 ###Changes in version 1.6 (2013-07-23)
 ======================================
