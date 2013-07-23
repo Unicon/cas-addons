@@ -3,10 +3,10 @@
 ###Changes in version 1.6 (2013-07-23)
 ======================================
 
-* added custom XML schema element BeanDefinitionParser implementation for `YubiKeyAuthenticationHandler`
+* added custom XML schema element `BeanDefinitionParser` implementation for `YubiKeyAuthenticationHandler`
 * added `metadata-populators` attribute to `cas:default-test-authentication-manager` element and refactored the corresponding BeanDefinitionParser implementation
-* added custom XML schema element BeanDefinitionParser implementation for `AcceptUsersAuthenticationHandler`
-* added custom XML schema element BeanDefinitionParser implementation for `BindLdapAuthenticationHandler`
+* added custom XML schema element `BeanDefinitionParser` implementation for `AcceptUsersAuthenticationHandler`
+* added custom XML schema element `BeanDefinitionParser` implementation for `BindLdapAuthenticationHandler`
 * added [ReadWriteJsonServiceRegistry](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/ReadWriteJsonServiceRegistry.java)
 * added [HostNameBasedUniqueTicketIdGenerator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/internal/HostNameBasedUniqueTicketIdGenerator.java)
 * added `read-write` boolean attribute to `json-services-registry` element to indicate the type of registry being created
