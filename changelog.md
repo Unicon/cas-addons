@@ -1,5 +1,10 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.7
+======================================
+
+* added [HostNameBasedUniqueTicketIdGenerator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/internal/HostNameBasedUniqueTicketIdGenerator.java)
+
 ###Changes in version 1.6 (2013-07-23)
 ======================================
 
@@ -8,7 +13,6 @@
 * added custom XML schema element `BeanDefinitionParser` implementation for `AcceptUsersAuthenticationHandler`
 * added custom XML schema element `BeanDefinitionParser` implementation for `BindLdapAuthenticationHandler`
 * added [ReadWriteJsonServiceRegistry](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/ReadWriteJsonServiceRegistry.java)
-* added [HostNameBasedUniqueTicketIdGenerator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/internal/HostNameBasedUniqueTicketIdGenerator.java)
 * added `read-write` boolean attribute to `json-services-registry` element to indicate the type of registry being created
 
 ###Changes in version 1.5.4 (2013-06-24)

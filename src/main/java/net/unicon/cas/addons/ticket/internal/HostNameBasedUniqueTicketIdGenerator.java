@@ -27,7 +27,7 @@ import java.net.UnknownHostException;
  * the actual node name, rather than relying on the configuration, only if one isn't specified in
  * the <code>cas.properties</code> file. </p>
  * @author Misagh Moayyed (mmoayyed@unicon.net)
- * @since 1.6
+ * @since 1.7
  */
 public final class HostNameBasedUniqueTicketIdGenerator implements UniqueTicketIdGenerator {
 
