@@ -14,6 +14,7 @@ import net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegis
 import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAuthorizationAction;
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
+
 import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
 import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManagerImpl;
@@ -23,6 +24,7 @@ import org.jasig.cas.authentication.principal.HttpBasedServiceCredentialsToPrinc
 import org.jasig.cas.authentication.principal.UsernamePasswordCredentialsToPrincipalResolver;
 import org.jasig.cas.monitor.HealthCheckMonitor;
 import org.jasig.cas.monitor.MemoryMonitor;
+
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -231,46 +233,18 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
      * Parses <pre>default-test-authentication-manager</pre> elements into bean definitions of type {@link org.jasig.cas.authentication.AuthenticationManagerImpl}
      */
     @SuppressWarnings("unchecked")
-    private static class DefaultTestAuthenticationManagerBeanDefinitionParser extends AbstractBeanDefinitionParser {
+    private static class DefaultTestAuthenticationManagerBeanDefinitionParser extends AbstractDefaultAuthenticationManagerBeanDefinitionParser {
 
         @Override
-        protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
-            //CredentialsToPrincipalResolvers list construction
-            AbstractBeanDefinition usernamePasswdPrincipalResolverBd = BeanDefinitionBuilder.genericBeanDefinition(UsernamePasswordCredentialsToPrincipalResolver.class)
-                    .addPropertyReference("attributeRepository", "attributeRepository")
-                    .getBeanDefinition();
-
-            AbstractBeanDefinition httpBasedPrincipalResolverBd = BeanDefinitionBuilder.genericBeanDefinition(HttpBasedServiceCredentialsToPrincipalResolver.class)
-                    .getBeanDefinition();
-
-            ManagedList principalResolversList = new ManagedList(2);
-            principalResolversList.addAll(Arrays.asList(usernamePasswdPrincipalResolverBd, httpBasedPrincipalResolverBd));
-
-            //AuthenticationHandlers list construction
-            AbstractBeanDefinition httpBasedAuthnHandlerBd = BeanDefinitionBuilder.genericBeanDefinition(HttpBasedServiceCredentialsAuthenticationHandler.class)
-                    .addPropertyReference("httpClient", "httpClient")
-                    .getBeanDefinition();
-
-            AbstractBeanDefinition simpleTestAuthnHandlerBd = BeanDefinitionBuilder.genericBeanDefinition(SimpleTestUsernamePasswordAuthenticationHandler.class)
-                    .getBeanDefinition();
-
-            ManagedList authnHandlersList = new ManagedList(2);
-            authnHandlersList.addAll(Arrays.asList(httpBasedAuthnHandlerBd, simpleTestAuthnHandlerBd));
-
-            BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(AuthenticationManagerImpl.class)
-                    .addPropertyValue("credentialsToPrincipalResolvers", principalResolversList)
-                    .addPropertyValue("authenticationHandlers", authnHandlersList);
+        protected AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, BeanDefinitionBuilder builder, ManagedList authenticationHandlersList) {
+            authenticationHandlersList.add(BeanDefinitionBuilder.genericBeanDefinition(SimpleTestUsernamePasswordAuthenticationHandler.class)
+                    .getBeanDefinition());
 
             final String metadataPopulatorsRef = element.getAttribute("metadata-populators");
             if (StringUtils.hasText(metadataPopulatorsRef)) {
                 builder.addPropertyReference("authenticationMetaDataPopulators", metadataPopulatorsRef);
             }
             return builder.getBeanDefinition();
-        }
-
-        @Override
-        protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
-            return "authenticationManager";
         }
     }
 
@@ -495,5 +469,50 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             }
             contextSourceBuilder.addPropertyValue("baseEnvironmentProperties", propsMap);
         }
+    }
+
+    protected static abstract class AbstractDefaultAuthenticationManagerBeanDefinitionParser extends AbstractBeanDefinitionParser {
+
+        @Override
+        @SuppressWarnings("unchecked")
+        protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
+            final AbstractBeanDefinition httpBasedPrincipalResolverBd = BeanDefinitionBuilder.genericBeanDefinition(HttpBasedServiceCredentialsToPrincipalResolver.class)
+                    .getBeanDefinition();
+
+            final AbstractBeanDefinition httpBasedAuthnHandlerBd = BeanDefinitionBuilder.genericBeanDefinition(HttpBasedServiceCredentialsAuthenticationHandler.class)
+                    .addPropertyReference("httpClient", "httpClient")
+                    .getBeanDefinition();
+
+            final ManagedList principalResolversList = new ManagedList();
+            principalResolversList.add(httpBasedPrincipalResolverBd);
+            AbstractBeanDefinition principalResolverBd = getCustomPrincipalResolver();
+            if(principalResolverBd == null) {
+                principalResolverBd = BeanDefinitionBuilder.genericBeanDefinition(UsernamePasswordCredentialsToPrincipalResolver.class)
+                        .addPropertyReference("attributeRepository", "attributeRepository")
+                        .getBeanDefinition();
+            }
+            principalResolversList.add(principalResolverBd);
+
+            final ManagedList authnHandlersList = new ManagedList();
+            authnHandlersList.addAll(Arrays.asList(httpBasedAuthnHandlerBd));
+
+            BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(AuthenticationManagerImpl.class)
+                    .addPropertyValue("credentialsToPrincipalResolvers", principalResolversList)
+                    .addPropertyValue("authenticationHandlers", authnHandlersList);
+
+            return createAuthenticatonManagerBeanDefinition(element, builder, authnHandlersList);
+        }
+
+        @Override
+        protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
+            return "authenticationManager";
+        }
+
+        protected AbstractBeanDefinition getCustomPrincipalResolver() {
+            return null;
+        }
+
+        protected abstract AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, BeanDefinitionBuilder authenticationManagerBuilder,
+                                                                                           ManagedList authenticationHandlersList);
     }
 }
