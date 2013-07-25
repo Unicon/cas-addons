@@ -66,6 +66,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("yubikey-authentication-handler", new YubikeyAuthenticationHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("accept-users-authentication-handler", new AcceptUsersAuthenticationHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("bind-ldap-authentication-handler", new BindLdapAuthenticationHandlerBeanDefinitionParser());
+        registerBeanDefinitionParser("authentication-manager-with-accept-users-handler", new AuthenticationManagerWithAcceptUsersHandlerBeanDefinitionParser());
     }
 
     /**
@@ -412,12 +413,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
 
         @Override
         protected void doParse(Element element, BeanDefinitionBuilder builder) {
-            final List<Element> userElements = DomUtils.getChildElementsByTagName(element, "user");
-            final ManagedMap<String, String> usersMap = new ManagedMap<String, String>(userElements.size());
-            for (Element e : userElements) {
-                usersMap.put(e.getAttribute("name"), e.getAttribute("password"));
-            }
-            builder.addPropertyValue("users", usersMap);
+            builder.addPropertyValue("users", buildUsersMap(element));
         }
 
         @Override
@@ -425,6 +421,22 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             return true;
         }
     }
+
+    /**
+     * Parses <pre>authentication-manager-with-accept-users-handler</pre> elements into bean definitions of type {@link org.jasig.cas.authentication.AuthenticationManagerImpl}
+     */
+    private static class AuthenticationManagerWithAcceptUsersHandlerBeanDefinitionParser extends AbstractDefaultAuthenticationManagerBeanDefinitionParser {
+
+        @Override
+        @SuppressWarnings("unchecked")
+        protected AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, BeanDefinitionBuilder authenticationManagerBuilder, ManagedList authenticationHandlersList) {
+            BeanDefinitionBuilder authnHandlerBuilder = BeanDefinitionBuilder.genericBeanDefinition(AcceptUsersAuthenticationHandler.class);
+            authnHandlerBuilder.addPropertyValue("users", buildUsersMap(element));
+            authenticationHandlersList.add(authnHandlerBuilder.getBeanDefinition());
+            return authenticationManagerBuilder.getBeanDefinition();
+        }
+    }
+
 
     /**
      * Parses <pre>bind-ldap-authentication-handler</pre> elements into bean definitions of type {@link org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler}
@@ -514,5 +526,14 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
 
         protected abstract AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, BeanDefinitionBuilder authenticationManagerBuilder,
                                                                                            ManagedList authenticationHandlersList);
+    }
+
+    private static ManagedMap<String, String> buildUsersMap(Element element) {
+        final List<Element> userElements = DomUtils.getChildElementsByTagName(element, "user");
+        final ManagedMap<String, String> usersMap = new ManagedMap<String, String>(userElements.size());
+        for (Element e : userElements) {
+            usersMap.put(e.getAttribute("name"), e.getAttribute("password"));
+        }
+        return usersMap;
     }
 }

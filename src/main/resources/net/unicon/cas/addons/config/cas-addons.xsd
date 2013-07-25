@@ -79,6 +79,13 @@
         <xsd:attribute type="xsd:ID" name="id" use="optional"/>
     </xsd:complexType>
 
+    <xsd:element name="authentication-manager-with-accept-users-handler" type="authentication-manager-with-accept-users-handlerType"/>
+    <xsd:complexType name="authentication-manager-with-accept-users-handlerType">
+        <xsd:choice minOccurs="1" maxOccurs="unbounded">
+            <xsd:element ref="user"/>
+        </xsd:choice>
+    </xsd:complexType>
+
     <xsd:element name="bind-ldap-authentication-handler" type="bind-ldap-authentication-handlerType"/>
     <xsd:complexType name="bind-ldap-authentication-handlerType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
