@@ -67,6 +67,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("accept-users-authentication-handler", new AcceptUsersAuthenticationHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("bind-ldap-authentication-handler", new BindLdapAuthenticationHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("authentication-manager-with-accept-users-handler", new AuthenticationManagerWithAcceptUsersHandlerBeanDefinitionParser());
+        registerBeanDefinitionParser("authentication-manager-with-bind-ldap-handler", new AuthenticationManagerWithBindLdapHandlerBeanDefinitionParser());
     }
 
     /**
@@ -234,7 +235,8 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
      * Parses <pre>default-test-authentication-manager</pre> elements into bean definitions of type {@link org.jasig.cas.authentication.AuthenticationManagerImpl}
      */
     @SuppressWarnings("unchecked")
-    private static class DefaultTestAuthenticationManagerBeanDefinitionParser extends AbstractDefaultAuthenticationManagerBeanDefinitionParser {
+    private static class DefaultTestAuthenticationManagerBeanDefinitionParser extends
+            AbstractDefaultAuthenticationManagerBeanDefinitionParser {
 
         @Override
         protected AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, BeanDefinitionBuilder builder, ManagedList authenticationHandlersList) {
@@ -425,7 +427,8 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
     /**
      * Parses <pre>authentication-manager-with-accept-users-handler</pre> elements into bean definitions of type {@link org.jasig.cas.authentication.AuthenticationManagerImpl}
      */
-    private static class AuthenticationManagerWithAcceptUsersHandlerBeanDefinitionParser extends AbstractDefaultAuthenticationManagerBeanDefinitionParser {
+    private static class AuthenticationManagerWithAcceptUsersHandlerBeanDefinitionParser extends
+            AbstractDefaultAuthenticationManagerBeanDefinitionParser {
 
         @Override
         @SuppressWarnings("unchecked")
@@ -450,40 +453,36 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
 
         @Override
         protected void doParse(Element element, BeanDefinitionBuilder builder) {
-            //Create and configure LdapContextSource bean
+            //Configure LdapContextSource and main BindLdapAuthenticationHandler beans
             final BeanDefinitionBuilder contextSourceBuilder = BeanDefinitionBuilder.genericBeanDefinition(LdapContextSource.class);
-            contextSourceBuilder.addPropertyValue("userDn", element.getAttribute("user-dn"));
-            contextSourceBuilder.addPropertyValue("password", element.getAttribute("password"));
-            contextSourceBuilder.addPropertyValue("urls", StringUtils.commaDelimitedListToSet(element.getAttribute("urls")));
-            contextSourceBuilder.addPropertyValue("pooled", element.getAttribute("is-pooled"));
-            final Element ldapPropsElem = DomUtils.getChildElementByTagName(element, "ldap-properties");
-            if (ldapPropsElem != null) {
-                parseLdapProps(ldapPropsElem, contextSourceBuilder);
-            }
-
-            //Configure the main bean - BindLdapAuthenticationHandler
-            builder.addPropertyValue("filter", element.getAttribute("filter"));
-            builder.addPropertyValue("searchBase", element.getAttribute("search-base"));
-            builder.addPropertyValue("ignorePartialResultException", element.getAttribute("ignore-partial-result-exception"));
-            builder.addPropertyValue("contextSource", contextSourceBuilder.getBeanDefinition());
+            parseBindLdapAuthenticationHandlerBeanDefinition(element, contextSourceBuilder, builder);
         }
 
         @Override
         protected boolean shouldGenerateIdAsFallback() {
             return true;
         }
+    }
 
-        private static void parseLdapProps(Element element, BeanDefinitionBuilder contextSourceBuilder) {
-            final List<Element> propElements = DomUtils.getChildElementsByTagName(element, "ldap-prop");
-            final ManagedMap<String, String> propsMap = new ManagedMap<String, String>(propElements.size());
-            for (Element e : propElements) {
-                propsMap.put(e.getAttribute("key"), e.getAttribute("value"));
-            }
-            contextSourceBuilder.addPropertyValue("baseEnvironmentProperties", propsMap);
+    /**
+     * Parses <pre>authentication-manager-with-bind-ldap-handler</pre> elements into bean definitions of type {@link org.jasig.cas.authentication.AuthenticationManagerImpl}
+     */
+    private static class AuthenticationManagerWithBindLdapHandlerBeanDefinitionParser extends
+            AbstractDefaultAuthenticationManagerBeanDefinitionParser {
+
+        @Override
+        @SuppressWarnings("unchecked")
+        protected AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, BeanDefinitionBuilder authenticationManagerBuilder, ManagedList authenticationHandlersList) {
+            BeanDefinitionBuilder contextSourceBuilder = BeanDefinitionBuilder.genericBeanDefinition(LdapContextSource.class);
+            BeanDefinitionBuilder bindLdapAuthnHandlerBuilder = BeanDefinitionBuilder.genericBeanDefinition(BindLdapAuthenticationHandler.class);
+            parseBindLdapAuthenticationHandlerBeanDefinition(element, contextSourceBuilder, bindLdapAuthnHandlerBuilder);
+            authenticationHandlersList.add(bindLdapAuthnHandlerBuilder.getBeanDefinition());
+            return authenticationManagerBuilder.getBeanDefinition();
         }
     }
 
-    protected static abstract class AbstractDefaultAuthenticationManagerBeanDefinitionParser extends AbstractBeanDefinitionParser {
+    protected static abstract class AbstractDefaultAuthenticationManagerBeanDefinitionParser extends
+            AbstractBeanDefinitionParser {
 
         @Override
         @SuppressWarnings("unchecked")
@@ -498,7 +497,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             final ManagedList principalResolversList = new ManagedList();
             principalResolversList.add(httpBasedPrincipalResolverBd);
             AbstractBeanDefinition principalResolverBd = getCustomPrincipalResolver();
-            if(principalResolverBd == null) {
+            if (principalResolverBd == null) {
                 principalResolverBd = BeanDefinitionBuilder.genericBeanDefinition(UsernamePasswordCredentialsToPrincipalResolver.class)
                         .addPropertyReference("attributeRepository", "attributeRepository")
                         .getBeanDefinition();
@@ -535,5 +534,27 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             usersMap.put(e.getAttribute("name"), e.getAttribute("password"));
         }
         return usersMap;
+    }
+
+    private static void parseBindLdapAuthenticationHandlerBeanDefinition(Element element, BeanDefinitionBuilder contextSourceBuilder, BeanDefinitionBuilder bindLdapAuthnHandlerBuilder) {
+        contextSourceBuilder.addPropertyValue("userDn", element.getAttribute("user-dn"));
+        contextSourceBuilder.addPropertyValue("password", element.getAttribute("password"));
+        contextSourceBuilder.addPropertyValue("urls", StringUtils.commaDelimitedListToSet(element.getAttribute("urls")));
+        contextSourceBuilder.addPropertyValue("pooled", element.getAttribute("is-pooled"));
+
+        final Element ldapPropsElem = DomUtils.getChildElementByTagName(element, "ldap-properties");
+        if (ldapPropsElem != null) {
+            final List<Element> propElements = DomUtils.getChildElementsByTagName(element, "ldap-prop");
+            final ManagedMap<String, String> propsMap = new ManagedMap<String, String>(propElements.size());
+            for (Element e : propElements) {
+                propsMap.put(e.getAttribute("key"), e.getAttribute("value"));
+            }
+            contextSourceBuilder.addPropertyValue("baseEnvironmentProperties", propsMap);
+        }
+
+        bindLdapAuthnHandlerBuilder.addPropertyValue("filter", element.getAttribute("filter"));
+        bindLdapAuthnHandlerBuilder.addPropertyValue("searchBase", element.getAttribute("search-base"));
+        bindLdapAuthnHandlerBuilder.addPropertyValue("ignorePartialResultException", element.getAttribute("ignore-partial-result-exception"));
+        bindLdapAuthnHandlerBuilder.addPropertyValue("contextSource", contextSourceBuilder.getBeanDefinition());
     }
 }

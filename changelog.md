@@ -7,6 +7,7 @@
 * added [NamedStubPersonAttributeDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/persondir/NamedStubPersonAttributeDao.java)
 * refactored `CasNamespaceHandler#DefaultTestAuthenticationManagerBeanDefinitionParser` to extend reusable abstract for creation of default `AuthenticationManagerImpl` and its default components
 * added `CasNamespaceHandler#AuthenticationManagerWithAcceptUsersHandlerBeanDefinitionParser`
+* added `CasNamespaceHandler#AuthenticationManagerWithBindLdapHandlerBeanDefinitionParser`
 
 ###Changes in version 1.6 (2013-07-23)
 ======================================
