@@ -8,6 +8,7 @@
 * refactored `CasNamespaceHandler#DefaultTestAuthenticationManagerBeanDefinitionParser` to extend reusable abstract class for creation of default `AuthenticationManagerImpl` and its default components
 * added `CasNamespaceHandler#AuthenticationManagerWithAcceptUsersHandlerBeanDefinitionParser`
 * added `CasNamespaceHandler#AuthenticationManagerWithBindLdapHandlerBeanDefinitionParser`
+* refactored `CasNamespaceHandler#AuthenticationManagerWithStormpathHandlerBeanDefinitionParser` to extend AbstractDefaultAuthenticationManagerBeanDefinitionParser for reuse
 
 ###Changes in version 1.6 (2013-07-23)
 ======================================

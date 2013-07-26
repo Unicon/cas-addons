@@ -26,6 +26,7 @@ import org.jasig.cas.monitor.HealthCheckMonitor;
 import org.jasig.cas.monitor.MemoryMonitor;
 
 import org.springframework.beans.factory.BeanDefinitionStoreException;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.ManagedList;
@@ -239,7 +240,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             AbstractDefaultAuthenticationManagerBeanDefinitionParser {
 
         @Override
-        protected AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, BeanDefinitionBuilder builder, ManagedList authenticationHandlersList) {
+        protected AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, ParserContext parserContext, BeanDefinitionBuilder builder, ManagedList authenticationHandlersList) {
             authenticationHandlersList.add(BeanDefinitionBuilder.genericBeanDefinition(SimpleTestUsernamePasswordAuthenticationHandler.class)
                     .getBeanDefinition());
 
@@ -278,49 +279,30 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
     /**
      * Parses <pre>authentication-manager-with-stormpath-handler</pre> elements into bean definitions of type {@link org.jasig.cas.authentication.AuthenticationManagerImpl}
      */
-    @SuppressWarnings("unchecked")
-    private static class AuthenticationManagerWithStormpathHandlerBeanDefinitionParser extends
-            AbstractBeanDefinitionParser {
+    private static class AuthenticationManagerWithStormpathHandlerBeanDefinitionParser extends AbstractDefaultAuthenticationManagerBeanDefinitionParser {
 
         @Override
-        protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
-            //Create authentication handlers
+        @SuppressWarnings("unchecked")
+        protected AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, ParserContext parserContext, BeanDefinitionBuilder authenticationManagerBuilder, ManagedList authenticationHandlersList) {
+            BeanDefinition authnHandler = parserContext.getRegistry().getBeanDefinition("stormpathAuthenticationHandler");
+            authenticationHandlersList.add(authnHandler);
+            return authenticationManagerBuilder.getBeanDefinition();
+        }
+
+        @Override
+        protected AbstractBeanDefinition getCustomPrincipalResolver(Element element, ParserContext parserContext) {
             AbstractBeanDefinition stormpathAuthnHandlerBd = BeanDefinitionBuilder.genericBeanDefinition(StormpathAuthenticationHandler.class)
                     .addConstructorArgValue(element.getAttribute("access-id"))
                     .addConstructorArgValue(element.getAttribute("secret-key"))
                     .addConstructorArgValue(element.getAttribute("application-id"))
                     .getBeanDefinition();
 
-            AbstractBeanDefinition httpBasedAuthnHandlerBd = BeanDefinitionBuilder.genericBeanDefinition(HttpBasedServiceCredentialsAuthenticationHandler.class)
-                    .addPropertyReference("httpClient", "httpClient")
-                    .getBeanDefinition();
-
-            //Create principal resolvers
             AbstractBeanDefinition stormpathPrincipalResolverBd = BeanDefinitionBuilder.genericBeanDefinition(StormpathPrincipalResolver.class)
                     .addConstructorArgValue(stormpathAuthnHandlerBd)
                     .getBeanDefinition();
 
-            AbstractBeanDefinition httpBasedPrincipalResolverBd = BeanDefinitionBuilder.genericBeanDefinition(HttpBasedServiceCredentialsToPrincipalResolver.class)
-                    .getBeanDefinition();
-
-            //CredentialsToPrincipalResolvers list construction
-            ManagedList principalResolversList = new ManagedList(2);
-            principalResolversList.addAll(Arrays.asList(stormpathPrincipalResolverBd, httpBasedPrincipalResolverBd));
-
-            //AuthenticationHandlers list construction
-            ManagedList authnHandlersList = new ManagedList(2);
-            authnHandlersList.addAll(Arrays.asList(httpBasedAuthnHandlerBd, stormpathAuthnHandlerBd));
-
-            //Main authenticationManager bean
-            return BeanDefinitionBuilder.genericBeanDefinition(AuthenticationManagerImpl.class)
-                    .addPropertyValue("credentialsToPrincipalResolvers", principalResolversList)
-                    .addPropertyValue("authenticationHandlers", authnHandlersList)
-                    .getBeanDefinition();
-        }
-
-        @Override
-        protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
-            return "authenticationManager";
+            parserContext.getRegistry().registerBeanDefinition("stormpathAuthenticationHandler", stormpathAuthnHandlerBd);
+            return stormpathPrincipalResolverBd;
         }
     }
 
@@ -432,7 +414,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
 
         @Override
         @SuppressWarnings("unchecked")
-        protected AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, BeanDefinitionBuilder authenticationManagerBuilder, ManagedList authenticationHandlersList) {
+        protected AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, ParserContext parserContext, BeanDefinitionBuilder authenticationManagerBuilder, ManagedList authenticationHandlersList) {
             BeanDefinitionBuilder authnHandlerBuilder = BeanDefinitionBuilder.genericBeanDefinition(AcceptUsersAuthenticationHandler.class);
             authnHandlerBuilder.addPropertyValue("users", buildUsersMap(element));
             authenticationHandlersList.add(authnHandlerBuilder.getBeanDefinition());
@@ -472,7 +454,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
 
         @Override
         @SuppressWarnings("unchecked")
-        protected AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, BeanDefinitionBuilder authenticationManagerBuilder, ManagedList authenticationHandlersList) {
+        protected AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, ParserContext parserContext, BeanDefinitionBuilder authenticationManagerBuilder, ManagedList authenticationHandlersList) {
             BeanDefinitionBuilder contextSourceBuilder = BeanDefinitionBuilder.genericBeanDefinition(LdapContextSource.class);
             BeanDefinitionBuilder bindLdapAuthnHandlerBuilder = BeanDefinitionBuilder.genericBeanDefinition(BindLdapAuthenticationHandler.class);
             parseBindLdapAuthenticationHandlerBeanDefinition(element, contextSourceBuilder, bindLdapAuthnHandlerBuilder);
@@ -496,7 +478,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
 
             final ManagedList principalResolversList = new ManagedList();
             principalResolversList.add(httpBasedPrincipalResolverBd);
-            AbstractBeanDefinition principalResolverBd = getCustomPrincipalResolver();
+            AbstractBeanDefinition principalResolverBd = getCustomPrincipalResolver(element, parserContext);
             if (principalResolverBd == null) {
                 principalResolverBd = BeanDefinitionBuilder.genericBeanDefinition(UsernamePasswordCredentialsToPrincipalResolver.class)
                         .addPropertyReference("attributeRepository", "attributeRepository")
@@ -511,7 +493,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
                     .addPropertyValue("credentialsToPrincipalResolvers", principalResolversList)
                     .addPropertyValue("authenticationHandlers", authnHandlersList);
 
-            return createAuthenticatonManagerBeanDefinition(element, builder, authnHandlersList);
+            return createAuthenticatonManagerBeanDefinition(element, parserContext, builder, authnHandlersList);
         }
 
         @Override
@@ -519,11 +501,11 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             return "authenticationManager";
         }
 
-        protected AbstractBeanDefinition getCustomPrincipalResolver() {
+        protected AbstractBeanDefinition getCustomPrincipalResolver(Element element, ParserContext parserContext) {
             return null;
         }
 
-        protected abstract AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, BeanDefinitionBuilder authenticationManagerBuilder,
+        protected abstract AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, ParserContext parserContext, BeanDefinitionBuilder authenticationManagerBuilder,
                                                                                            ManagedList authenticationHandlersList);
     }
 
