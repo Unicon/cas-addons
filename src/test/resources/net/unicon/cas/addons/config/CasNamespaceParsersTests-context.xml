@@ -2,10 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:cas="http://unicon.net/schema/cas" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://unicon.net/schema/cas http://unicon.net/schema/cas/cas-addons.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+                           http://unicon.net/schema/cas http://unicon.net/schema/cas/cas-addons.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+
+    <context:property-placeholder location="classpath:/net/unicon/cas/addons/config/cas.properties"/>
 
     <bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry"/>
 
@@ -19,9 +22,13 @@
 
     <cas:inspektr-log-files-audit-manager/>
 
-    <cas:json-services-registry config-file="classpath:/net/unicon/cas/addons/config/servicesRegistry.conf"/>
+    <cas:json-services-registry/>
 
-    <cas:json-attribute-repository config-file="classpath:/net/unicon/cas/addons/config/person-attributes.conf"/>
+    <cas:json-attribute-repository/>
+
+    <!-- <cas:json-services-registry config-file="classpath:/net/unicon/cas/addons/config/servicesRegistry.conf"/> -->
+
+    <!-- <cas:json-attribute-repository config-file="classpath:/net/unicon/cas/addons/config/person-attributes.conf"/> -->
 
     <cas:resource-change-detector id="testChangeDetector"
                                   watched-resource="classpath:/net/unicon/cas/addons/config/servicesRegistry.conf"/>

@@ -7,13 +7,13 @@
 
     <xsd:element name="json-services-registry" type="json-services-registryType"/>
     <xsd:complexType name="json-services-registryType">
-        <xsd:attribute type="xsd:string" name="config-file" default="file:/etc/cas/servicesRegistry.conf"/>
+        <xsd:attribute type="xsd:string" name="config-file" default="${service.registry.config.location:file:/etc/cas/servicesRegistry.conf}"/>
         <xsd:attribute type="xsd:boolean" name="read-write" default="false"/>
     </xsd:complexType>
 
     <xsd:element name="json-attribute-repository" type="json-attribute-repositoryType"/>
     <xsd:complexType name="json-attribute-repositoryType">
-        <xsd:attribute type="xsd:string" name="config-file" default="file:/etc/cas/person-attributes.conf"/>
+        <xsd:attribute type="xsd:string" name="config-file" default="${attribute.repository.config.location:file:/etc/cas/person-attributes.conf}"/>
     </xsd:complexType>
 
     <xsd:element name="resource-change-detector" type="resource-change-detectorType"/>
