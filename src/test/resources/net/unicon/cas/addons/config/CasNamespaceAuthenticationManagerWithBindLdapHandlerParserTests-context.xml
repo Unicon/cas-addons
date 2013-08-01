@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cas="http://unicon.net/schema/cas"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://unicon.net/schema/cas http://unicon.net/schema/cas/cas-addons.xsd">
+
+
+    <cas:json-attribute-repository config-file="classpath:/net/unicon/cas/addons/config/person-attributes.conf"/>
+
+    <bean id="httpClient" class="org.jasig.cas.util.HttpClient"/>
+
+    <cas:authentication-manager-with-bind-ldap-handler
+                                          user-dn="user"
+                                          password="pass"
+                                          urls="ldaps://ldap1, ldaps://ldap2"
+                                          filter="sAMAccountName=%u"
+                                          search-base="OU=users"
+                                          is-pooled="false"
+                                          ignore-partial-result-exception="true">
+
+        <cas:ldap-properties>
+            <cas:ldap-prop key="com.sun.jndi.ldap.connect.timeout" value="3000"/>
+            <cas:ldap-prop key="com.sun.jndi.ldap.read.timeout" value="3000"/>
+            <cas:ldap-prop key="java.naming.security.authentication" value="simple"/>
+            <cas:ldap-prop key="java.naming.referral" value="follow"/>
+        </cas:ldap-properties>
+
+    </cas:authentication-manager-with-bind-ldap-handler>
+
+</beans>

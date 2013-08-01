@@ -16,7 +16,7 @@ import java.util.Map;
  * An extension of the JsonServiceRegistryDao that is able to support both read/write operations when
  * saving or deleting registered services.
  * <p/>
- * Note: This implementation is NOT transactional nor is it thread-=safe. No such implementation can be possible on top
+ * Note: This implementation is NOT transactional nor is it thread-safe. No such implementation can be possible on top
  * of an ordinary file system.
  *
  * @author Misagh Moayyed

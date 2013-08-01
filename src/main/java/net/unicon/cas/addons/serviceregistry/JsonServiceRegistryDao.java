@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.unicon.cas.addons.support.GuardedBy;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 import net.unicon.cas.addons.support.ThreadSafe;
-import org.apache.shiro.util.AntPathMatcher;
 import org.jasig.cas.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 
 import java.util.ArrayList;
 import java.util.Iterator;

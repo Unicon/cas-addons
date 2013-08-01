@@ -7,13 +7,13 @@
 
     <xsd:element name="json-services-registry" type="json-services-registryType"/>
     <xsd:complexType name="json-services-registryType">
-        <xsd:attribute type="xsd:string" name="config-file" default="file:/etc/cas/servicesRegistry.conf"/>
+        <xsd:attribute type="xsd:string" name="config-file" default="${service.registry.config.location:file:/etc/cas/servicesRegistry.conf}"/>
         <xsd:attribute type="xsd:boolean" name="read-write" default="false"/>
     </xsd:complexType>
 
     <xsd:element name="json-attribute-repository" type="json-attribute-repositoryType"/>
     <xsd:complexType name="json-attribute-repositoryType">
-        <xsd:attribute type="xsd:string" name="config-file" default="file:/etc/cas/person-attributes.conf"/>
+        <xsd:attribute type="xsd:string" name="config-file" default="${attribute.repository.config.location:file:/etc/cas/person-attributes.conf}"/>
     </xsd:complexType>
 
     <xsd:element name="resource-change-detector" type="resource-change-detectorType"/>
@@ -79,6 +79,13 @@
         <xsd:attribute type="xsd:ID" name="id" use="optional"/>
     </xsd:complexType>
 
+    <xsd:element name="authentication-manager-with-accept-users-handler" type="authentication-manager-with-accept-users-handlerType"/>
+    <xsd:complexType name="authentication-manager-with-accept-users-handlerType">
+        <xsd:choice minOccurs="1" maxOccurs="unbounded">
+            <xsd:element ref="user"/>
+        </xsd:choice>
+    </xsd:complexType>
+
     <xsd:element name="bind-ldap-authentication-handler" type="bind-ldap-authentication-handlerType"/>
     <xsd:complexType name="bind-ldap-authentication-handlerType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
@@ -96,6 +103,31 @@
             </xsd:element>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:ID" use="optional"/>
+        <xsd:attribute name="user-dn" type="xsd:string" use="required"/>
+        <xsd:attribute name="password" type="xsd:string" use="required"/>
+        <xsd:attribute name="urls" type="xsd:string" use="required"/>
+        <xsd:attribute name="filter" type="xsd:string" use="required"/>
+        <xsd:attribute name="search-base" type="xsd:string" use="required"/>
+        <xsd:attribute name="is-pooled" type="xsd:boolean" default="false"/>
+        <xsd:attribute name="ignore-partial-result-exception" type="xsd:boolean" default="true"/>
+    </xsd:complexType>
+
+    <xsd:element name="authentication-manager-with-bind-ldap-handler" type="authentication-manager-with-bind-ldap-handlerType"/>
+    <xsd:complexType name="authentication-manager-with-bind-ldap-handlerType">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="ldap-properties">
+                <xsd:complexType>
+                    <xsd:choice minOccurs="1" maxOccurs="unbounded">
+                        <xsd:element name="ldap-prop">
+                            <xsd:complexType>
+                                <xsd:attribute name="key" type="xsd:string" use="required"/>
+                                <xsd:attribute name="value" type="xsd:string" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:choice>
         <xsd:attribute name="user-dn" type="xsd:string" use="required"/>
         <xsd:attribute name="password" type="xsd:string" use="required"/>
         <xsd:attribute name="urls" type="xsd:string" use="required"/>

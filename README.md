@@ -105,6 +105,14 @@ To have a more finer-grained control of transitive dependencies brought into ove
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
         </exclusion>
+        <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+        </exclusion>
     </exclusions>
 </dependency>
 ```

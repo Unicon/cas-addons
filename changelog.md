@@ -4,6 +4,13 @@
 ======================================
 
 * added [HostNameBasedUniqueTicketIdGenerator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/internal/HostNameBasedUniqueTicketIdGenerator.java)
+* added [NamedStubPersonAttributeDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/persondir/NamedStubPersonAttributeDao.java)
+* refactored `CasNamespaceHandler#DefaultTestAuthenticationManagerBeanDefinitionParser` to extend reusable abstract class for creation of default `AuthenticationManagerImpl` and its default components
+* added `CasNamespaceHandler#AuthenticationManagerWithAcceptUsersHandlerBeanDefinitionParser`
+* added `CasNamespaceHandler#AuthenticationManagerWithBindLdapHandlerBeanDefinitionParser`
+* refactored `CasNamespaceHandler#AuthenticationManagerWithStormpathHandlerBeanDefinitionParser` to extend AbstractDefaultAuthenticationManagerBeanDefinitionParser for reuse
+* refactored default value for `config-file` attribute of `json-services-registry` element to `${service.registry.config.location:file:/etc/cas/servicesRegistry.conf}`
+* refactored default value for `config-file` attribute of `json-attribute-repository` element to `${attribute.repository.config.location:file:/etc/cas/person-attributes.conf}`
 
 ###Changes in version 1.6 (2013-07-23)
 ======================================
@@ -12,7 +19,7 @@
 * added `metadata-populators` attribute to `cas:default-test-authentication-manager` element and refactored the corresponding BeanDefinitionParser implementation
 * added custom XML schema element `BeanDefinitionParser` implementation for `AcceptUsersAuthenticationHandler`
 * added custom XML schema element `BeanDefinitionParser` implementation for `BindLdapAuthenticationHandler`
-* added [ReadWriteJsonServiceRegistry](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/ReadWriteJsonServiceRegistry.java)
+* added [ReadWriteJsonServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/ReadWriteJsonServiceRegistryDao.java)
 * added `read-write` boolean attribute to `json-services-registry` element to indicate the type of registry being created
 
 ###Changes in version 1.5.4 (2013-06-24)
