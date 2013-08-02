@@ -23,3 +23,4 @@ net.unicon.cas.addons.ticket
 net.unicon.cas.addons.ticket.internal
 net.unicon.cas.addons.web.flow
 net.unicon.cas.addons.web.support
+net.unicon.cas.addons.web.support.view.saml
