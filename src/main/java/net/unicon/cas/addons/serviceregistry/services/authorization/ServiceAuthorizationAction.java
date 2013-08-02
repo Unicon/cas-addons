@@ -5,6 +5,7 @@ import net.unicon.cas.addons.authentication.internal.DefaultAuthenticationSuppor
 import net.unicon.cas.addons.serviceregistry.RegisteredServiceWithAttributes;
 import org.jasig.cas.authentication.principal.Principal;
 import org.jasig.cas.authentication.principal.Service;
+import org.jasig.cas.services.RegisteredService;
 import org.jasig.cas.services.ServicesManager;
 import org.jasig.cas.ticket.registry.TicketRegistry;
 import org.jasig.cas.web.support.WebUtils;
@@ -40,14 +41,14 @@ public class ServiceAuthorizationAction extends AbstractAction {
 
     private static final Logger logger = LoggerFactory.getLogger(ServiceAuthorizationAction.class);
 
-    public ServiceAuthorizationAction(ServicesManager servicesManager, TicketRegistry ticketRegistry, RegisteredServiceAuthorizer registeredServiceAuthorizer) {
+    public ServiceAuthorizationAction(final ServicesManager servicesManager, final TicketRegistry ticketRegistry, final RegisteredServiceAuthorizer registeredServiceAuthorizer) {
         this.servicesManager = servicesManager;
         this.authorizer = registeredServiceAuthorizer;
         this.authenticationSupport = new DefaultAuthenticationSupport(ticketRegistry);
     }
 
     @Override
-    protected Event doExecute(RequestContext requestContext) throws Exception {
+    protected Event doExecute(final RequestContext requestContext) throws Exception {
         final Principal principal = this.authenticationSupport.getAuthenticatedPrincipalFrom(WebUtils.getTicketGrantingTicketId(requestContext));
         //Guard against expired SSO sessions. 'error' event should trigger the transition to the 'generateLoginTicket' state
         if (principal == null) {
@@ -60,7 +61,8 @@ public class ServiceAuthorizationAction extends AbstractAction {
         final String serviceId = service.getId();
 
         //Find this service in the service registry
-        RegisteredServiceWithAttributes registeredService = (RegisteredServiceWithAttributes) this.servicesManager.findServiceBy(service);
+        final RegisteredService registeredService = this.servicesManager.findServiceBy(service);
+
         if (registeredService == null) {
             logger.warn("Unauthorized Service Access for Service: [ {} ] - service is not defined in the service registry.", serviceId);
             throw new UnauthorizedServiceException();
@@ -70,20 +72,26 @@ public class ServiceAuthorizationAction extends AbstractAction {
             throw new UnauthorizedServiceException();
         }
 
+        if (!(registeredService instanceof RegisteredServiceWithAttributes)) {
+            logger.info("Service [{}] is not configured for role-based authorization", registeredService);
+            return null;
+        }
+
+        final RegisteredServiceWithAttributes registeredServiceWithAttributes = (RegisteredServiceWithAttributes) registeredService;
         //Check to see if RBAC rules have been added to this service's configuration
-        Object serviceAttributes = registeredService.getExtraAttributes().get(AUTHZ_ATTRS_KEY);
+        Object serviceAttributes = registeredServiceWithAttributes.getExtraAttributes().get(AUTHZ_ATTRS_KEY);
         if (serviceAttributes == null) {
-            logger.info("Service [{}] is not configured for role-based authorization", registeredService.getServiceId());
+            logger.info("Service [{}] is not configured for role-based authorization", registeredServiceWithAttributes.getServiceId());
         }
         else {
             if (logger.isDebugEnabled()) {
                 logger.debug(String.format("SERVICE [%s] ATTRIBUTES: %s | PRINCIPAL [%s] ATTRIBUTES: %s",
-                        registeredService.getServiceId(), serviceAttributes, principalId, principalAttributes));
+                        registeredServiceWithAttributes.getServiceId(), serviceAttributes, principalId, principalAttributes));
             }
             //Now do the actual RBAC authorization comparing the principal's attributes and registered service's defined attributes
             if (!this.authorizer.authorized(serviceAttributes, principalAttributes)) {
                 logger.info("Principal [{}] is not authorized to use service [{}]", principalId, serviceId);
-                requestContext.getRequestScope().put(AUTHZ_FAIL_REDIRECT_URL_KEY, registeredService.getExtraAttributes().get(ATTR_URL_KEY));
+                requestContext.getRequestScope().put(AUTHZ_FAIL_REDIRECT_URL_KEY, registeredServiceWithAttributes.getExtraAttributes().get(ATTR_URL_KEY));
                 //Should be handled in the global transition handler to do the actual external redirect to a specific service's URL
                 throw new RoleBasedServiceAuthorizationException();
             }

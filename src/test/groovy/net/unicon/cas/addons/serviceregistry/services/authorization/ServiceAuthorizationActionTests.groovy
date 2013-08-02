@@ -3,6 +3,7 @@ package net.unicon.cas.addons.serviceregistry.services.authorization
 import net.unicon.cas.addons.serviceregistry.RegisteredServiceWithAttributesImpl
 import net.unicon.cas.addons.serviceregistry.services.authorization.RoleBasedServiceAuthorizationException
 import org.jasig.cas.authentication.principal.WebApplicationService
+import org.jasig.cas.services.RegisteredServiceImpl
 import org.jasig.cas.services.ServicesManager
 import org.jasig.cas.services.UnauthorizedServiceException
 import org.jasig.cas.ticket.registry.TicketRegistry
@@ -58,6 +59,21 @@ class ServiceAuthorizationActionTests extends Specification {
     requestContext.getRequestScope() >> new LocalAttributeMap([ticketGrantingTicketId: 'test-tgt'])
     requestContext.getFlowScope() >> new LocalAttributeMap([ticketGrantingTicketId: 'test-tgt', service: webApplicationService])
   }
+
+    def "User is authorized to access a service with a whitelisted service registry"() {
+        given: 'Whitelisted service registry should allow access to service'
+
+        def registeredServiceImpl = new RegisteredServiceImpl()
+        servicesManager.findServiceBy(_) >> registeredServiceImpl
+
+        when: 'The test user accesses the RBAC service'
+        def serviceAuthorizationActionTest = new ServiceAuthorizationAction(servicesManager, ticketRegistry, new DefaultRegisteredServiceAuthorizer())
+        def result = serviceAuthorizationActionTest.doExecute(requestContext)
+
+        then:
+        notThrown(RoleBasedServiceAuthorizationException)
+        result == null
+    }
 
   def "User is authorized to access a service with RBAC"() {
     given: 'A registered service with RBAC rules that the test user will match'
