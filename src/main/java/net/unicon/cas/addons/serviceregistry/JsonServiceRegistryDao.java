@@ -148,8 +148,17 @@ public class JsonServiceRegistryDao implements ServiceRegistryDao,
         return valid;
     }
 
-    private RegisteredService getRegisteredServiceInstance(final String id) {
-        if (isValidRegexPattern(id)) {
+    /**
+     * Constructs an instance of {@link RegisteredServiceWithAttributes} based on the
+     * syntax of the pattern defined. If the pattern is considered a valid regular expression,
+     * an instance of {@link RegexRegisteredServiceWithAttributes} is created. Otherwise,
+     * {@link RegisteredServiceWithAttributesImpl}.
+     * @see #isValidRegexPattern(String)
+     * @param pattern the pattern of the service definition
+     * @return  an instance of {@link RegisteredServiceWithAttributes}
+     */
+    private RegisteredService getRegisteredServiceInstance(final String pattern) {
+        if (isValidRegexPattern(pattern)) {
             return new RegexRegisteredServiceWithAttributes();
         }
 
