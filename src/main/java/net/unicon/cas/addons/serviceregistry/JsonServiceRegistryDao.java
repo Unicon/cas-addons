@@ -138,8 +138,10 @@ public class JsonServiceRegistryDao implements ServiceRegistryDao,
     private boolean isValidRegexPattern(final String pattern) {
         boolean valid = false;
         try {
-            Pattern.compile(pattern);
-            valid = true;
+            if (pattern.startsWith(REGEX_PREFIX)) {
+                Pattern.compile(pattern);
+                valid = true;
+            }
         } catch (final PatternSyntaxException e) {
             logger.debug("Failed to identify [{}] as a regular expression", pattern);
         }
@@ -147,7 +149,7 @@ public class JsonServiceRegistryDao implements ServiceRegistryDao,
     }
 
     private RegisteredService getRegisteredServiceInstance(final String id) {
-        if (id.startsWith(REGEX_PREFIX) && isValidRegexPattern(id)) {
+        if (isValidRegexPattern(id)) {
             return new RegexRegisteredServiceWithAttributes();
         }
 
