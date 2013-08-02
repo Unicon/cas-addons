@@ -39,7 +39,9 @@ import java.util.Map;
  * <code>/samlValidate</code> responses. The namespace parameter is set to {@link XMLConstants#DEFAULT_NS_PREFIX}.
  *
  * <p>The implementation closely mimics that of {@link org.jasig.cas.web.view.AbstractSaml10ResponseView} with
- * small</p>
+ * small changes to the {@link #newSamlObject(Class)} method. Given the way {@link org.jasig.cas.web.view.AbstractSaml10ResponseView}
+ * is implemented and the finality of {@link org.jasig.cas.web.view.AbstractSaml10ResponseView#newSamlObject(Class)},
+ * the entire class structure was ported over and tweaks made to SAML object creation.</p>
  * @see #newSamlObject(Class)
  * @see Saml10SuccessResponseView
  * @author Misagh Moayyed
