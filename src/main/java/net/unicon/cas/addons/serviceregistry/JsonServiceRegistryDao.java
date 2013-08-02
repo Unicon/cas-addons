@@ -151,14 +151,11 @@ public class JsonServiceRegistryDao implements ServiceRegistryDao,
             return new RegexRegisteredServiceWithAttributes();
         }
 
-        if (new AntPathMatcher().isPattern(id)) {
-            return new RegisteredServiceWithAttributesImpl();
-        }
-        return null;
+        return new RegisteredServiceWithAttributesImpl();
     }
 
     @Override
-	public final void onApplicationEvent(ResourceChangeDetectingEventNotifier.ResourceChangedEvent resourceChangedEvent) {
+	public final void onApplicationEvent(final ResourceChangeDetectingEventNotifier.ResourceChangedEvent resourceChangedEvent) {
 		try {
 			if (!resourceChangedEvent.getResourceUri().equals(this.servicesConfigFile.getURI())) {
 				//Not our resource. Just get out of here.

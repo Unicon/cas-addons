@@ -29,6 +29,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-context-support:3.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.jasig.cas:cas-server-core:3.5.2" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.15" level="project" />
     <orderEntry type="library" name="Maven: com.github.inspektr:inspektr-audit:1.0.7.GA" level="project" />

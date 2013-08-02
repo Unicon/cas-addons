@@ -16,6 +16,14 @@
         <level value="DEBUG" />
     </logger>
 
+    <logger name="org.opensaml">
+        <level value="OFF" />
+    </logger>
+
+    <logger name="org.apache.xml">
+        <level value="OFF" />
+    </logger>
+
     <root>
         <level value="DEBUG" />
         <appender-ref ref="console" />
