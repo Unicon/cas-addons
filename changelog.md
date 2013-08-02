@@ -11,6 +11,7 @@
 * refactored `CasNamespaceHandler#AuthenticationManagerWithStormpathHandlerBeanDefinitionParser` to extend AbstractDefaultAuthenticationManagerBeanDefinitionParser for reuse
 * refactored default value for `config-file` attribute of `json-services-registry` element to `${service.registry.config.location:file:/etc/cas/servicesRegistry.conf}`
 * refactored default value for `config-file` attribute of `json-attribute-repository` element to `${attribute.repository.config.location:file:/etc/cas/person-attributes.conf}`
+* added [Saml10SuccessResponseView](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/support/view/saml/Saml10SuccessResponseView.java)
 
 ###Changes in version 1.6 (2013-07-23)
 ======================================
