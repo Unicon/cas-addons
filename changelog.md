@@ -1,6 +1,6 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.7
+###Changes in version 1.7 (2013-08-06)
 ======================================
 
 * added [HostNameBasedUniqueTicketIdGenerator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/internal/HostNameBasedUniqueTicketIdGenerator.java)
