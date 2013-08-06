@@ -1,4 +1,4 @@
-package net.unicon.cas.addons.web.support.view.saml
+package net.unicon.cas.addons.response.view.saml
 import org.jasig.cas.authentication.ImmutableAuthentication
 import org.jasig.cas.authentication.principal.Service
 import org.jasig.cas.authentication.principal.SimplePrincipal
