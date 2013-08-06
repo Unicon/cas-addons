@@ -12,8 +12,8 @@
 * refactored default value for `config-file` attribute of `json-services-registry` element to `${service.registry.config.location:file:/etc/cas/servicesRegistry.conf}`
 * refactored default value for `config-file` attribute of `json-attribute-repository` element to `${attribute.repository.config.location:file:/etc/cas/person-attributes.conf}`
 * added [Saml10SuccessResponseView](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/support/view/saml/Saml10SuccessResponseView.java)
-* Removed verification of Ant patterns from the [JsonServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/JsonServiceRegistryDao.java)
-* Fixed [ServiceAuthorizationAction ](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/services/authorization/ServiceAuthorizationAction.java) crash when the service registry is configured against an empty service registry
+* removed verification of Ant patterns from the [JsonServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/JsonServiceRegistryDao.java)
+* fixed [ServiceAuthorizationAction ](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/services/authorization/ServiceAuthorizationAction.java) crash when the service registry is configured against an empty service registry
 
 ###Changes in version 1.6 (2013-07-23)
 ======================================
