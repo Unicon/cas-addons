@@ -4,6 +4,12 @@
 ======================================
 
 * moved `net.unicon.cas.addons.web.support.view.saml` components over to `net.unicon.cas.addons.response.view.saml`
+* fixed issue with [ReadWriteJsonServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/ReadWriteJsonServiceRegistryDao.java)
+where service definitions were assigned a `-1` identifier automatically.
+* fixed issue with [ReadWriteJsonServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/ReadWriteJsonServiceRegistryDao.java)
+where updates to an existing service resulted into duplicate service definitions
+* modified [ReadWriteJsonServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/ReadWriteJsonServiceRegistryDao.java)
+to not persist service attributes with empty values.
 
 ###Changes in version 1.7 (2013-08-06)
 ======================================
