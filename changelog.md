@@ -1,5 +1,10 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.8
+======================================
+
+* moved `net.unicon.cas.addons.web.support.view.saml` components over to `net.unicon.cas.addons.response.view.saml`
+
 ###Changes in version 1.7 (2013-08-06)
 ======================================
 
