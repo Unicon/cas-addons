@@ -1,6 +1,8 @@
 package net.unicon.cas.addons.serviceregistry;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.io.IOUtils;
+import org.jasig.cas.services.AbstractRegisteredService;
 import org.jasig.cas.services.RegisteredService;
 import org.springframework.core.io.Resource;
 
@@ -8,9 +10,11 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * An extension of the JsonServiceRegistryDao that is able to support both read/write operations when
@@ -27,6 +31,7 @@ public final class ReadWriteJsonServiceRegistryDao extends JsonServiceRegistryDa
 
     public ReadWriteJsonServiceRegistryDao(final Resource servicesConfigFile) {
         super(servicesConfigFile);
+        this.objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
     }
 
     @Override
@@ -34,6 +39,22 @@ public final class ReadWriteJsonServiceRegistryDao extends JsonServiceRegistryDa
         logger.debug("Loading service definitions from resource [{}]", this.servicesConfigFile.getFilename());
         final List<RegisteredService> resolvedServices = super.loadServices();
         final List<RegisteredService> col = new ArrayList<RegisteredService>(resolvedServices);
+
+        if (registeredService.getId() < 0) {
+            if (registeredService instanceof AbstractRegisteredService) {
+                final Random random = new Random(registeredService.hashCode());
+                final int serviceId = random.nextInt(Integer.MAX_VALUE);
+                ((AbstractRegisteredService) registeredService).setId(serviceId);
+            }
+        }
+        boolean foundAndRemovedService = false;
+        final Iterator<RegisteredService> it = col.iterator();
+        while(!foundAndRemovedService && it.hasNext()) {
+            if (it.next().getId() == registeredService.getId()) {
+                it.remove();
+                foundAndRemovedService = true;
+            }
+        }
         col.add(registeredService);
 
         saveListOfRegisteredServices(col);
