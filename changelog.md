@@ -10,6 +10,7 @@ where service definitions were assigned a `-1` identifier automatically.
 where updates to an existing service resulted into duplicate service definitions
 * modified [ReadWriteJsonServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/ReadWriteJsonServiceRegistryDao.java)
 to not persist service attributes with empty values.
+* bumped up dependencies
 
 ###Changes in version 1.7 (2013-08-06)
 ======================================

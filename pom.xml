@@ -74,14 +74,14 @@
         <commons-codec.version>1.7</commons-codec.version>
         <person.directory.version>1.5.1</person.directory.version>
         <shiro.version>1.2.2</shiro.version>
-        <slf4j.version>1.7.2</slf4j.version>
+        <slf4j.version>1.7.5</slf4j.version>
         <grouper.client.version>2.1.0</grouper.client.version>
-        <stormpath.sdk.version>0.7.0</stormpath.sdk.version>
+        <stormpath.sdk.version>0.8.0</stormpath.sdk.version>
         <spring.data.mongo.version>1.0.3.RELEASE</spring.data.mongo.version>
         <spock.version>0.7-groovy-2.0</spock.version>
-        <jersey.version>1.17</jersey.version>
+        <jersey.version>1.17.1</jersey.version>
         <jaxrs.version>1.1.1</jaxrs.version>
-        <spring.version>3.2.2.RELEASE</spring.version>
+        <spring.version>3.2.4.RELEASE</spring.version>
     </properties>
 
     <reporting>
