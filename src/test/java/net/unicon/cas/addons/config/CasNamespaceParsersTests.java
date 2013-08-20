@@ -9,6 +9,7 @@ import net.unicon.cas.addons.authentication.strong.yubikey.YubiKeyAuthentication
 import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPublishingAspect;
 import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
+import net.unicon.cas.addons.serviceregistry.RegisteredServicesReloadDisablingBeanFactoryPostProcessor;
 import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAuthorizationAction;
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
@@ -136,6 +137,11 @@ public class CasNamespaceParsersTests {
     public void bindLdapAuthenticationHandlerBeanDefinitionCorrectlyParsed() {
         assertTrue(applicationContext.containsBean(BIND_LDAP_AUTH_HANDLER_BAEN_NAME));
         assertTrue(applicationContext.getBeansOfType(BindLdapAuthenticationHandler.class).size() == 1);
+    }
+
+    @Test
+    public void registeredServicesReloadDisablingBFPPBeanDefinitionCorrectlyParsed() {
+        assertTrue(applicationContext.getBeansOfType(RegisteredServicesReloadDisablingBeanFactoryPostProcessor.class).size() == 1);
     }
 
     /**

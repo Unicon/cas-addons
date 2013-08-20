@@ -73,4 +73,11 @@
 
     </cas:bind-ldap-authentication-handler>
 
+    <bean id="serviceRegistryReloaderJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"/>
+
+    <bean id="periodicServiceRegistryReloaderTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean"/>
+
+    <cas:disable-default-registered-services-reloading/>
+
 </beans>

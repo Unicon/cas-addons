@@ -9,6 +9,7 @@ import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPubli
 import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
 import net.unicon.cas.addons.serviceregistry.ReadWriteJsonServiceRegistryDao;
+import net.unicon.cas.addons.serviceregistry.RegisteredServicesReloadDisablingBeanFactoryPostProcessor;
 import net.unicon.cas.addons.serviceregistry.ReloadableServicesManagerSuppressionAspect;
 import net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegisteredServiceAuthorizer;
 import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAuthorizationAction;
@@ -63,7 +64,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("stormpath-authentication-handler", new StormpathAuthenticationHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("authentication-manager-with-stormpath-handler", new AuthenticationManagerWithStormpathHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("service-authorization-action", new ServiceAuthorizationActionBeanDefinitionParser());
-        registerBeanDefinitionParser("disable-default-registered-services-reloading", new ReloadableServicesManagerSuppressionAspectBeanDefinitionParser());
+        registerBeanDefinitionParser("disable-default-registered-services-reloading", new RegisteredServicesReloadDisablingBFPPBeanDefinitionParser());
         registerBeanDefinitionParser("yubikey-authentication-handler", new YubikeyAuthenticationHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("accept-users-authentication-handler", new AcceptUsersAuthenticationHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("bind-ldap-authentication-handler", new BindLdapAuthenticationHandlerBeanDefinitionParser());
@@ -335,24 +336,19 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
     }
 
     /**
-     * Parses <pre>disable-default-registered-services-reloading</pre> elements into bean definitions of type {@link ReloadableServicesManagerSuppressionAspect}
+     * Parses <pre>disable-default-registered-services-reloading</pre> elements into bean definitions of type {@link RegisteredServicesReloadDisablingBeanFactoryPostProcessor}
      */
-    private static class ReloadableServicesManagerSuppressionAspectBeanDefinitionParser extends
+    private static class RegisteredServicesReloadDisablingBFPPBeanDefinitionParser extends
             AbstractSingleBeanDefinitionParser {
 
         @Override
         protected Class<?> getBeanClass(Element element) {
-            return ReloadableServicesManagerSuppressionAspect.class;
+            return RegisteredServicesReloadDisablingBeanFactoryPostProcessor.class;
         }
 
         @Override
         protected boolean shouldGenerateId() {
             return true;
-        }
-
-        @Override
-        protected void doParse(Element element, BeanDefinitionBuilder builder) {
-            builder.setFactoryMethod("aspectOf").addPropertyValue("on", true);
         }
     }
 
