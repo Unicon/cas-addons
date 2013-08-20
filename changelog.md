@@ -10,7 +10,10 @@ where service definitions were assigned a `-1` identifier automatically.
 where updates to an existing service resulted into duplicate service definitions
 * modified [ReadWriteJsonServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/ReadWriteJsonServiceRegistryDao.java)
 to not persist service attributes with empty values.
-* bumped up dependencies
+* removed `ReloadableServicesManagerSuppressionAspect`
+* added [RegisteredServicesReloadDisablingBeanFactoryPostProcessor](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/RegisteredServicesReloadDisablingBeanFactoryPostProcessor.java)
+* refactored bean definition parser impl for `disable-default-registered-services-reloading` element to use `RegisteredServicesReloadDisablingBeanFactoryPostProcessor` instead of `ReloadableServicesManagerSuppressionAspect`
+* bumped up dependencies versions
 
 ###Changes in version 1.7 (2013-08-06)
 ======================================
