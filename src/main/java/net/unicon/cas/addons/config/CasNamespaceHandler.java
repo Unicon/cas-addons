@@ -10,7 +10,6 @@ import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
 import net.unicon.cas.addons.serviceregistry.ReadWriteJsonServiceRegistryDao;
 import net.unicon.cas.addons.serviceregistry.RegisteredServicesReloadDisablingBeanFactoryPostProcessor;
-import net.unicon.cas.addons.serviceregistry.ReloadableServicesManagerSuppressionAspect;
 import net.unicon.cas.addons.serviceregistry.services.authorization.DefaultRegisteredServiceAuthorizer;
 import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAuthorizationAction;
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
