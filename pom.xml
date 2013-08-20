@@ -232,12 +232,10 @@
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
-                    </archive>
-                    <!-- Just include the AspectJ woven class we are interested in. Otherwise, ALL cas-core classes will be packaged in this jar -->
+                    </archive>                    
                     <!-- Include custom namespace schema Spring metadata -->
                     <includes>
-                        <include>net/unicon/**</include>
-                        <include>**/DefaultServicesManagerImpl.class</include>
+                        <include>net/unicon/**</include>                        
                         <include>META-INF/spring.handlers</include>
                         <include>META-INF/spring.schemas</include>
                     </includes>
@@ -258,34 +256,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.8.1</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.4</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <weaveDependencies>
-                        <dependency>
-                            <groupId>org.jasig.cas</groupId>
-                            <artifactId>cas-server-core</artifactId>
-                        </dependency>
-                    </weaveDependencies>
-                    <!-- Used with Spring AOP proxies on the client side. So do not weave with AspectJ compiler. -->
-                    <excludes>
-                        <exclude>**/CentralAuthenticationServiceEventsPublishingAspect.java</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
+            </plugin>            
 
         </plugins>
     </build>
