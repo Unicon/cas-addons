@@ -137,6 +137,8 @@
         <xsd:attribute name="ignore-partial-result-exception" type="xsd:boolean" default="true"/>
     </xsd:complexType>
 
+    <xsd:element name="disable-perf4j-timing-aspect" type="xsd:string"/>
+
 </xsd:schema>
 
 

@@ -80,4 +80,7 @@
 
     <cas:disable-default-registered-services-reloading/>
 
+    <bean id="timingAspect" class="java.lang.Object"/>
+    <cas:disable-perf4j-timing-aspect/>
+
 </beans>

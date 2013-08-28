@@ -14,6 +14,8 @@ to not persist service attributes with empty values.
 * added [RegisteredServicesReloadDisablingBeanFactoryPostProcessor](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/RegisteredServicesReloadDisablingBeanFactoryPostProcessor.java)
 * refactored bean definition parser impl for `disable-default-registered-services-reloading` element to use `RegisteredServicesReloadDisablingBeanFactoryPostProcessor` instead of `ReloadableServicesManagerSuppressionAspect`
 * bumped up dependencies versions
+* added [TimingAspectRemovingBeanFactoryPostProcessor](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/support/TimingAspectRemovingBeanFactoryPostProcessor.java)
+* added custom XML schema element (`disable-perf4j-timing-aspect`) `BeanDefinitionParser` implementation for `TimingAspectRemovingBeanFactoryPostProcessor`
 
 ###Changes in version 1.7 (2013-08-06)
 ======================================

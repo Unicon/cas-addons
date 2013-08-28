@@ -15,6 +15,7 @@ import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAutho
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 
+import net.unicon.cas.addons.support.TimingAspectRemovingBeanFactoryPostProcessor;
 import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
 import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManagerImpl;
@@ -69,6 +70,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("bind-ldap-authentication-handler", new BindLdapAuthenticationHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("authentication-manager-with-accept-users-handler", new AuthenticationManagerWithAcceptUsersHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("authentication-manager-with-bind-ldap-handler", new AuthenticationManagerWithBindLdapHandlerBeanDefinitionParser());
+        registerBeanDefinitionParser("disable-perf4j-timing-aspect", new TimingAspectRemovingBFPPBeanDefinitionParser());
     }
 
     /**
@@ -279,7 +281,8 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
     /**
      * Parses <pre>authentication-manager-with-stormpath-handler</pre> elements into bean definitions of type {@link org.jasig.cas.authentication.AuthenticationManagerImpl}
      */
-    private static class AuthenticationManagerWithStormpathHandlerBeanDefinitionParser extends AbstractDefaultAuthenticationManagerBeanDefinitionParser {
+    private static class AuthenticationManagerWithStormpathHandlerBeanDefinitionParser extends
+            AbstractDefaultAuthenticationManagerBeanDefinitionParser {
 
         @Override
         @SuppressWarnings("unchecked")
@@ -533,5 +536,21 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         bindLdapAuthnHandlerBuilder.addPropertyValue("searchBase", element.getAttribute("search-base"));
         bindLdapAuthnHandlerBuilder.addPropertyValue("ignorePartialResultException", element.getAttribute("ignore-partial-result-exception"));
         bindLdapAuthnHandlerBuilder.addPropertyValue("contextSource", contextSourceBuilder.getBeanDefinition());
+    }
+
+    /**
+     * Parses <pre>disable-perf4j-timing-aspect</pre> elements into bean definitions of type {@link TimingAspectRemovingBeanFactoryPostProcessor}
+     */
+    private static class TimingAspectRemovingBFPPBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+
+        @Override
+        protected Class<?> getBeanClass(Element element) {
+            return TimingAspectRemovingBeanFactoryPostProcessor.class;
+        }
+
+        @Override
+        protected boolean shouldGenerateId() {
+            return true;
+        }
     }
 }

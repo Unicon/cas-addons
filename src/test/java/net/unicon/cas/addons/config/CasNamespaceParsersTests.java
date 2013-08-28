@@ -13,6 +13,7 @@ import net.unicon.cas.addons.serviceregistry.RegisteredServicesReloadDisablingBe
 import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAuthorizationAction;
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
+import net.unicon.cas.addons.support.TimingAspectRemovingBeanFactoryPostProcessor;
 import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
 import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManager;
@@ -142,6 +143,11 @@ public class CasNamespaceParsersTests {
     @Test
     public void registeredServicesReloadDisablingBFPPBeanDefinitionCorrectlyParsed() {
         assertTrue(applicationContext.getBeansOfType(RegisteredServicesReloadDisablingBeanFactoryPostProcessor.class).size() == 1);
+    }
+
+    @Test
+    public void timingAspectRemovingBFPPBeanDefinitionCorrectlyParsed() {
+        assertTrue(applicationContext.getBeansOfType(TimingAspectRemovingBeanFactoryPostProcessor.class).size() == 1);
     }
 
     /**
