@@ -6,6 +6,7 @@ import net.unicon.cas.addons.authentication.internal.DefaultAuthenticationSuppor
 import net.unicon.cas.addons.authentication.principal.StormpathPrincipalResolver;
 import net.unicon.cas.addons.authentication.strong.yubikey.YubiKeyAuthenticationHandler;
 import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPublishingAspect;
+import net.unicon.cas.addons.info.events.listeners.RedisStatsRecorderForServiceTicketValidatedEvents;
 import net.unicon.cas.addons.info.events.listeners.RedisStatsRecorderForSsoSessionEstablishedEvents;
 import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
@@ -558,7 +559,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
 
     /**
      * Parses <pre>events-redis-recorder</pre> elements into bean definitions of type {@link RedisStatsRecorderForSsoSessionEstablishedEvents}
-     * or {@link RedisStatsRecorderForSsoSessionEstablishedEvents-XXX} depending on the value of <code>event-type</code> attribute
+     * or {@link RedisStatsRecorderForServiceTicketValidatedEvents} depending on the value of <code>event-type</code> attribute
      */
     private static class EventsRedisRecorderBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
@@ -574,10 +575,9 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
 
         @Override
         protected Class<?> getBeanClass(Element element) {
-            //TODO: refactor to add another type when implemented
             return element.getAttribute("event-type").equals("sso-session-established")
                     ? RedisStatsRecorderForSsoSessionEstablishedEvents.class
-                    : RedisStatsRecorderForSsoSessionEstablishedEvents.class;
+                    : RedisStatsRecorderForServiceTicketValidatedEvents.class;
         }
     }
 }

@@ -10,6 +10,6 @@
 
     <bean id="redisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"/>
     <cas:events-redis-recorder event-type="sso-session-established" redis-connection-factory="redisConnectionFactory"/>
-    <cas:events-redis-recorder event-type="sso-session-established" redis-connection-factory="redisConnectionFactory"/>
+    <cas:events-redis-recorder event-type="service-ticket-validated" redis-connection-factory="redisConnectionFactory"/>
 
 </beans>

@@ -1,5 +1,6 @@
 package net.unicon.cas.addons.config;
 
+import net.unicon.cas.addons.info.events.listeners.RedisStatsRecorderForServiceTicketValidatedEvents;
 import net.unicon.cas.addons.info.events.listeners.RedisStatsRecorderForSsoSessionEstablishedEvents;
 import net.unicon.cas.addons.serviceregistry.ReadWriteJsonServiceRegistryDao;
 import org.junit.Test;
@@ -25,5 +26,6 @@ public class CasNamespaceEventsRedisRecorderBeanDefinitionParserTests {
     @Test
     public void eventsRedisRecorderBeanDefinitionCorrectlyParsed() {
         assertTrue(applicationContext.getBeansOfType(RedisStatsRecorderForSsoSessionEstablishedEvents.class).size() == 1);
+        assertTrue(applicationContext.getBeansOfType(RedisStatsRecorderForServiceTicketValidatedEvents.class).size() == 1);
     }
 }
