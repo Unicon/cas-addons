@@ -6,6 +6,7 @@ import net.unicon.cas.addons.authentication.internal.DefaultAuthenticationSuppor
 import net.unicon.cas.addons.authentication.principal.StormpathPrincipalResolver;
 import net.unicon.cas.addons.authentication.strong.yubikey.YubiKeyAuthenticationHandler;
 import net.unicon.cas.addons.info.events.CentralAuthenticationServiceEventsPublishingAspect;
+import net.unicon.cas.addons.info.events.listeners.RedisStatsRecorderForSsoSessionEstablishedEvents;
 import net.unicon.cas.addons.persondir.JsonBackedComplexStubPersonAttributeDao;
 import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
 import net.unicon.cas.addons.serviceregistry.ReadWriteJsonServiceRegistryDao;
@@ -71,6 +72,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("authentication-manager-with-accept-users-handler", new AuthenticationManagerWithAcceptUsersHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("authentication-manager-with-bind-ldap-handler", new AuthenticationManagerWithBindLdapHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("disable-perf4j-timing-aspect", new TimingAspectRemovingBFPPBeanDefinitionParser());
+        registerBeanDefinitionParser("events-redis-recorder", new EventsRedisRecorderBeanDefinitionParser());
     }
 
     /**
@@ -551,6 +553,31 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         @Override
         protected boolean shouldGenerateId() {
             return true;
+        }
+    }
+
+    /**
+     * Parses <pre>events-redis-recorder</pre> elements into bean definitions of type {@link RedisStatsRecorderForSsoSessionEstablishedEvents}
+     * or {@link RedisStatsRecorderForSsoSessionEstablishedEvents-XXX} depending on the value of <code>event-type</code> attribute
+     */
+    private static class EventsRedisRecorderBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+
+        @Override
+        protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
+            return definition.getBeanClass().getName();
+        }
+
+        @Override
+        protected void doParse(Element element, BeanDefinitionBuilder builder) {
+            builder.addConstructorArgReference(element.getAttribute("redis-connection-factory"));
+        }
+
+        @Override
+        protected Class<?> getBeanClass(Element element) {
+            //TODO: refactor to add another type when implemented
+            return element.getAttribute("event-type").equals("sso-session-established")
+                    ? RedisStatsRecorderForSsoSessionEstablishedEvents.class
+                    : RedisStatsRecorderForSsoSessionEstablishedEvents.class;
         }
     }
 }

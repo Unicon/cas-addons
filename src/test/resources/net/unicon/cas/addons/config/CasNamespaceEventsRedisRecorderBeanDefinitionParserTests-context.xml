@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cas="http://unicon.net/schema/cas"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://unicon.net/schema/cas http://unicon.net/schema/cas/cas-addons.xsd">
+
+
+
+    <bean id="redisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"/>
+    <cas:events-redis-recorder event-type="sso-session-established" redis-connection-factory="redisConnectionFactory"/>
+    <cas:events-redis-recorder event-type="sso-session-established" redis-connection-factory="redisConnectionFactory"/>
+
+</beans>

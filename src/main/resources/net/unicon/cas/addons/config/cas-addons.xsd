@@ -139,6 +139,19 @@
 
     <xsd:element name="disable-perf4j-timing-aspect" type="xsd:string"/>
 
+    <xsd:element name="events-redis-recorder" type="events-redis-recorderType"/>
+    <xsd:complexType name="events-redis-recorderType">
+        <xsd:attribute name="event-type" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="sso-session-established"/>
+                    <xsd:enumeration value="service-ticket-validated"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="redis-connection-factory" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
 </xsd:schema>
 
 
