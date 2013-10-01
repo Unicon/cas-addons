@@ -94,7 +94,7 @@
     <orderEntry type="library" name="Maven: org.springframework.webflow:spring-js-resources:2.3.0.RELEASE" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: commons-jexl:commons-jexl:1.1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.0" level="project" />
-    <orderEntry type="library" name="Maven: joda-time:joda-time:2.1" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.3" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.6.10" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:slf4j-log4j12:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.jasig.cas:cas-server-support-generic:3.5.2" level="project" />
@@ -141,6 +141,9 @@
     <orderEntry type="library" name="Maven: com.sun.jersey.contribs:jersey-spring:1.17.1" level="project" />
     <orderEntry type="library" name="Maven: com.yubico:yubico-validation-client2:2.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-all:2.1.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-redis:1.1.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: redis.clients:jedis:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-pool:commons-pool:1.5.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.spockframework:spock-core:0.7-groovy-2.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit-dep:4.10" level="project" />
