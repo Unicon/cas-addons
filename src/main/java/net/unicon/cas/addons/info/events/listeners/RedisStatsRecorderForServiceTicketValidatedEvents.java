@@ -40,7 +40,7 @@ public class RedisStatsRecorderForServiceTicketValidatedEvents implements
     public void onApplicationEvent(CasServiceTicketValidatedEvent event) {
         final String today = DateTime.now().toString("yyyy-MM-dd");
         try {
-            logger.debug("Incrementing value for key 'cas:st-validate:{}' in Redis server...", today);
+            logger.debug("Incrementing value for key 'cas:st-validated:{}' in Redis server...", today);
             this.redisTemplate.opsForValue().increment("cas:st-validated:" + today, 1L);
         }
         catch (Throwable e) {
