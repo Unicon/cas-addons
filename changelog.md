@@ -1,5 +1,13 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.9 (not yet released)
+======================================
+
+* added [RedisStatsRecorderForSsoSessionEstablishedEvents](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/info/events/listeners/RedisStatsRecorderForSsoSessionEstablishedEvents.java)
+* added [RedisStatsRecorderForServiceTicketValidatedEvents](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/info/events/listeners/RedisStatsRecorderForServiceTicketValidatedEvents.java)
+* added custom XML schema element (`events-redis-recorder`) `BeanDefinitionParser` implementation for `RedisStatsRecorderForSsoSessionEstablishedEvents` and `RedisStatsRecorderForServiceTicketValidatedEvents`
+
+
 ###Changes in version 1.8 (2013-09-09)
 ======================================
 
