@@ -9,7 +9,11 @@
     </appender>
 
     <logger name="org.springframework">
-        <level value="DEBUG" />
+        <level value="WARN" />
+    </logger>
+
+    <logger name="com.hazelcast">
+        <level value="INFO" />
     </logger>
 
     <logger name="net.unicon.cas">

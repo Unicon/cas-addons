@@ -476,6 +476,21 @@
             <version>${jedis.version}</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- For HazelcastTicketRegistry -->
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+            <version>3.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-spring</artifactId>
+            <version>3.0.2</version>
+            <scope>compile</scope>
+        </dependency>
 		
         <!-- Dependencies for testing -->
         <dependency>
