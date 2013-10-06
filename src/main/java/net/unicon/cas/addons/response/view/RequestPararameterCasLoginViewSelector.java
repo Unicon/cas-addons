@@ -1,12 +1,14 @@
 package net.unicon.cas.addons.response.view;
 
+import java.util.Collections;
+import java.util.Map;
+
 import org.springframework.webflow.execution.RequestContext;
 
 /**
- * This really is a <i>sample</i> implementation of the {@link CasLoginViewSelector}
+ * This really is an implementation of the {@link CasLoginViewSelector}
  * that shows how the login view may be routed to a different screen based on the
- * existence of a particular parameter. By default the value of {@link #setParameterName(String)}
- * is mapped to a view state in the flow that can be rendered.
+ * existence of a particular parameter.
  * 
 * @author Misagh Moayyed
 * @since 1.9
@@ -15,11 +17,15 @@ public class RequestPararameterCasLoginViewSelector implements CasLoginViewSelec
 
     private String parameterName = "view";
     private String defaultView = "casLoginView";
+    private Map<String, String> viewMappings = Collections.emptyMap();
     
     @Override
     public String selectLoginView(final RequestContext request) {
          if (request.getRequestParameters().contains(parameterName)) {
-             return request.getRequestParameters().get(parameterName);
+             final String key = request.getRequestParameters().get(parameterName);
+             if (this.viewMappings.containsKey(key)) {
+                 return this.viewMappings.get(key);
+             }
          }
          return defaultView;
     }
@@ -38,6 +44,14 @@ public class RequestPararameterCasLoginViewSelector implements CasLoginViewSelec
 
     public final String getDefaultView() {
         return this.defaultView;
+    }
+
+    public final Map<String, String> getViewMappings() {
+        return this.viewMappings;
+    }
+
+    public final void setViewMappings(final Map<String, String> viewMappings) {
+        this.viewMappings = viewMappings;
     }
 
 }

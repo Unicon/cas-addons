@@ -21,16 +21,36 @@ class RequestPararameterCasLoginViewSelectorTests extends Specification {
             ParameterMap params = Mock()
             
             params.contains(selector.getParameterName()) >> true
-            params.get(selector.getParameterName()) >> "otherCasView"
+            params.get(selector.getParameterName()) >> "staff"
             params.size() >> 1
             
             ctx.requestParameters >> params
+
+            selector.setViewMappings([staff:'otherCasView'])
 
         expect:
             def view = selector.selectLoginView(ctx)
             view == "otherCasView"
     }
 
+    def "Test default view when param points to non-existing view name"() {
+        given:
+            RequestContext ctx = Mock()
+            ParameterMap params = Mock()
+            
+            params.contains(selector.getParameterName()) >> true
+            params.get(selector.getParameterName()) >> "student"
+            params.size() >> 1
+            
+            ctx.requestParameters >> params
+
+            selector.setViewMappings([staff:'otherCasView'])
+
+        expect:
+            def view = selector.selectLoginView(ctx)
+            view == selector.getDefaultView()
+    }
+    
     def "Test default view"() {
         given:
         RequestContext ctx = Mock()
