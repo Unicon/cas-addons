@@ -1,6 +1,5 @@
 package net.unicon.cas.addons.config;
 
-import net.unicon.cas.addons.serviceregistry.JsonServiceRegistryDao;
 import net.unicon.cas.addons.serviceregistry.ReadWriteJsonServiceRegistryDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;

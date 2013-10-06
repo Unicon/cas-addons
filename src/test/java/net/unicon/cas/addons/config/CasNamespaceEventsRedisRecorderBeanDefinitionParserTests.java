@@ -2,7 +2,6 @@ package net.unicon.cas.addons.config;
 
 import net.unicon.cas.addons.info.events.listeners.RedisStatsRecorderForServiceTicketValidatedEvents;
 import net.unicon.cas.addons.info.events.listeners.RedisStatsRecorderForSsoSessionEstablishedEvents;
-import net.unicon.cas.addons.serviceregistry.ReadWriteJsonServiceRegistryDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
