@@ -6,7 +6,7 @@ import org.jasig.cas.authentication.handler.PrincipalNameTransformer
 /**
  *
  * @author Dmitriy Kopylenko
- * @author @author <a href="mailto:mmoayyed@unicon.net">Misagh Moayyed</a>
+ * @author <a href="mailto:mmoayyed@unicon.net">Misagh Moayyed</a>
  * @author Unicon , inc.
  */
 class EmailAddressToPrincipalNameTransformerTests extends Specification {

@@ -1,9 +1,11 @@
 package net.unicon.cas.addons.serviceregistry;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import net.unicon.cas.addons.support.GuardedBy;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 import net.unicon.cas.addons.support.ThreadSafe;
+
 import org.jasig.cas.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,10 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -103,37 +109,51 @@ public class JsonServiceRegistryDao implements ServiceRegistryDao,
 	 * This method is used as a Spring bean loadServices-method
 	 * as well as the reloading method when the change in the services definition resource is detected at runtime
 	 */
-	@SuppressWarnings("unchecked")
-	public final List<RegisteredService> loadServices() {
-		logger.info("Loading Registered Services from: [ {} ]...", this.servicesConfigFile);
+    @SuppressWarnings("unchecked")
+    public final List<RegisteredService> loadServices() {
+        logger.info("Loading Registered Services from: [ {} ]...", this.servicesConfigFile);
         final List<RegisteredService> resolvedServices = new ArrayList<RegisteredService>();
+        
         try {
-
-            if (this.servicesConfigFile.exists() && this.servicesConfigFile.getFile().length() > 0) {
-                final Map<String, List> m = this.objectMapper.readValue(this.servicesConfigFile.getFile(), Map.class);
-                final Iterator<Map> i = m.get(SERVICES_KEY).iterator();
-                while (i.hasNext()) {
-                    final Map<?, ?> record = i.next();
-                    final String svcId = ((String) record.get(SERVICES_ID_KEY));
-                    final RegisteredService svc = getRegisteredServiceInstance(svcId);
-                    if (svc != null) {
-                        resolvedServices.add(this.objectMapper.convertValue(record, svc.getClass()));
-                        logger.debug("Unmarshaled {}: {}", svc.getClass().getSimpleName(), record);
-                    }
-                }
-            } else {
-                logger.warn("Resource [{}] does not exist or has no service definitions.", this.servicesConfigFile.getFilename());
+            
+            final Map<String, List> m = unmarshalServicesRegistryResourceIntoMap();
+            
+            if (m != null) {
+              final Iterator<Map> i = m.get(SERVICES_KEY).iterator();
+              while (i.hasNext()) {
+                  final Map<?, ?> record = i.next();
+                  final String svcId = ((String) record.get(SERVICES_ID_KEY));
+                  final RegisteredService svc = getRegisteredServiceInstance(svcId);
+                  if (svc != null) {
+                      resolvedServices.add(this.objectMapper.convertValue(record, svc.getClass()));
+                      logger.debug("Unmarshaled {}: {}", svc.getClass().getSimpleName(), record);
+                  }
+              }
+  
+              synchronized (this.mutexMonitor) {
+                  this.delegateServiceRegistryDao.setRegisteredServices(resolvedServices);
+              }
             }
-			synchronized (this.mutexMonitor) {
-				this.delegateServiceRegistryDao.setRegisteredServices(resolvedServices);
-			}
-		}
-		catch (Throwable e) {
-			throw new RuntimeException(e);
-		}
+        } catch (final Throwable e) {
+            throw new RuntimeException(e);
+        }
         return resolvedServices;
-	}
+    }
 
+    private Map<String, List> unmarshalServicesRegistryResourceIntoMap() throws IOException {
+        try {
+          final InputStream stream = this.servicesConfigFile.getInputStream();
+          
+          if (stream != null) {
+              return this.objectMapper.readValue(stream, Map.class);
+          }  
+        } catch (final FileNotFoundException e) {
+            logger.warn("Resource [{}] does not exist or has no service definitions.", this.servicesConfigFile);
+        }
+        
+        return null;
+    }
+        
     private boolean isValidRegexPattern(final String pattern) {
         boolean valid = false;
         try {
