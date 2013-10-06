@@ -9,7 +9,7 @@ import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
 import spock.lang.Specification
 /**
- * @author @author <a href="mailto:mmoayyed@unicon.net">Misagh Moayyed</a>
+ * @author <a href="mailto:mmoayyed@unicon.net">Misagh Moayyed</a>
  * @author Unicon , inc.
  */
 @RunWith(Sputnik)
