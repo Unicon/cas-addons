@@ -1,4 +1,4 @@
-package net.unicon.cas.addons.response.view;
+package net.unicon.cas.addons.web.view;
 
 import org.springframework.webflow.execution.RequestContext;
 

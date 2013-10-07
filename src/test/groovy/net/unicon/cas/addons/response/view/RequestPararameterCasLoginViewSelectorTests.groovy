@@ -1,5 +1,7 @@
 package net.unicon.cas.addons.response.view
 
+import net.unicon.cas.addons.web.view.RequestPararameterCasLoginViewSelector;
+
 import org.junit.runner.RunWith
 import org.spockframework.runtime.Sputnik
 import org.springframework.webflow.core.collection.ParameterMap;
