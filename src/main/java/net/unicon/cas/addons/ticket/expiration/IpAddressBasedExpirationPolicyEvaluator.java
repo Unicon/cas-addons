@@ -44,6 +44,8 @@ public class IpAddressBasedExpirationPolicyEvaluator implements TicketExpiration
             logger.debug("Remote IP [{}] is a valid compressed IPv6 address", currentIp);
         } else if (InetAddressUtils.isIPv4Address(currentIp)) {
             logger.debug("Remote IP [{}] is a valid IPv4 address ", currentIp);
+        } else {
+            logger.debug("Remote IP [{}] does not match a known IP syntax", currentIp);
         }
         
         return this.ipAddressPattern.matcher(currentIp).find();

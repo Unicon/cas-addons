@@ -23,7 +23,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * that is set by {@link #setDefaultExpirationPolicy(ExpirationPolicy)}. If the default is not
  * explicitly set, the handling of the policy is delegated to {@link AlwaysExpiresExpirationPolicy}
  * which considers all tickets as expired.
- * @see IpAddressBasedExpirationPolicyEvalutor
+ * @see IpAddressBasedExpirationPolicyEvaluator
  * @author Misagh Moayyed
  * @since 1.9
  */

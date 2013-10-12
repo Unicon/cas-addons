@@ -13,7 +13,7 @@ import spock.lang.Specification
  * @author Unicon , inc.
  */
 @RunWith(Sputnik)
-class IpAddressBasedExpirationPolicyEvalutorTests extends Specification {
+class IpAddressBasedExpirationPolicyEvaluatorTests extends Specification {
     def "Remote IPv4 IP address matches the IP pattern specified"() {
         given:
     
