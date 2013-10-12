@@ -10,11 +10,13 @@ package net.unicon.cas.addons.ticket;
  */
 public class BulkRetrievalOfTicketsNotSupportedException extends UnsupportedOperationException {
 
-	public BulkRetrievalOfTicketsNotSupportedException(String s) {
-		super(s);
-	}
+    private static final long serialVersionUID = 306893856892085373L;
 
-	public BulkRetrievalOfTicketsNotSupportedException(String s, Throwable throwable) {
-		super(s, throwable);
-	}
+    public BulkRetrievalOfTicketsNotSupportedException(String s) {
+  		super(s);
+  	}
+
+  	public BulkRetrievalOfTicketsNotSupportedException(String s, Throwable throwable) {
+  		super(s, throwable);
+  	}
 }
