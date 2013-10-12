@@ -22,13 +22,13 @@ import org.slf4j.LoggerFactory;
  * @since 1.9
  * @see CompositeTicketGrantingTicketExpirationPolicy
  */
-public class IpAddressBasedExpirationPolicyEvalutor implements TicketExpirationPolicyEvaluator {
+public class IpAddressBasedExpirationPolicyEvaluator implements TicketExpirationPolicyEvaluator {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
          
     private Pattern ipAddressPattern;
     
-    public IpAddressBasedExpirationPolicyEvalutor(final String ipPattern) {
+    public IpAddressBasedExpirationPolicyEvaluator(final String ipPattern) {
         this.ipAddressPattern = Pattern.compile(ipPattern);
     }
     
