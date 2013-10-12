@@ -12,7 +12,7 @@ import org.jasig.cas.ticket.TicketState;
  * 
  * @author Misagh Moayyed
  * @since 1.9
- * @see IpAddressBasedExpirationPolicyEvalutor
+ * @see IpAddressBasedExpirationPolicyEvaluator
  */
 public interface TicketExpirationPolicyEvaluator {
     boolean doesSatisfyTicketExpirationPolicy(final HttpServletRequest request, final TicketState state);      

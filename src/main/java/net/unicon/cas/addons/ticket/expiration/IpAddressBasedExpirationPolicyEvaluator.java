@@ -34,7 +34,6 @@ public class IpAddressBasedExpirationPolicyEvaluator implements TicketExpiration
     
     @Override
     public boolean doesSatisfyTicketExpirationPolicy(final HttpServletRequest request, final TicketState state) {
-        
         final String currentIp = request.getRemoteAddr();
         if (InetAddressUtils.isIPv6Address(currentIp)) {
             logger.debug("Remote IP [{}] is a valid standard (non-compressed) IPv6 address", currentIp);
