@@ -6,6 +6,14 @@
 * added [RedisStatsRecorderForSsoSessionEstablishedEvents](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/info/events/listeners/RedisStatsRecorderForSsoSessionEstablishedEvents.java)
 * added [RedisStatsRecorderForServiceTicketValidatedEvents](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/info/events/listeners/RedisStatsRecorderForServiceTicketValidatedEvents.java)
 * added custom XML schema element (`events-redis-recorder`) `BeanDefinitionParser` implementation for `RedisStatsRecorderForSsoSessionEstablishedEvents` and `RedisStatsRecorderForServiceTicketValidatedEvents`
+* added [CasLoginViewSelector](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/view/CasLoginViewSelector.java)
+* added [RequestPararameterCasLoginViewSelector](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/view/RequestPararameterCasLoginViewSelector.java)
+* added [CompositeTicketGrantingTicketExpirationPolicy](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/expiration/CompositeTicketGrantingTicketExpirationPolicy.java)
+* added [TicketExpirationPolicyEvaluator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/expiration/TicketExpirationPolicyEvaluator.java)
+* added [IpAddressBasedExpirationPolicyEvaluator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/expiration/IpAddressBasedExpirationPolicyEvaluator.java)
+* added URL-based resources support for JSON services registry
+
+
 
 
 ###Changes in version 1.8 (2013-09-09)
