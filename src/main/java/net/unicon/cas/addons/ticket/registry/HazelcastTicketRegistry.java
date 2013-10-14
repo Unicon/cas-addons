@@ -38,13 +38,15 @@ public class HazelcastTicketRegistry extends AbstractDistributedTicketRegistry {
 
     /**
      * @param hz an instance of <code>HazelcastInstance</code> configured on each node
+     * @param ticketGrantingTicketTimeoutInSeconds for TGT Hazelcast Map entries TTL
+     * @param serviceTicketTimeoutInSeconds for ST Hazelcast Map entries TTL
      * from which it creates an instance of a cluster-aware Map - a main data structure
      * where tickets are stored and seamlessly replicated across nodes in the cluster by Hazelcast.
      */
-    public HazelcastTicketRegistry(final HazelcastInstance hz, int ticketGrantingTicketTimeoutInSeconds, int serviceTicketTimeoutInSeconds) {
+    public HazelcastTicketRegistry(final HazelcastInstance hz, long ticketGrantingTicketTimeoutInSeconds, long serviceTicketTimeoutInSeconds) {
         logger.debug("Constructing TicketRegistry from HazelcastInstance: {}", hz);
-        logger.debug("TicketGrantingTicket timeout is used for Hazelcast ST entries (in seconds): [{}]", String.valueOf(ticketGrantingTicketTimeoutInSeconds));
-        logger.debug("ServiceTicket timeout is used for Hazelcast ST entries (in seconds): [{}]", String.valueOf(serviceTicketTimeoutInSeconds));
+        logger.debug("TicketGrantingTicket timeout is used for Hazelcast ST entries (in seconds): [{}]", ticketGrantingTicketTimeoutInSeconds);
+        logger.debug("ServiceTicket timeout is used for Hazelcast ST entries (in seconds): [{}]", serviceTicketTimeoutInSeconds);
         this.ticketsMap = hz.getMap("tickets");
         this.ticketGrantingTicketTimeoutInSeconds = ticketGrantingTicketTimeoutInSeconds;
         this.serviceTicketTimeoutInSeconds = serviceTicketTimeoutInSeconds;
@@ -57,17 +59,21 @@ public class HazelcastTicketRegistry extends AbstractDistributedTicketRegistry {
 
     @Override
     public void addTicket(Ticket ticket) {
+        final long ticketTimeout = getTimeout(ticket);
+        logger.debug("Adding Ticket[{}] to the Hazelcast IMap with a TTL of [{}] seconds", ticket.getId(), ticketTimeout);
         this.ticketsMap.set(ticket.getId(), ticket, getTimeout(ticket), TimeUnit.SECONDS);
     }
 
     @Override
     public Ticket getTicket(String ticketId) {
         final Ticket t = this.ticketsMap.get(ticketId);
+        logger.debug("Returning Ticket[{}] from the Hazelcast IMap", t == null ? "null" : t.getId());
         return t == null ? null : getProxiedTicketInstance(t);
     }
 
     @Override
     public boolean deleteTicket(String ticketId) {
+        logger.debug("Removing Ticket[{}] from the Hazelcast IMap", ticketId);
         return this.ticketsMap.remove(ticketId) != null;
     }
 
