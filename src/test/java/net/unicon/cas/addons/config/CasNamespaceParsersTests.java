@@ -14,6 +14,7 @@ import net.unicon.cas.addons.serviceregistry.services.authorization.ServiceAutho
 import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegisteredServicesPolicies;
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 import net.unicon.cas.addons.support.TimingAspectRemovingBeanFactoryPostProcessor;
+import net.unicon.cas.addons.ticket.registry.HazelcastTicketRegistry;
 import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
 import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManager;
@@ -56,9 +57,11 @@ public class CasNamespaceParsersTests {
 
     private static final String YUBIKEY_AUTHENTICATION_HANDLER_BEAN_NAME = "yubikeyAuthenticationHandler";
 
-    private static final String ACCEPT_USERS_AUTH_HANDLER_BAEN_NAME = "acceptUsersAuthnHandler";
+    private static final String ACCEPT_USERS_AUTH_HANDLER_BEAN_NAME = "acceptUsersAuthnHandler";
 
-    private static final String BIND_LDAP_AUTH_HANDLER_BAEN_NAME = "ldapAuthnHandler";
+    private static final String BIND_LDAP_AUTH_HANDLER_BEAN_NAME = "ldapAuthnHandler";
+
+    private static final String TICKET_REGISTRY_BEAN_NAME = "ticketRegistry";
 
     @Test
     public void slf4jAuditTrailManagerBeanDefinitionCorrectlyParsed() {
@@ -127,13 +130,13 @@ public class CasNamespaceParsersTests {
 
     @Test
     public void acceptUsersAuthenticationHandlerBeanDefinitionCorrectlyParsed() {
-        assertTrue(applicationContext.containsBean(ACCEPT_USERS_AUTH_HANDLER_BAEN_NAME));
+        assertTrue(applicationContext.containsBean(ACCEPT_USERS_AUTH_HANDLER_BEAN_NAME));
         assertTrue(applicationContext.getBeansOfType(AcceptUsersAuthenticationHandler.class).size() == 1);
     }
 
     @Test
     public void bindLdapAuthenticationHandlerBeanDefinitionCorrectlyParsed() {
-        assertTrue(applicationContext.containsBean(BIND_LDAP_AUTH_HANDLER_BAEN_NAME));
+        assertTrue(applicationContext.containsBean(BIND_LDAP_AUTH_HANDLER_BEAN_NAME));
         assertTrue(applicationContext.getBeansOfType(BindLdapAuthenticationHandler.class).size() == 1);
     }
 
@@ -156,5 +159,11 @@ public class CasNamespaceParsersTests {
         public boolean isYubiKeyRegisteredFor(String uid, String yubikeyPublicId) {
             return true;
         }
+    }
+
+    @Test
+    public void hazelcastTicketRegistryBeanDefinitionCorrectlyParsed() {
+        assertTrue(applicationContext.containsBean(TICKET_REGISTRY_BEAN_NAME));
+        assertTrue(applicationContext.getBeansOfType(HazelcastTicketRegistry.class).size() == 1);
     }
 }

@@ -152,6 +152,13 @@
         <xsd:attribute name="redis-connection-factory" type="xsd:string" use="required"/>
     </xsd:complexType>
 
+    <xsd:element name="hazelcast-ticket-registry" type="hazelcast-ticket-registryType"/>
+    <xsd:complexType name="hazelcast-ticket-registryType">
+        <xsd:attribute type="xsd:string" name="hazelcast-instance" use="required"/>
+        <xsd:attribute type="xsd:string" name="tgt-entries-ttl-seconds" use="required"/>
+        <xsd:attribute type="xsd:string" name="st-entries-ttl-seconds" use="required"/>
+    </xsd:complexType>
+
 </xsd:schema>
 
 

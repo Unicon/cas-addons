@@ -11,6 +11,8 @@
 * added [CompositeTicketGrantingTicketExpirationPolicy](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/expiration/CompositeTicketGrantingTicketExpirationPolicy.java)
 * added [TicketExpirationPolicyEvaluator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/expiration/TicketExpirationPolicyEvaluator.java)
 * added [IpAddressBasedExpirationPolicyEvaluator](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/expiration/IpAddressBasedExpirationPolicyEvaluator.java)
+* added [HazelcastTicketRegistry](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/registry.HazelcastTicketRegistry.java)
+* added custom XML schema element (`hazelcast-ticket-registry`) `BeanDefinitionParser` implementation for `HazelcastTicketRegistry`
 * added URL-based resources support for JSON services registry
 
 

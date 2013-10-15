@@ -56,5 +56,4 @@
           c:ticketGrantingTicketTimeoutInSeconds="1"
           c:serviceTicketTimeoutInSeconds="1"/>
 
-
 </beans>

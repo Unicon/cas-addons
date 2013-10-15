@@ -18,6 +18,7 @@ import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegistered
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 
 import net.unicon.cas.addons.support.TimingAspectRemovingBeanFactoryPostProcessor;
+import net.unicon.cas.addons.ticket.registry.HazelcastTicketRegistry;
 import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
 import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManagerImpl;
@@ -74,6 +75,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("authentication-manager-with-bind-ldap-handler", new AuthenticationManagerWithBindLdapHandlerBeanDefinitionParser());
         registerBeanDefinitionParser("disable-perf4j-timing-aspect", new TimingAspectRemovingBFPPBeanDefinitionParser());
         registerBeanDefinitionParser("events-redis-recorder", new EventsRedisRecorderBeanDefinitionParser());
+        registerBeanDefinitionParser("hazelcast-ticket-registry", new HazelcastTicketRegistryBeanDefinitionParser());
     }
 
     /**
@@ -578,6 +580,29 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             return element.getAttribute("event-type").equals("sso-session-established")
                     ? RedisStatsRecorderForSsoSessionEstablishedEvents.class
                     : RedisStatsRecorderForServiceTicketValidatedEvents.class;
+        }
+    }
+
+    /**
+     * Parses <pre>hazelcast-ticket-registry</pre> elements into bean definitions of type {@link HazelcastTicketRegistry}
+     */
+    private static class HazelcastTicketRegistryBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+
+        @Override
+        protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
+            return "ticketRegistry";
+        }
+
+        @Override
+        protected void doParse(Element element, BeanDefinitionBuilder builder) {
+            builder.addConstructorArgReference(element.getAttribute("hazelcast-instance"))
+                    .addConstructorArgValue(element.getAttribute("tgt-entries-ttl-seconds"))
+                    .addConstructorArgValue(element.getAttribute("st-entries-ttl-seconds"));
+        }
+
+        @Override
+        protected Class<?> getBeanClass(Element element) {
+            return HazelcastTicketRegistry.class;
         }
     }
 }
