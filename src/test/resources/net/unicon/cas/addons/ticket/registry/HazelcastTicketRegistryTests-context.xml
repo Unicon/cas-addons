@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:hz="http://www.hazelcast.com/schema/spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.hazelcast.com/schema/spring
+                           http://www.hazelcast.com/schema/spring/hazelcast-spring-3.0.xsd">
+
+
+    <hz:hazelcast id="hzInstance1">
+        <hz:config>
+            <hz:instance-name>NODE1</hz:instance-name>
+            <hz:properties>
+                <hz:property name="hazelcast.logging.type">slf4j</hz:property>
+                <hz:property name="hazelcast.log.state">true</hz:property>
+            </hz:properties>
+            <hz:network port="5701" port-auto-increment="true">
+                <hz:join>
+                    <hz:multicast enabled="false"/>
+                    <hz:tcp-ip enabled="true">
+                        <hz:members>localhost</hz:members>
+                    </hz:tcp-ip>
+                </hz:join>
+            </hz:network>
+        </hz:config>
+    </hz:hazelcast>
+
+    <hz:hazelcast id="hzInstance2">
+        <hz:config>
+            <hz:instance-name>NODE2</hz:instance-name>
+            <hz:properties>
+                <hz:property name="hazelcast.logging.type">slf4j</hz:property>
+                <hz:property name="hazelcast.log.state">true</hz:property>
+            </hz:properties>
+            <hz:network port="5701" port-auto-increment="true">
+                <hz:join>
+                    <hz:multicast enabled="false"/>
+                    <hz:tcp-ip enabled="true">
+                        <hz:members>localhost</hz:members>
+                    </hz:tcp-ip>
+                </hz:join>
+            </hz:network>
+        </hz:config>
+    </hz:hazelcast>
+
+    <bean id="hzTicketRegistry1" class="net.unicon.cas.addons.ticket.registry.HazelcastTicketRegistry"
+          c:hz-ref="hzInstance1"
+          c:ticketGrantingTicketTimeoutInSeconds="1"
+          c:serviceTicketTimeoutInSeconds="1"/>
+
+
+    <bean id="hzTicketRegistry2" class="net.unicon.cas.addons.ticket.registry.HazelcastTicketRegistry"
+          c:hz-ref="hzInstance1"
+          c:ticketGrantingTicketTimeoutInSeconds="1"
+          c:serviceTicketTimeoutInSeconds="1"/>
+
+
+</beans>

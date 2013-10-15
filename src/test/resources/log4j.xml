@@ -10,6 +10,10 @@
 
     
     <logger name="org.springframework">
+        <level value="WARN" />
+    </logger>
+
+    <logger name="com.hazelcast">
         <level value="INFO" />
     </logger>
 

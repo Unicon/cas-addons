@@ -10,4 +10,5 @@ pom.xml.versionsBackup
 build.sh
 pom.xml.releaseBackup
 release.properties
+*.log
 
