@@ -44,9 +44,9 @@ public class HazelcastTicketRegistry extends AbstractDistributedTicketRegistry {
      * where tickets are stored and seamlessly replicated across nodes in the cluster by Hazelcast.
      */
     public HazelcastTicketRegistry(final HazelcastInstance hz, long ticketGrantingTicketTimeoutInSeconds, long serviceTicketTimeoutInSeconds) {
-        logger.debug("Constructing TicketRegistry from HazelcastInstance: {}", hz);
-        logger.debug("TicketGrantingTicket timeout is used for Hazelcast ST entries (in seconds): [{}]", ticketGrantingTicketTimeoutInSeconds);
-        logger.debug("ServiceTicket timeout is used for Hazelcast ST entries (in seconds): [{}]", serviceTicketTimeoutInSeconds);
+        logger.info("Constructing TicketRegistry from HazelcastInstance: {}", hz);
+        logger.info("TicketGrantingTicket timeout is used for Hazelcast ST entries (in seconds): [{}]", ticketGrantingTicketTimeoutInSeconds);
+        logger.info("ServiceTicket timeout is used for Hazelcast ST entries (in seconds): [{}]", serviceTicketTimeoutInSeconds);
         this.ticketsMap = hz.getMap("tickets");
         this.ticketGrantingTicketTimeoutInSeconds = ticketGrantingTicketTimeoutInSeconds;
         this.serviceTicketTimeoutInSeconds = serviceTicketTimeoutInSeconds;
