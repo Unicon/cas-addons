@@ -10,9 +10,11 @@ net.unicon.cas.addons.authentication.support
 net.unicon.cas.addons.config
 net.unicon.cas.addons.info
 net.unicon.cas.addons.info.events
+net.unicon.cas.addons.info.events.listeners
 net.unicon.cas.addons.info.internal
 net.unicon.cas.addons.persondir
 net.unicon.cas.addons.response
+net.unicon.cas.addons.response.view.saml
 net.unicon.cas.addons.serviceregistry
 net.unicon.cas.addons.serviceregistry.mongodb
 net.unicon.cas.addons.serviceregistry.services
@@ -20,7 +22,9 @@ net.unicon.cas.addons.serviceregistry.services.authorization
 net.unicon.cas.addons.serviceregistry.services.internal
 net.unicon.cas.addons.support
 net.unicon.cas.addons.ticket
+net.unicon.cas.addons.ticket.expiration
 net.unicon.cas.addons.ticket.internal
+net.unicon.cas.addons.ticket.registry
 net.unicon.cas.addons.web.flow
 net.unicon.cas.addons.web.support
-net.unicon.cas.addons.web.support.view.saml
+net.unicon.cas.addons.web.view

@@ -8,8 +8,8 @@
     <language>en-us</language>
     <copyright>&#169;2012 - 2013 Unicon Inc.</copyright>
     <item>
-      <title>File: 79,
-             Errors: 2342,
+      <title>File: 88,
+             Errors: 2591,
              Warnings: 0,
              Infos: 0
       </title>
@@ -53,6 +53,20 @@
                 </td>
                 <td>
                   6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.web.view.CasLoginViewSelector.java">net/unicon/cas/addons/web/view/CasLoginViewSelector.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
                 </td>
               </tr>
                           <tr>
@@ -141,20 +155,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.persondir.package-info.java">net/unicon/cas/addons/persondir/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.response.ServiceValidateFailureJsonView.java">net/unicon/cas/addons/response/ServiceValidateFailureJsonView.java</a>
                 </td>
                 <td>
@@ -165,6 +165,20 @@
                 </td>
                 <td>
                   10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.persondir.package-info.java">net/unicon/cas/addons/persondir/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
                 </td>
               </tr>
                           <tr>
@@ -206,7 +220,7 @@
                   0
                 </td>
                 <td>
-                  276
+                  314
                 </td>
               </tr>
                           <tr>
@@ -333,20 +347,6 @@
                 </td>
                 <td>
                   1
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.web.support.view.saml.Saml10SuccessResponseView.java">net/unicon/cas/addons/web/support/view/saml/Saml10SuccessResponseView.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  62
                 </td>
               </tr>
                           <tr>
@@ -491,6 +491,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.info.events.listeners.RedisStatsRecorderForSsoSessionEstablishedEvents.java">net/unicon/cas/addons/info/events/listeners/RedisStatsRecorderForSsoSessionEstablishedEvents.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  18
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.principal.EmailAddressPasswordCredentialsToPrincipalResolver.java">net/unicon/cas/addons/authentication/principal/EmailAddressPasswordCredentialsToPrincipalResolver.java</a>
                 </td>
                 <td>
@@ -533,6 +547,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.response.view.saml.NoSamlNamespaceAbstractSaml10ResponseView.java">net/unicon/cas/addons/response/view/saml/NoSamlNamespaceAbstractSaml10ResponseView.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  45
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.support.NotThreadSafe.java">net/unicon/cas/addons/support/NotThreadSafe.java</a>
                 </td>
                 <td>
@@ -561,6 +589,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.RegisteredServicesReloadDisablingBeanFactoryPostProcessor.java">net/unicon/cas/addons/serviceregistry/RegisteredServicesReloadDisablingBeanFactoryPostProcessor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.authentication.package-info.java">net/unicon/cas/addons/authentication/package-info.java</a>
                 </td>
                 <td>
@@ -575,7 +617,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.web.support.view.saml.NoSamlNamespaceAbstractSaml10ResponseView.java">net/unicon/cas/addons/web/support/view/saml/NoSamlNamespaceAbstractSaml10ResponseView.java</a>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.web.view.RequestPararameterCasLoginViewSelector.java">net/unicon/cas/addons/web/view/RequestPararameterCasLoginViewSelector.java</a>
                 </td>
                 <td>
                   0
@@ -584,7 +626,7 @@
                   0
                 </td>
                 <td>
-                  42
+                  19
                 </td>
               </tr>
                           <tr>
@@ -627,6 +669,20 @@
                 </td>
                 <td>
                   1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.ticket.expiration.TicketExpirationPolicyEvaluator.java">net/unicon/cas/addons/ticket/expiration/TicketExpirationPolicyEvaluator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
                 </td>
               </tr>
                           <tr>
@@ -701,6 +757,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.ticket.registry.HazelcastTicketRegistry.java">net/unicon/cas/addons/ticket/registry/HazelcastTicketRegistry.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  42
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.RegexRegisteredServiceWithAttributes.java">net/unicon/cas/addons/serviceregistry/RegexRegisteredServiceWithAttributes.java</a>
                 </td>
                 <td>
@@ -738,7 +808,7 @@
                   0
                 </td>
                 <td>
-                  18
+                  21
                 </td>
               </tr>
                           <tr>
@@ -781,6 +851,34 @@
                 </td>
                 <td>
                   102
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.ticket.expiration.CompositeTicketGrantingTicketExpirationPolicy.java">net/unicon/cas/addons/ticket/expiration/CompositeTicketGrantingTicketExpirationPolicy.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  43
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.response.view.saml.Saml10SuccessResponseView.java">net/unicon/cas/addons/response/view/saml/Saml10SuccessResponseView.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  62
                 </td>
               </tr>
                           <tr>
@@ -855,7 +953,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.serviceregistry.ReloadableServicesManagerSuppressionAspect.java">net/unicon/cas/addons/serviceregistry/ReloadableServicesManagerSuppressionAspect.java</a>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.support.TimingAspectRemovingBeanFactoryPostProcessor.java">net/unicon/cas/addons/support/TimingAspectRemovingBeanFactoryPostProcessor.java</a>
                 </td>
                 <td>
                   0
@@ -864,7 +962,7 @@
                   0
                 </td>
                 <td>
-                  20
+                  16
                 </td>
               </tr>
                           <tr>
@@ -967,6 +1065,34 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.ticket.expiration.IpAddressBasedExpirationPolicyEvaluator.java">net/unicon/cas/addons/ticket/expiration/IpAddressBasedExpirationPolicyEvaluator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.info.events.listeners.RedisStatsRecorderForServiceTicketValidatedEvents.java">net/unicon/cas/addons/info/events/listeners/RedisStatsRecorderForServiceTicketValidatedEvents.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://unicon.github.io/cas-addons//checkstyle.html#net.unicon.cas.addons.web.flow.ServiceAuthorizationCheckWithCustomView.java">net/unicon/cas/addons/web/flow/ServiceAuthorizationCheckWithCustomView.java</a>
                 </td>
                 <td>
@@ -1060,7 +1186,7 @@
                   0
                 </td>
                 <td>
-                  43
+                  42
                 </td>
               </tr>
                           <tr>
