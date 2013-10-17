@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.webflow.action.AbstractAction;
 import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
-import org.springframework.webflow.test.MockRequestContext;
 
 import javax.validation.constraints.NotNull;
 
