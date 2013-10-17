@@ -14,8 +14,9 @@
 * added [HazelcastTicketRegistry](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/ticket/registry.HazelcastTicketRegistry.java)
 * added custom XML schema element (`hazelcast-ticket-registry`) `BeanDefinitionParser` implementation for `HazelcastTicketRegistry`
 * added URL-based resources support for JSON services registry
-
-
+* added [ServiceRedirectionAdvisor](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/flow/ServiceRedirectionAdvisor.java)
+* added [ServiceRedirectionAction](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/flow/ServiceRedirectionAction.java)
+* added [InMemoryServiceRedirectionByClientIpAddressAdvisor](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/flow/InMemoryServiceRedirectionByClientIpAddressAdvisor.java)
 
 
 ###Changes in version 1.8 (2013-09-09)
