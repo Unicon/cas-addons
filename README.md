@@ -37,7 +37,7 @@ Declare the project dependency in your Local CAS server `pom.xml` file as:
 <dependency>
     <groupId>net.unicon.cas</groupId>
     <artifactId>cas-addons</artifactId>
-    <version>1.8</version>
+    <version>${cas-addons.version}</version>
 </dependency>
 ```
 
