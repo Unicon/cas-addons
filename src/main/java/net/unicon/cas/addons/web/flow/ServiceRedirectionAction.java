@@ -39,7 +39,7 @@ public final class ServiceRedirectionAction extends AbstractAction {
 
     private static final String REDIRECT_TO_URL_ATTRIBUTE = "redirectToUrl";
 
-    private ServiceRedirectionAdvisor redirectionAdvisor = null;
+    private ServiceRedirectionAdvisor redirectionAdvisor;
 
     public ServiceRedirectionAction(@NotNull final ServicesManager servicesManager) {
         this.servicesManager = servicesManager;
