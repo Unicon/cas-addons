@@ -17,7 +17,7 @@ import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
 
 /**
- * A spring webflow action that attempts to determine whether access to a {@link Service}
+ * A spring webflow action state that attempts to determine whether access to a {@link Service}
  * is required first to be redirected to an external url, defined by the metadata in the
  * service registry. This functionality is dependent upon the usage of the {@link JsonServiceRegistryDao}
  * where the redirection url is provided as an extra attribute via {@link #REDIRECT_TO_URL_ATTRIBUTE}.
