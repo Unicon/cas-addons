@@ -15,6 +15,7 @@ import net.unicon.cas.addons.serviceregistry.services.internal.DefaultRegistered
 import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 import net.unicon.cas.addons.support.TimingAspectRemovingBeanFactoryPostProcessor;
 import net.unicon.cas.addons.ticket.registry.HazelcastTicketRegistry;
+import net.unicon.cas.addons.web.flow.ServiceRedirectionAction;
 import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
 import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManager;
@@ -62,6 +63,8 @@ public class CasNamespaceParsersTests {
     private static final String BIND_LDAP_AUTH_HANDLER_BEAN_NAME = "ldapAuthnHandler";
 
     private static final String TICKET_REGISTRY_BEAN_NAME = "ticketRegistry";
+
+    private static final String SERVICE_REDIRECTION_ACTION_BEAN_NAME = "serviceRedirectionCheck";
 
     @Test
     public void slf4jAuditTrailManagerBeanDefinitionCorrectlyParsed() {
@@ -165,5 +168,12 @@ public class CasNamespaceParsersTests {
     public void hazelcastTicketRegistryBeanDefinitionCorrectlyParsed() {
         assertTrue(applicationContext.containsBean(TICKET_REGISTRY_BEAN_NAME));
         assertTrue(applicationContext.getBeansOfType(HazelcastTicketRegistry.class).size() == 1);
+    }
+
+    @Test
+    public void serviceRedirectionActionBeanDefinitionCorrectlyParsed() {
+        ServiceRedirectionAction b = applicationContext.getBean(SERVICE_REDIRECTION_ACTION_BEAN_NAME, ServiceRedirectionAction.class);
+        assertTrue(applicationContext.containsBean(SERVICE_REDIRECTION_ACTION_BEAN_NAME));
+        assertTrue(applicationContext.getBeansOfType(ServiceRedirectionAction.class).size() == 1);
     }
 }

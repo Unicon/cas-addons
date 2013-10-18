@@ -17,6 +17,7 @@
 * added [ServiceRedirectionAdvisor](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/flow/ServiceRedirectionAdvisor.java)
 * added [ServiceRedirectionAction](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/flow/ServiceRedirectionAction.java)
 * added [InMemoryServiceRedirectionByClientIpAddressAdvisor](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/web/flow/InMemoryServiceRedirectionByClientIpAddressAdvisor.java)
+* added custom XML schema element (`service-redirection-action`) `BeanDefinitionParser` implementation for `ServiceRedirectionAction`
 
 
 ###Changes in version 1.8 (2013-09-09)

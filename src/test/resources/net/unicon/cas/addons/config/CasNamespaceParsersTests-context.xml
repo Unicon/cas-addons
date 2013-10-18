@@ -99,4 +99,6 @@
 
     <cas:hazelcast-ticket-registry hazelcast-instance="hazelcast" tgt-entries-ttl-seconds="2800" st-entries-ttl-seconds="10"/>
 
+    <cas:service-redirection-action/>
+
 </beans>

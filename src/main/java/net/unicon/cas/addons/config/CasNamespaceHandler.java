@@ -19,6 +19,8 @@ import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 
 import net.unicon.cas.addons.support.TimingAspectRemovingBeanFactoryPostProcessor;
 import net.unicon.cas.addons.ticket.registry.HazelcastTicketRegistry;
+import net.unicon.cas.addons.web.flow.InMemoryServiceRedirectionByClientIpAddressAdvisor;
+import net.unicon.cas.addons.web.flow.ServiceRedirectionAction;
 import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
 import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManagerImpl;
@@ -31,10 +33,7 @@ import org.jasig.cas.monitor.MemoryMonitor;
 
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.support.AbstractBeanDefinition;
-import org.springframework.beans.factory.support.BeanDefinitionBuilder;
-import org.springframework.beans.factory.support.ManagedList;
-import org.springframework.beans.factory.support.ManagedMap;
+import org.springframework.beans.factory.support.*;
 import org.springframework.beans.factory.xml.*;
 import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.util.StringUtils;
@@ -76,6 +75,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("disable-perf4j-timing-aspect", new TimingAspectRemovingBFPPBeanDefinitionParser());
         registerBeanDefinitionParser("events-redis-recorder", new EventsRedisRecorderBeanDefinitionParser());
         registerBeanDefinitionParser("hazelcast-ticket-registry", new HazelcastTicketRegistryBeanDefinitionParser());
+        registerBeanDefinitionParser("service-redirection-action", new ServiceRedirectionActionBeanDefinitionParser());
     }
 
     /**
@@ -603,6 +603,35 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         @Override
         protected Class<?> getBeanClass(Element element) {
             return HazelcastTicketRegistry.class;
+        }
+    }
+
+    /**
+     * Parses <pre>service-redirection-action</pre> elements into bean definitions of type {@link ServiceRedirectionAction}
+     */
+    private static class ServiceRedirectionActionBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+
+        @Override
+        protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
+            return "serviceRedirectionCheck";
+        }
+
+        @Override
+        protected void doParse(Element element, BeanDefinitionBuilder builder) {
+            builder.addConstructorArgReference("servicesManager");
+            final String redirectionAdvisorRef = element.getAttribute("redirection-advisor");
+            if(StringUtils.hasText(redirectionAdvisorRef)) {
+                builder.addPropertyReference("redirectionAdvisor", redirectionAdvisorRef);
+            }
+            else {
+                builder.addPropertyValue("redirectionAdvisor",
+                        BeanDefinitionBuilder.genericBeanDefinition(InMemoryServiceRedirectionByClientIpAddressAdvisor.class).getBeanDefinition());
+            }
+        }
+
+        @Override
+        protected Class<?> getBeanClass(Element element) {
+            return ServiceRedirectionAction.class;
         }
     }
 }

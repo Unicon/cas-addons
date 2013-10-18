@@ -159,6 +159,11 @@
         <xsd:attribute type="xsd:string" name="st-entries-ttl-seconds" use="required"/>
     </xsd:complexType>
 
+    <xsd:element name="service-redirection-action" type="service-redirection-actionType"/>
+    <xsd:complexType name="service-redirection-actionType">
+        <xsd:attribute type="xsd:string" name="redirection-advisor" use="optional"/>
+    </xsd:complexType>
+
 </xsd:schema>
 
 
