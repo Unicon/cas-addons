@@ -38,7 +38,7 @@ public final class InMemoryServiceRedirectionByClientIpAddressAdvisor implements
         final String key = buildKey(context, service, redirectUrl);
         
         if (this.repository.contains(key)) {
-            logger.info("Request [{}] has fullfilled redirection requirements for service id [{}]", key, service.getServiceId());
+            logger.info("Request [{}] has fulfilled redirection requirements for service id [{}]", key, service.getServiceId());
             return false;
         }
         
