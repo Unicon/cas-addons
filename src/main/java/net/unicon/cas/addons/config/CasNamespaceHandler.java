@@ -623,10 +623,6 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             if(StringUtils.hasText(redirectionAdvisorRef)) {
                 builder.addPropertyReference("redirectionAdvisor", redirectionAdvisorRef);
             }
-            else {
-                builder.addPropertyValue("redirectionAdvisor",
-                        BeanDefinitionBuilder.genericBeanDefinition(InMemoryServiceRedirectionByClientIpAddressAdvisor.class).getBeanDefinition());
-            }
         }
 
         @Override

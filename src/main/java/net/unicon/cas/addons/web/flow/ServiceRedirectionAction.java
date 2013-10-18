@@ -23,8 +23,8 @@ import org.springframework.webflow.execution.RequestContext;
  * where the redirection url is provided as an extra attribute via {@link #REDIRECT_TO_URL_ATTRIBUTE}.
  * 
  * The strategy of evaluating whether a redirection is required is determined by
- * {@link #setRedirectionAdvisor(ServiceRedirectionAdvisor)}. By default, no redirection
- * is required.
+ * {@link #setRedirectionAdvisor(ServiceRedirectionAdvisor)}. By default, the {@link InMemoryServiceRedirectionByClientIpAddressAdvisor}
+ * is used.
  * 
  * @author Misagh Moayyed (<a href="mailto:mmoayyed@unicon.net">mmoayyed@unicon.net</a>)
  * @since 1.9
@@ -39,7 +39,7 @@ public final class ServiceRedirectionAction extends AbstractAction {
 
     private static final String REDIRECT_TO_URL_ATTRIBUTE = "redirectToUrl";
 
-    private ServiceRedirectionAdvisor redirectionAdvisor;
+    private ServiceRedirectionAdvisor redirectionAdvisor = new InMemoryServiceRedirectionByClientIpAddressAdvisor();
 
     public ServiceRedirectionAction(@NotNull final ServicesManager servicesManager) {
         this.servicesManager = servicesManager;
@@ -52,11 +52,6 @@ public final class ServiceRedirectionAction extends AbstractAction {
     @Override
     protected Event doExecute(final RequestContext context) throws Exception {
         final Service service = WebUtils.getService(context);
-
-        if (this.redirectionAdvisor == null) {
-            logger.debug("No service redirection strategy/advisor is configured, so resuming normally.");
-            return success();
-        }
         
         if (service == null) {
             logger.debug("No service found in the request context, so resuming normally.");
