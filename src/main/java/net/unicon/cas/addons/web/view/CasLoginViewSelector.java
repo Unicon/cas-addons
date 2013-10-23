@@ -19,7 +19,7 @@ import org.springframework.webflow.execution.RequestContext;
  * 
  * @author Misagh Moayyed
  * @since 1.9
- * @see RequestPararameterCasLoginViewSelector
+ * @see RequestParameterCasLoginViewSelector
  */
 public interface CasLoginViewSelector {
     

@@ -19,8 +19,8 @@ import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 
 import net.unicon.cas.addons.support.TimingAspectRemovingBeanFactoryPostProcessor;
 import net.unicon.cas.addons.ticket.registry.HazelcastTicketRegistry;
-import net.unicon.cas.addons.web.flow.InMemoryServiceRedirectionByClientIpAddressAdvisor;
 import net.unicon.cas.addons.web.flow.ServiceRedirectionAction;
+import net.unicon.cas.addons.web.view.RequestParameterCasLoginViewSelector;
 import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
 import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManagerImpl;
@@ -76,6 +76,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("events-redis-recorder", new EventsRedisRecorderBeanDefinitionParser());
         registerBeanDefinitionParser("hazelcast-ticket-registry", new HazelcastTicketRegistryBeanDefinitionParser());
         registerBeanDefinitionParser("service-redirection-action", new ServiceRedirectionActionBeanDefinitionParser());
+        registerBeanDefinitionParser("request-param-login-view-selector", new RequestParameterLoginViewSelectorBeanDefinitionParser());
     }
 
     /**
@@ -628,6 +629,44 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         @Override
         protected Class<?> getBeanClass(Element element) {
             return ServiceRedirectionAction.class;
+        }
+    }
+
+    /**
+     * Parses <pre>request-param-login-view-selector</pre> elements into bean definitions of type {@link RequestParameterCasLoginViewSelector}
+     */
+    private static class RequestParameterLoginViewSelectorBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+
+        @Override
+        protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
+            return "casLoginViewSelector";
+        }
+
+        @Override
+        protected void doParse(Element element, BeanDefinitionBuilder builder) {
+            final String parameterNameVal = element.getAttribute("parameter-name");
+            final String defaultViewVal = element.getAttribute("default-view");
+            if(StringUtils.hasText(parameterNameVal)) {
+                builder.addPropertyValue("parameterName", parameterNameVal);
+            }
+            if(StringUtils.hasText(defaultViewVal)) {
+                builder.addPropertyValue("defaultView", defaultViewVal);
+            }
+            builder.addPropertyValue("viewMappings", buildViewsMap(element));
+        }
+
+        @Override
+        protected Class<?> getBeanClass(Element element) {
+            return RequestParameterCasLoginViewSelector.class;
+        }
+
+        private ManagedMap<String, String> buildViewsMap(Element element) {
+            final List<Element> loginViewElements = DomUtils.getChildElementsByTagName(element, "login-view");
+            final ManagedMap<String, String> viewsMap = new ManagedMap<String, String>(loginViewElements.size());
+            for (Element e : loginViewElements) {
+                viewsMap.put(e.getAttribute("param"), e.getAttribute("view"));
+            }
+            return viewsMap;
         }
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.webflow.execution.RequestContext;
 * @author Misagh Moayyed
 * @since 1.9
 */
-public class RequestPararameterCasLoginViewSelector implements CasLoginViewSelector {
+public class RequestParameterCasLoginViewSelector implements CasLoginViewSelector {
 
     private String parameterName = "view";
     private String defaultView = "casLoginView";

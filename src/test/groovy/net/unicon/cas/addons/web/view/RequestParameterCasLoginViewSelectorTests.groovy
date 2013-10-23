@@ -1,6 +1,7 @@
 package net.unicon.cas.addons.response.view
 
-import net.unicon.cas.addons.web.view.RequestPararameterCasLoginViewSelector;
+import net.unicon.cas.addons.web.view.RequestParameterCasLoginViewSelector
+import net.unicon.cas.addons.web.view.RequestParameterCasLoginViewSelector;
 
 import org.junit.runner.RunWith
 import org.spockframework.runtime.Sputnik
@@ -14,8 +15,8 @@ import spock.lang.Specification
  * @author Unicon , inc.
  */
 @RunWith(Sputnik)
-class RequestPararameterCasLoginViewSelectorTests extends Specification {
-    def selector = new RequestPararameterCasLoginViewSelector()
+class RequestParameterCasLoginViewSelectorTests extends Specification {
+    def selector = new RequestParameterCasLoginViewSelector()
 
     def "Test alternative view based on request parameter"() {
         given:

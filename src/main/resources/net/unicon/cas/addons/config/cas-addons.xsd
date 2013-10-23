@@ -164,6 +164,21 @@
         <xsd:attribute type="xsd:string" name="redirection-advisor" use="optional"/>
     </xsd:complexType>
 
+    <xsd:element name="login-view" type="login-viewType"/>
+    <xsd:complexType name="login-viewType">
+        <xsd:attribute type="xsd:string" name="param" use="required"/>
+        <xsd:attribute type="xsd:string" name="view" use="required"/>
+    </xsd:complexType>
+
+    <xsd:element name="request-param-login-view-selector" type="request-param-login-view-selectorType"/>
+    <xsd:complexType name="request-param-login-view-selectorType">
+        <xsd:choice minOccurs="1" maxOccurs="unbounded">
+            <xsd:element ref="login-view"/>
+        </xsd:choice>
+        <xsd:attribute type="xsd:string" name="parameter-name" use="optional"/>
+        <xsd:attribute type="xsd:string" name="default-view" use="optional"/>
+    </xsd:complexType>
+
 </xsd:schema>
 
 

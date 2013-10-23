@@ -16,6 +16,7 @@ import net.unicon.cas.addons.support.ResourceChangeDetectingEventNotifier;
 import net.unicon.cas.addons.support.TimingAspectRemovingBeanFactoryPostProcessor;
 import net.unicon.cas.addons.ticket.registry.HazelcastTicketRegistry;
 import net.unicon.cas.addons.web.flow.ServiceRedirectionAction;
+import net.unicon.cas.addons.web.view.RequestParameterCasLoginViewSelector;
 import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
 import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManager;
@@ -65,6 +66,9 @@ public class CasNamespaceParsersTests {
     private static final String TICKET_REGISTRY_BEAN_NAME = "ticketRegistry";
 
     private static final String SERVICE_REDIRECTION_ACTION_BEAN_NAME = "serviceRedirectionCheck";
+
+    private static final String LOGIN_VIEW_SELECTOR_BEAN_NAME = "casLoginViewSelector";
+
 
     @Test
     public void slf4jAuditTrailManagerBeanDefinitionCorrectlyParsed() {
@@ -172,8 +176,13 @@ public class CasNamespaceParsersTests {
 
     @Test
     public void serviceRedirectionActionBeanDefinitionCorrectlyParsed() {
-        ServiceRedirectionAction b = applicationContext.getBean(SERVICE_REDIRECTION_ACTION_BEAN_NAME, ServiceRedirectionAction.class);
         assertTrue(applicationContext.containsBean(SERVICE_REDIRECTION_ACTION_BEAN_NAME));
         assertTrue(applicationContext.getBeansOfType(ServiceRedirectionAction.class).size() == 1);
+    }
+
+    @Test
+    public void requestParameterLoginViewSelectorBeanDefinitionCorrectlyParsed() {
+        assertTrue(applicationContext.containsBean(LOGIN_VIEW_SELECTOR_BEAN_NAME));
+        assertTrue(applicationContext.getBeansOfType(RequestParameterCasLoginViewSelector.class).size() == 1);
     }
 }

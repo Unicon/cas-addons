@@ -101,5 +101,10 @@
 
     <bean id="myAdvisor" class="net.unicon.cas.addons.web.flow.InMemoryServiceRedirectionByClientIpAddressAdvisor"/>
     <cas:service-redirection-action redirection-advisor="myAdvisor"/>
+    
+    <cas:request-param-login-view-selector parameter-name="view" default-view="casLoginView">
+        <cas:login-view param="staff" view="casViewForStaff"/>
+        <cas:login-view param="faculty" view="casViewForFaculty"/>
+    </cas:request-param-login-view-selector>
 
 </beans>
