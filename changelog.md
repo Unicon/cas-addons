@@ -1,6 +1,6 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.9 (not yet released)
+###Changes in version 1.9 (2013-11-01)
 ======================================
 
 * added [RedisStatsRecorderForSsoSessionEstablishedEvents](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/info/events/listeners/RedisStatsRecorderForSsoSessionEstablishedEvents.java)

@@ -14,7 +14,7 @@ For versions **1.0+**, the minimum supported version of CAS is **3.5.1**
 * [Wiki](https://github.com/Unicon/cas-addons/wiki)
 
 ## Current version
-`1.8`
+`1.9`
 
 ## Build 
 
