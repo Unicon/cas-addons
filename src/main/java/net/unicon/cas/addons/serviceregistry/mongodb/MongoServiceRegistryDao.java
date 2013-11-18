@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.jasig.cas.services.AbstractRegisteredService;
 import org.jasig.cas.services.RegisteredService;
 import org.jasig.cas.services.ServiceRegistryDao;
 import org.slf4j.Logger;
@@ -82,6 +83,9 @@ public final class MongoServiceRegistryDao implements ServiceRegistryDao, Initia
 	@Override
 	@Transactional(readOnly = false)
 	public RegisteredService save(final RegisteredService svc) {
+    if (svc.getId() == -1) {
+        ((AbstractRegisteredService) svc).setId(svc.hashCode());
+    }
 		this.mongoTemplate.save(svc, this.collectionName);
 		log.debug("Saved registered service: {}", svc);
 		return this.findServiceById(svc.getId());

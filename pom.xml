@@ -84,7 +84,7 @@
         <joda-time.version>2.3</joda-time.version>
         <jedis.version>2.1.0</jedis.version>
         <spring.data.redis.version>1.1.0.RELEASE</spring.data.redis.version>
-        <groovy.version>2.1.5</groovy.version>
+        <groovy.version>2.1.6</groovy.version>
         <apache.httpclient.version>4.2.6</apache.httpclient.version>
     </properties>
 

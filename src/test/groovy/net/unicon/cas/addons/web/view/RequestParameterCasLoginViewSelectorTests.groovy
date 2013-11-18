@@ -1,4 +1,4 @@
-package net.unicon.cas.addons.response.view
+package net.unicon.cas.addons.web.view
 
 import net.unicon.cas.addons.web.view.RequestParameterCasLoginViewSelector
 import net.unicon.cas.addons.web.view.RequestParameterCasLoginViewSelector;
