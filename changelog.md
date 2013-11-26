@@ -1,7 +1,7 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.9.1 (NOT RELEASED)
-======================================
+###Changes in version 1.9.1 (2013-11-26)
+========================================
 
 * Fixed issue with [MongoServiceRegistryDao](https://github.com/Unicon/cas-addons/blob/master/src/main/java/net/unicon/cas/addons/serviceregistry/mongodb/MongoServiceRegistryDao.java)
 to recognize registered services with id of `-1`
