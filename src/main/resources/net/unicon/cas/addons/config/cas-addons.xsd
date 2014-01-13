@@ -110,6 +110,7 @@
         <xsd:attribute name="search-base" type="xsd:string" use="required"/>
         <xsd:attribute name="is-pooled" type="xsd:boolean" default="false"/>
         <xsd:attribute name="ignore-partial-result-exception" type="xsd:boolean" default="true"/>
+        <xsd:attribute name="expose-context-source-bean-as" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:element name="authentication-manager-with-bind-ldap-handler" type="authentication-manager-with-bind-ldap-handlerType"/>
@@ -135,6 +136,7 @@
         <xsd:attribute name="search-base" type="xsd:string" use="required"/>
         <xsd:attribute name="is-pooled" type="xsd:boolean" default="false"/>
         <xsd:attribute name="ignore-partial-result-exception" type="xsd:boolean" default="true"/>
+        <xsd:attribute name="expose-context-source-bean-as" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:element name="disable-perf4j-timing-aspect" type="xsd:string"/>

@@ -438,10 +438,10 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         }
 
         @Override
-        protected void doParse(Element element, BeanDefinitionBuilder builder) {
+        protected void doParse(Element element, ParserContext parserContext, BeanDefinitionBuilder builder) {
             //Configure LdapContextSource and main BindLdapAuthenticationHandler beans
             final BeanDefinitionBuilder contextSourceBuilder = BeanDefinitionBuilder.genericBeanDefinition(LdapContextSource.class);
-            parseBindLdapAuthenticationHandlerBeanDefinition(element, contextSourceBuilder, builder);
+            parseBindLdapAuthenticationHandlerBeanDefinition(element, contextSourceBuilder, builder, parserContext.getRegistry());
         }
 
         @Override
@@ -461,7 +461,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         protected AbstractBeanDefinition createAuthenticatonManagerBeanDefinition(Element element, ParserContext parserContext, BeanDefinitionBuilder authenticationManagerBuilder, ManagedList authenticationHandlersList) {
             BeanDefinitionBuilder contextSourceBuilder = BeanDefinitionBuilder.genericBeanDefinition(LdapContextSource.class);
             BeanDefinitionBuilder bindLdapAuthnHandlerBuilder = BeanDefinitionBuilder.genericBeanDefinition(BindLdapAuthenticationHandler.class);
-            parseBindLdapAuthenticationHandlerBeanDefinition(element, contextSourceBuilder, bindLdapAuthnHandlerBuilder);
+            parseBindLdapAuthenticationHandlerBeanDefinition(element, contextSourceBuilder, bindLdapAuthnHandlerBuilder, parserContext.getRegistry());
             authenticationHandlersList.add(bindLdapAuthnHandlerBuilder.getBeanDefinition());
             return authenticationManagerBuilder.getBeanDefinition();
         }
@@ -522,7 +522,11 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         return usersMap;
     }
 
-    private static void parseBindLdapAuthenticationHandlerBeanDefinition(Element element, BeanDefinitionBuilder contextSourceBuilder, BeanDefinitionBuilder bindLdapAuthnHandlerBuilder) {
+    private static void parseBindLdapAuthenticationHandlerBeanDefinition(Element element,
+                                                                         BeanDefinitionBuilder contextSourceBuilder,
+                                                                         BeanDefinitionBuilder bindLdapAuthnHandlerBuilder,
+                                                                         BeanDefinitionRegistry beanDefinitionRegistry) {
+
         contextSourceBuilder.addPropertyValue("userDn", element.getAttribute("user-dn"));
         contextSourceBuilder.addPropertyValue("password", element.getAttribute("password"));
         contextSourceBuilder.addPropertyValue("urls", StringUtils.commaDelimitedListToSet(element.getAttribute("urls")));
@@ -542,6 +546,12 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         bindLdapAuthnHandlerBuilder.addPropertyValue("searchBase", element.getAttribute("search-base"));
         bindLdapAuthnHandlerBuilder.addPropertyValue("ignorePartialResultException", element.getAttribute("ignore-partial-result-exception"));
         bindLdapAuthnHandlerBuilder.addPropertyValue("contextSource", contextSourceBuilder.getBeanDefinition());
+
+        //Expose the LdapContextSource bean to the application context if necessary
+        final String contextSourceBeanName = element.getAttribute("expose-context-source-bean-as");
+        if (StringUtils.hasText(contextSourceBeanName)) {
+            beanDefinitionRegistry.registerBeanDefinition(contextSourceBeanName, contextSourceBuilder.getBeanDefinition());
+        }
     }
 
     /**
@@ -621,7 +631,7 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         protected void doParse(Element element, BeanDefinitionBuilder builder) {
             builder.addConstructorArgReference("servicesManager");
             final String redirectionAdvisorRef = element.getAttribute("redirection-advisor");
-            if(StringUtils.hasText(redirectionAdvisorRef)) {
+            if (StringUtils.hasText(redirectionAdvisorRef)) {
                 builder.addPropertyReference("redirectionAdvisor", redirectionAdvisorRef);
             }
         }
@@ -635,7 +645,8 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
     /**
      * Parses <pre>request-param-login-view-selector</pre> elements into bean definitions of type {@link RequestParameterCasLoginViewSelector}
      */
-    private static class RequestParameterLoginViewSelectorBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+    private static class RequestParameterLoginViewSelectorBeanDefinitionParser extends
+            AbstractSingleBeanDefinitionParser {
 
         @Override
         protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
@@ -646,10 +657,10 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
         protected void doParse(Element element, BeanDefinitionBuilder builder) {
             final String parameterNameVal = element.getAttribute("parameter-name");
             final String defaultViewVal = element.getAttribute("default-view");
-            if(StringUtils.hasText(parameterNameVal)) {
+            if (StringUtils.hasText(parameterNameVal)) {
                 builder.addPropertyValue("parameterName", parameterNameVal);
             }
-            if(StringUtils.hasText(defaultViewVal)) {
+            if (StringUtils.hasText(defaultViewVal)) {
                 builder.addPropertyValue("defaultView", defaultViewVal);
             }
             builder.addPropertyValue("viewMappings", buildViewsMap(element));
