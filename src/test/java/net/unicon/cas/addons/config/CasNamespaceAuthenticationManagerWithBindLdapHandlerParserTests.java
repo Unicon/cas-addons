@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,9 +24,13 @@ public class CasNamespaceAuthenticationManagerWithBindLdapHandlerParserTests {
 
     private static final String AUTHN_MANAGER_BEAN_NAME = "authenticationManager";
 
+    private static final String CONTEXT_SOURCE_BEAN_NAME = "contextSource";
+
     @Test
     public void authenticationManagerWithBindLdapHandlerBeanDefinitionCorrectlyParsed() {
         assertTrue(applicationContext.containsBean(AUTHN_MANAGER_BEAN_NAME));
         assertTrue(applicationContext.getBeansOfType(AuthenticationManager.class).size() == 1);
+        assertTrue(applicationContext.containsBean(CONTEXT_SOURCE_BEAN_NAME));
+        assertTrue(applicationContext.getBeansOfType(LdapContextSource.class).size() == 1);
     }
 }

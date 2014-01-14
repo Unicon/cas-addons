@@ -18,7 +18,8 @@
                                           filter="sAMAccountName=%u"
                                           search-base="OU=users"
                                           is-pooled="false"
-                                          ignore-partial-result-exception="true">
+                                          ignore-partial-result-exception="true"
+                                          expose-context-source-bean-as="contextSource">
 
         <cas:ldap-properties>
             <cas:ldap-prop key="com.sun.jndi.ldap.connect.timeout" value="3000"/>

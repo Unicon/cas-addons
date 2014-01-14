@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -62,6 +63,8 @@ public class CasNamespaceParsersTests {
     private static final String ACCEPT_USERS_AUTH_HANDLER_BEAN_NAME = "acceptUsersAuthnHandler";
 
     private static final String BIND_LDAP_AUTH_HANDLER_BEAN_NAME = "ldapAuthnHandler";
+
+    private static final String CONTEXT_SOURCE_BEAN_NAME = "contextSource";
 
     private static final String TICKET_REGISTRY_BEAN_NAME = "ticketRegistry";
 
@@ -145,6 +148,8 @@ public class CasNamespaceParsersTests {
     public void bindLdapAuthenticationHandlerBeanDefinitionCorrectlyParsed() {
         assertTrue(applicationContext.containsBean(BIND_LDAP_AUTH_HANDLER_BEAN_NAME));
         assertTrue(applicationContext.getBeansOfType(BindLdapAuthenticationHandler.class).size() == 1);
+        assertTrue(applicationContext.containsBean(CONTEXT_SOURCE_BEAN_NAME));
+        assertTrue(applicationContext.getBeansOfType(LdapContextSource.class).size() == 1);
     }
 
     @Test
