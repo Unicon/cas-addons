@@ -483,10 +483,14 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             final ManagedList principalResolversList = new ManagedList();
             principalResolversList.add(httpBasedPrincipalResolverBd);
             AbstractBeanDefinition principalResolverBd = getCustomPrincipalResolver(element, parserContext);
+
             if (principalResolverBd == null) {
-                principalResolverBd = BeanDefinitionBuilder.genericBeanDefinition(UsernamePasswordCredentialsToPrincipalResolver.class)
-                        .addPropertyReference("attributeRepository", "attributeRepository")
-                        .getBeanDefinition();
+                final BeanDefinitionBuilder b = BeanDefinitionBuilder.genericBeanDefinition(UsernamePasswordCredentialsToPrincipalResolver.class);
+                final String attrRepoBeanName = element.getAttribute("attribute-repository-for-principal-resolver");
+                if (StringUtils.hasText(attrRepoBeanName)) {
+                    b.addPropertyReference("attributeRepository", attrRepoBeanName);
+                }
+                principalResolverBd = b.getBeanDefinition();
             }
             principalResolversList.add(principalResolverBd);
 

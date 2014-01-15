@@ -19,7 +19,8 @@
                                           search-base="OU=users"
                                           is-pooled="false"
                                           ignore-partial-result-exception="true"
-                                          expose-context-source-bean-as="contextSource">
+                                          expose-context-source-bean-as="contextSource"
+                                          attribute-repository-for-principal-resolver="attributeRepository">
 
         <cas:ldap-properties>
             <cas:ldap-prop key="com.sun.jndi.ldap.connect.timeout" value="3000"/>

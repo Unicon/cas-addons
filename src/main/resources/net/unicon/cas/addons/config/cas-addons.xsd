@@ -84,6 +84,7 @@
         <xsd:choice minOccurs="1" maxOccurs="unbounded">
             <xsd:element ref="user"/>
         </xsd:choice>
+        <xsd:attribute name="attribute-repository-for-principal-resolver" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:element name="bind-ldap-authentication-handler" type="bind-ldap-authentication-handlerType"/>
@@ -137,6 +138,7 @@
         <xsd:attribute name="is-pooled" type="xsd:boolean" default="false"/>
         <xsd:attribute name="ignore-partial-result-exception" type="xsd:boolean" default="true"/>
         <xsd:attribute name="expose-context-source-bean-as" type="xsd:string" use="optional"/>
+        <xsd:attribute name="attribute-repository-for-principal-resolver" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:element name="disable-perf4j-timing-aspect" type="xsd:string"/>

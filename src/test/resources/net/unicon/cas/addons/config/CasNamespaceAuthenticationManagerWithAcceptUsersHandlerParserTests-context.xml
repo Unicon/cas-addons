@@ -11,7 +11,7 @@
 
     <bean id="httpClient" class="org.jasig.cas.util.HttpClient"/>
 
-    <cas:authentication-manager-with-accept-users-handler>
+    <cas:authentication-manager-with-accept-users-handler attribute-repository-for-principal-resolver="attributeRepository">
         <cas:user name="u1" password="p1"/>
     </cas:authentication-manager-with-accept-users-handler>
 
