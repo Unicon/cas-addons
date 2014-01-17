@@ -1,10 +1,11 @@
 # CAS Addons
-CAS Addons is an open source collection of useful [JASIG-CAS server](http://www.jasig.org/cas) addons.
+cas-addons is an open source collection of useful [Apereo CAS server](http://www.jasig.org/cas) addons.
 
 ==========================================================================
 
-For versions **1.0+**, the minimum supported version of CAS is **3.5.1**
+### NOTICE
 
+Minimum supported version of CAS in versions of the `1.x` series of `cas-addons` is `3.5.1`. Version `1.10` marks the end of the `1.x` series. The `master` branch now marches towards `2.x` series which will require the minimum version of CAS to be `4.x`
 
 ## Project Information
 
@@ -14,7 +15,7 @@ For versions **1.0+**, the minimum supported version of CAS is **3.5.1**
 * [Wiki](https://github.com/Unicon/cas-addons/wiki)
 
 ## Current version
-`1.9.1`
+`1.10`
 
 ## Build 
 

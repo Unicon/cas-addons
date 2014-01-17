@@ -1,7 +1,7 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.10
-========================================
+###Changes in version 1.10 (2014-01-17)
+=======================================
 
 * exposed `LdapContextSource` bean in Spring application context via new `expose-context-source-bean-as` attribute in `authentication-manager-with-bind-ldap-handler` and `bind-ldap-authentication-handler` custom schema elements
 * added explicit `attribute-repository-for-principal-resolver` along with parser implementation to `authentication-manager-with-bind-ldap-handler` and `authentication-manager-with-accept-users-handler`
