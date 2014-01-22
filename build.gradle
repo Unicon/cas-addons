@@ -1,6 +1,8 @@
 apply plugin: "base"
 
 allprojects {
+    apply plugin: "maven"
+
     repositories {
         mavenCentral artifactUrls: ["http://developer.jasig.org/repo/content/groups/m2-legacy/", "http://central.maven.org/maven2/"]
         maven {

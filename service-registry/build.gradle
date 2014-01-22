@@ -1,0 +1,2 @@
+apply plugin: "java"
+group="net.unicon.cas.cas-addons.service-registry"

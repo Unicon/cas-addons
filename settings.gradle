@@ -1,4 +1,4 @@
 include ":service-registry"
-include ":service-registry:json"
 include ":service-registry:support"
+include ":service-registry:json"
 include ":support"
