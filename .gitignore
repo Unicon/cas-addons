@@ -12,3 +12,6 @@ pom.xml.releaseBackup
 release.properties
 *.log
 
+*.iml
+*.ipr
+.gradle
