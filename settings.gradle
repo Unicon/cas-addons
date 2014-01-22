@@ -1,0 +1,4 @@
+include ":service-registry"
+include ":service-registry:json"
+include ":service-registry:support"
+include ":support"

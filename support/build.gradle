@@ -1,0 +1,7 @@
+apply plugin: "java"
+
+dependencies {
+    compile "org.springframework:spring-context:${project."spring.version"}"
+    compile "org.slf4j:slf4j-api:${project."slf4j.version"}"
+    compile "org.apache.shiro:shiro-core:${project."shiro.version"}"
+}

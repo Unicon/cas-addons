@@ -1,3 +1,16 @@
+apply plugin: "base"
+
+allprojects {
+    repositories {
+        mavenCentral artifactUrls: ["http://developer.jasig.org/repo/content/groups/m2-legacy/", "http://central.maven.org/maven2/"]
+        maven {
+            url "http://oss.sonatype.org/content/repositories/releases/"
+            artifactUrls "http://oss.sonatype.org/content/repositories/releases/"
+            artifactUrls "http://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = project."gradle.version"
 }
