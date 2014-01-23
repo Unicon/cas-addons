@@ -1,5 +1,5 @@
 apply plugin: "java"
-group="net.unicon.cas.cas-addons.service-registry"
+group="net.unicon.cas.addons.service-registry"
 
 dependencies {
     compile "org.jasig.cas:cas-server-core:${project."cas.version"}"
