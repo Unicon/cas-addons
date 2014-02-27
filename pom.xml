@@ -86,6 +86,7 @@
         <spring.data.redis.version>1.1.0.RELEASE</spring.data.redis.version>
         <groovy.version>2.1.6</groovy.version>
         <apache.httpclient.version>4.2.6</apache.httpclient.version>
+        <hazelcast.version>3.1.6</hazelcast.version>
     </properties>
 
     <reporting>
@@ -182,24 +183,7 @@
                     </dependency>
                 </dependencies>
             </plugin> 
-            
-            <!-- 
-            <plugin>
-                <groupId>org.spockframework</groupId>
-                <artifactId>spock-maven</artifactId>
-                <version>${spock.version}</version>
-                <executions>
-                
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>find-specs</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-             -->
-                         
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -469,14 +453,14 @@
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast</artifactId>
-            <version>3.1</version>
+            <version>${hazelcast.version}</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast-spring</artifactId>
-            <version>3.1</version>
+            <version>${hazelcast.version}</version>
             <scope>compile</scope>
         </dependency>
 		
