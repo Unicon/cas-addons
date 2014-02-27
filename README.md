@@ -5,7 +5,7 @@ cas-addons is an open source collection of useful [Apereo CAS server](http://www
 
 ### NOTICE
 
-Minimum supported version of CAS in versions of the `1.x` series of `cas-addons` is `3.5.1`. Version `1.10` marks the end of the `1.x` series. The `master` branch now marches towards `2.x` series which will require the minimum version of CAS to be `4.x`
+Minimum supported version of CAS in versions of the `1.x` series of `cas-addons` is `3.5.1`.
 
 ## Project Information
 
