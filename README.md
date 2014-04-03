@@ -15,7 +15,7 @@ Minimum supported version of CAS in versions of the `1.x` series of `cas-addons`
 * [Wiki](https://github.com/Unicon/cas-addons/wiki)
 
 ## Current version
-`1.11`
+`1.11.1`
 
 ## Build 
 
