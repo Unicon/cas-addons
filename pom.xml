@@ -66,7 +66,7 @@
     <properties>
         <github.global.server>github</github.global.server>
         <jdk.version>1.6</jdk.version>
-        <cas.version>3.5.2</cas.version>
+        <cas.version>3.5.2.1</cas.version>
         <servlet.version>2.5</servlet.version>
         <junit.version>4.11</junit.version>
         <jackson.version>2.2.2</jackson.version>
