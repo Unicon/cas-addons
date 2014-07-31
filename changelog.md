@@ -1,6 +1,6 @@
 ## CAS-Addons Changelog
 
-###Changes in version 1.11.1 (2014-07-21)
+###Changes in version 1.12 (2014-07-21)
 ========================================
 
 * updated Hazelcast dependency to version `3.2.4`
