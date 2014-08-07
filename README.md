@@ -106,6 +106,14 @@ To have a more finer-grained control of transitive dependencies brought into ove
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
         </exclusion>
+        <exclusion>
+            <groupId>javax.xml.stream</groupId>
+            <artifactId>stax-api</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.codehaus.jettison</groupId>
+            <artifactId>jettison</artifactId>
+        </exclusion>
     </exclusions>
 </dependency>
 ```
