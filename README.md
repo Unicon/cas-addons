@@ -10,14 +10,14 @@ Minimum supported version of CAS in versions of the `1.x` series of `cas-addons`
 ## Project Information
 
 * [About](http://unicon.github.io/cas-addons/)
-* [Changelog](https://github.com/Unicon/cas-addons/blob/master/changelog.md) 
+* [Changelog](https://github.com/Unicon/cas-addons/blob/master/changelog.md)
 * [JavaDocs](http://unicon.github.com/cas-addons/apidocs/index.html)
 * [Wiki](https://github.com/Unicon/cas-addons/wiki)
 
 ## Current version
-`1.12`
+`1.13`
 
-## Build 
+## Build
 
 [![Build Status](https://secure.travis-ci.org/Unicon/cas-addons.png)](http://travis-ci.org/Unicon/cas-addons)
 
@@ -48,8 +48,8 @@ To have a more finer-grained control of transitive dependencies brought into ove
 <dependency>
     <groupId>net.unicon.cas</groupId>
     <artifactId>cas-addons</artifactId>
-    <version>${cas-addons.version}</version>			
-    <exclusions>                
+    <version>${cas-addons.version}</version>
+    <exclusions>
         <exclusion>
             <groupId>edu.internet2.middleware.grouper</groupId>
             <artifactId>grouperClient</artifactId>

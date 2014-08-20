@@ -86,7 +86,7 @@
         <spring.data.redis.version>1.1.0.RELEASE</spring.data.redis.version>
         <groovy.version>2.1.6</groovy.version>
         <apache.httpclient.version>4.2.6</apache.httpclient.version>
-        <hazelcast.version>3.2.4</hazelcast.version>
+        <hazelcast.version>3.2.5</hazelcast.version>
     </properties>
 
     <reporting>
@@ -141,7 +141,7 @@
         </testResources>
 
         <plugins>
-  
+
             <plugin>
                 <groupId>com.github.github</groupId>
                 <artifactId>site-maven-plugin</artifactId>
@@ -182,7 +182,7 @@
                         <version>2.1.5-03</version>
                     </dependency>
                 </dependencies>
-            </plugin> 
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -207,10 +207,10 @@
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
-                    </archive>                    
+                    </archive>
                     <!-- Include custom namespace schema Spring metadata -->
                     <includes>
-                        <include>net/unicon/**</include>                        
+                        <include>net/unicon/**</include>
                         <include>META-INF/spring.handlers</include>
                         <include>META-INF/spring.schemas</include>
                     </includes>
@@ -231,7 +231,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.8.1</version>
-            </plugin>            
+            </plugin>
 
         </plugins>
     </build>
@@ -355,7 +355,7 @@
             <scope>runtime</scope>
         </dependency>
 
-		<dependency>	
+		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>${spring.data.mongo.version}</version>
@@ -412,7 +412,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
+
         <dependency>
             <groupId>com.yubico</groupId>
             <artifactId>yubico-validation-client2</artifactId>
@@ -463,7 +463,7 @@
             <version>${hazelcast.version}</version>
             <scope>compile</scope>
         </dependency>
-		
+
         <dependency>
           <groupId>org.apache.httpcomponents</groupId>
           <artifactId>httpclient</artifactId>
@@ -491,7 +491,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-            
+
         <dependency>
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
@@ -512,7 +512,7 @@
             <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
-        
+
     </dependencies>
 
     <!-- Jasig CAS Repository -->
