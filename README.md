@@ -3,6 +3,10 @@ cas-addons is an open source collection of useful [Apereo CAS server](http://www
 
 ==========================================================================
 
+This project was developed as part of Unicon's [Open Source Support program](https://unicon.net/opensource)
+Professional Support / Integration Assistance for this module is available. For more information [visit](https://unicon.net/opensource/cas) 
+
+
 ### NOTICE
 
 Minimum supported version of CAS in versions of the `1.x` series of `cas-addons` is `3.5.1`.
