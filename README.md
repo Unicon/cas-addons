@@ -3,8 +3,8 @@ cas-addons is an open source collection of useful [Apereo CAS server](http://www
 
 ==========================================================================
 
-This project was developed as part of Unicon's [Open Source Support program](https://unicon.net/opensource)
-Professional Support / Integration Assistance for this module is available. For more information [visit](https://unicon.net/opensource/cas) 
+This project was developed as part of Unicon's [Open Source Support program](https://unicon.net/opensource).
+Professional Support / Integration Assistance for this module is available. For more information [visit](https://unicon.net/opensource/cas). 
 
 
 ### NOTICE
