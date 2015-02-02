@@ -65,28 +65,28 @@
 
     <properties>
         <github.global.server>github</github.global.server>
-        <jdk.version>1.6</jdk.version>
-        <cas.version>3.5.2.1</cas.version>
+        <jdk.version>1.7</jdk.version>
+        <cas.version>3.5.3</cas.version>
         <servlet.version>2.5</servlet.version>
-        <junit.version>4.11</junit.version>
+        <junit.version>4.12</junit.version>
         <jackson.version>2.2.2</jackson.version>
         <commons-codec.version>1.7</commons-codec.version>
         <person.directory.version>1.5.1</person.directory.version>
-        <shiro.version>1.2.2</shiro.version>
-        <slf4j.version>1.7.5</slf4j.version>
+        <shiro.version>1.2.3</shiro.version>
+        <slf4j.version>1.7.10</slf4j.version>
         <grouper.client.version>2.1.0</grouper.client.version>
         <stormpath.sdk.version>0.8.0</stormpath.sdk.version>
-        <spring.data.mongo.version>1.0.3.RELEASE</spring.data.mongo.version>
+        <spring.data.mongo.version>1.6.2.RELEASE</spring.data.mongo.version>
         <spock.version>0.7-groovy-2.0</spock.version>
         <jersey.version>1.17.1</jersey.version>
         <jaxrs.version>1.1.1</jaxrs.version>
-        <spring.version>3.2.4.RELEASE</spring.version>
-        <joda-time.version>2.3</joda-time.version>
-        <jedis.version>2.1.0</jedis.version>
-        <spring.data.redis.version>1.1.0.RELEASE</spring.data.redis.version>
-        <groovy.version>2.1.6</groovy.version>
+        <spring.version>3.2.13.RELEASE</spring.version>
+        <joda-time.version>2.7</joda-time.version>
+        <jedis.version>2.6.2</jedis.version>
+        <spring.data.redis.version>1.4.2.RELEASE</spring.data.redis.version>
+        <groovy.version>2.4.0</groovy.version>
         <apache.httpclient.version>4.2.6</apache.httpclient.version>
-        <hazelcast.version>3.2.5</hazelcast.version>
+        <hazelcast.version>3.4</hazelcast.version>
     </properties>
 
     <reporting>
@@ -163,7 +163,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.2</version>
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>

@@ -1,5 +1,21 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.14 (2015-02-02)
+========================================
+
+* updated Hazelcast dependency to version `3.4`
+* updated CAS dependency to `3.5.3`
+* updated Shiro dependency to `1.2.3`
+* updated Junit dependency to `4.12`
+* updated Spring dependency to `3.2.13.RELEASE`
+* updated Groovy dependency to `2.4.0`
+* updated Slf4j dependency to `1.7.10`
+* updated joda-time dependency to `2.7`
+* updated jedis dependency to `2.6.2`
+* updated spring-data-redis dependency to `1.4.2.RELEASE`
+* updated spring-data-mongodb dependency to `1.6.2.RELEASE`
+
+
 ###Changes in version 1.13 (2014-08-20)
 ========================================
 
