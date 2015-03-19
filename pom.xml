@@ -86,7 +86,7 @@
         <spring.data.redis.version>1.4.2.RELEASE</spring.data.redis.version>
         <groovy.version>2.4.0</groovy.version>
         <apache.httpclient.version>4.2.6</apache.httpclient.version>
-        <hazelcast.version>3.4</hazelcast.version>
+        <hazelcast.version>3.4.1</hazelcast.version>
     </properties>
 
     <reporting>

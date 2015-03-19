@@ -1,5 +1,11 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.15 (2015-03-19)
+========================================
+
+* added TGT id to exposed CAS SSO events (via AbstractCasSsoEvent)
+* updated Hazelcast dependency to version `3.4.1`
+
 ###Changes in version 1.14 (2015-02-02)
 ========================================
 

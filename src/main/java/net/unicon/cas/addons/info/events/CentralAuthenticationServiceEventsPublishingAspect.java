@@ -67,13 +67,13 @@ public class CentralAuthenticationServiceEventsPublishingAspect implements Appli
 	//-----------------------------------------------------------------------------------------------------------------------------
 	@AfterReturning(pointcut = "createTicketGrantingTicketMethodExecution()", returning = "ticketGrantingTicketId")
 	public void publishCasSsoSessionEstablishedEvent(final JoinPoint jp, final String ticketGrantingTicketId) {
-		doPublish(new CasSsoSessionEstablishedEvent(jp.getTarget(), this.authenticationSupport.getAuthenticationFrom(ticketGrantingTicketId)));
+		doPublish(new CasSsoSessionEstablishedEvent(jp.getTarget(), this.authenticationSupport.getAuthenticationFrom(ticketGrantingTicketId), ticketGrantingTicketId));
 	}
 
 	@Around("destroyTicketGrantingTicketMethodExecution() && args(ticketGrantingTicketId)")
 	public void publishCasSsoSessionDestroyedEvent(final ProceedingJoinPoint jp, final String ticketGrantingTicketId) throws Throwable {
 		final Authentication authToBeDestroyed = this.authenticationSupport.getAuthenticationFrom(ticketGrantingTicketId);
-		final ApplicationEvent e = new CasSsoSessionDestroyedEvent(jp.getTarget(), authToBeDestroyed);
+		final ApplicationEvent e = new CasSsoSessionDestroyedEvent(jp.getTarget(), authToBeDestroyed, ticketGrantingTicketId);
 		jp.proceed(new Object[] {ticketGrantingTicketId});
 		doPublish(e);
 	}

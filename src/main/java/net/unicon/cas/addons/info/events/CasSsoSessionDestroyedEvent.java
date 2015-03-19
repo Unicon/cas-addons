@@ -12,7 +12,7 @@ import org.jasig.cas.authentication.Authentication;
  */
 public final class CasSsoSessionDestroyedEvent extends AbstractCasSsoEvent {
 
-	public CasSsoSessionDestroyedEvent(Object source, Authentication authentication) {
-		super(source, authentication);
+	public CasSsoSessionDestroyedEvent(Object source, Authentication authentication, String ticketGrantingTicketId) {
+		super(source, authentication, ticketGrantingTicketId);
 	}
 }
