@@ -67,8 +67,6 @@ public class CasNamespaceParsersTests {
 
     private static final String CONTEXT_SOURCE_BEAN_NAME = "contextSource";
 
-    private static final String TICKET_REGISTRY_BEAN_NAME = "ticketRegistry";
-
     private static final String SERVICE_REDIRECTION_ACTION_BEAN_NAME = "serviceRedirectionCheck";
 
     private static final String LOGIN_VIEW_SELECTOR_BEAN_NAME = "casLoginViewSelector";
@@ -172,17 +170,6 @@ public class CasNamespaceParsersTests {
         public boolean isYubiKeyRegisteredFor(String uid, String yubikeyPublicId) {
             return true;
         }
-    }
-
-    /**
-     * Used in unit tests - wiring via Spring XML context
-     */
-    public static final class DummyIPersonAttributeDaoUsedForTestingXmlSchemaParsing extends StubPersonAttributeDao{}
-
-    @Test
-    public void hazelcastTicketRegistryBeanDefinitionCorrectlyParsed() {
-        assertTrue(applicationContext.containsBean(TICKET_REGISTRY_BEAN_NAME));
-        assertTrue(applicationContext.getBeansOfType(HazelcastTicketRegistry.class).size() == 1);
     }
 
     @Test

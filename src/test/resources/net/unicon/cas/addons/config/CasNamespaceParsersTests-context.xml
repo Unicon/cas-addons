@@ -18,6 +18,8 @@
         </constructor-arg>
     </bean>
 
+    <bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry"/>
+
     <cas:inspektr-log-files-audit-manager/>
 
     <cas:json-services-registry/>
@@ -82,22 +84,6 @@
 
     <bean id="timingAspect" class="java.lang.Object"/>
     <cas:disable-perf4j-timing-aspect/>
-
-    <!-- For Hazelcast Ticket Registry element parser test -->
-    <hz:hazelcast id="hazelcast">
-        <hz:config>
-            <hz:network port="5701" port-auto-increment="true">
-                <hz:join>
-                    <hz:multicast enabled="false"/>
-                    <hz:tcp-ip enabled="true">
-                        <hz:members>localhost</hz:members>
-                    </hz:tcp-ip>
-                </hz:join>
-            </hz:network>
-        </hz:config>
-    </hz:hazelcast>
-
-    <cas:hazelcast-ticket-registry hazelcast-instance="hazelcast" tgt-entries-ttl-seconds="2800" st-entries-ttl-seconds="10"/>
 
     <bean id="myAdvisor" class="net.unicon.cas.addons.web.flow.InMemoryServiceRedirectionByClientIpAddressAdvisor"/>
     <cas:service-redirection-action redirection-advisor="myAdvisor"/>

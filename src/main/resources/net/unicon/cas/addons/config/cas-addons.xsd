@@ -161,6 +161,7 @@
 
     <xsd:element name="hazelcast-ticket-registry" type="hazelcast-ticket-registryType"/>
     <xsd:complexType name="hazelcast-ticket-registryType">
+        <xsd:attribute name="id" type="xsd:ID" use="optional"/>
         <xsd:attribute type="xsd:string" name="hazelcast-instance" use="required"/>
         <xsd:attribute type="xsd:string" name="tgt-entries-ttl-seconds" use="required"/>
         <xsd:attribute type="xsd:string" name="st-entries-ttl-seconds" use="required"/>

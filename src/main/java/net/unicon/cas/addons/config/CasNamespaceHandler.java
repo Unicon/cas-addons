@@ -606,7 +606,10 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
 
         @Override
         protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
-            return "ticketRegistry";
+            final String idAttrValue = element.getAttribute("id");
+            return StringUtils.hasText(idAttrValue) ? idAttrValue : "ticketRegistry";
+
+            //return "ticketRegistry";
         }
 
         @Override

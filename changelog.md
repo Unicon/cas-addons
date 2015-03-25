@@ -6,7 +6,8 @@
 * refactored `metadata-populators` parsing code into `AbstractDefaultAuthenticationManagerBeanDefinitionParser`
 * added `metadata-populators` attribute to authentication-manager-with-bind-ldap-handler custom XML schema element
 * added `metadata-populators` attribute to `authentication-manager-with-accept-users-handler` custom XML schema element
-* added `attribute-repository-for-principal-resolver` to `default-test-authentication-manager` custom XML schema element
+* added `attribute-repository-for-principal-resolver` attribute to `default-test-authentication-manager` custom XML schema element
+* added `id` attribute to `hazelcast-ticket-registry` custom XML schema element
 
 ###Changes in version 1.15 (2015-03-19)
 ========================================
