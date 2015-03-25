@@ -252,10 +252,6 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             authenticationHandlersList.add(BeanDefinitionBuilder.genericBeanDefinition(SimpleTestUsernamePasswordAuthenticationHandler.class)
                     .getBeanDefinition());
 
-            final String metadataPopulatorsRef = element.getAttribute("metadata-populators");
-            if (StringUtils.hasText(metadataPopulatorsRef)) {
-                builder.addPropertyReference("authenticationMetaDataPopulators", metadataPopulatorsRef);
-            }
             return builder.getBeanDefinition();
         }
     }
@@ -500,6 +496,11 @@ public class CasNamespaceHandler extends NamespaceHandlerSupport {
             BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(AuthenticationManagerImpl.class)
                     .addPropertyValue("credentialsToPrincipalResolvers", principalResolversList)
                     .addPropertyValue("authenticationHandlers", authnHandlersList);
+
+            final String metadataPopulatorsRef = element.getAttribute("metadata-populators");
+            if (StringUtils.hasText(metadataPopulatorsRef)) {
+                builder.addPropertyReference("authenticationMetaDataPopulators", metadataPopulatorsRef);
+            }
 
             return createAuthenticatonManagerBeanDefinition(element, parserContext, builder, authnHandlersList);
         }

@@ -1,5 +1,10 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.16
+========================================
+
+* refactored metadata-populators parsing code into AbstractDefaultAuthenticationManagerBeanDefinitionParser
+
 ###Changes in version 1.15 (2015-03-19)
 ========================================
 
