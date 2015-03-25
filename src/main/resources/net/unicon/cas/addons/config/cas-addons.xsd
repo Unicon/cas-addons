@@ -35,6 +35,7 @@
     <xsd:element name="default-test-authentication-manager" type="default-test-authentication-managerType"/>
     <xsd:complexType name="default-test-authentication-managerType">
         <xsd:attribute type="xsd:string" name="metadata-populators" use="optional"/>
+        <xsd:attribute name="attribute-repository-for-principal-resolver" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:element name="stormpath-authentication-handler" type="stormpath-authentication-handlerType"/>
@@ -85,6 +86,7 @@
             <xsd:element ref="user"/>
         </xsd:choice>
         <xsd:attribute name="attribute-repository-for-principal-resolver" type="xsd:string" use="optional"/>
+        <xsd:attribute type="xsd:string" name="metadata-populators" use="optional"/>
     </xsd:complexType>
 
     <xsd:element name="bind-ldap-authentication-handler" type="bind-ldap-authentication-handlerType"/>
@@ -139,6 +141,7 @@
         <xsd:attribute name="ignore-partial-result-exception" type="xsd:boolean" default="true"/>
         <xsd:attribute name="expose-context-source-bean-as" type="xsd:string" use="optional"/>
         <xsd:attribute name="attribute-repository-for-principal-resolver" type="xsd:string" use="optional"/>
+        <xsd:attribute type="xsd:string" name="metadata-populators" use="optional"/>
     </xsd:complexType>
 
     <xsd:element name="disable-perf4j-timing-aspect" type="xsd:string"/>

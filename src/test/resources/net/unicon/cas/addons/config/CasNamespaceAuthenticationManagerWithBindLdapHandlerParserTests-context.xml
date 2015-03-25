@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cas="http://unicon.net/schema/cas"
+       xmlns:cas="http://unicon.net/schema/cas" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://unicon.net/schema/cas http://unicon.net/schema/cas/cas-addons.xsd">
+                           http://unicon.net/schema/cas http://unicon.net/schema/cas/cas-addons.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 
     <cas:json-attribute-repository config-file="classpath:/net/unicon/cas/addons/config/person-attributes.conf"/>
 
     <bean id="httpClient" class="org.jasig.cas.util.HttpClient"/>
+
+    <util:list id="metadataPopulators">
+        <bean class="org.jasig.cas.authentication.principal.RememberMeAuthenticationMetaDataPopulator"/>
+    </util:list>
 
     <cas:authentication-manager-with-bind-ldap-handler
                                           user-dn="user"
@@ -20,7 +24,8 @@
                                           is-pooled="false"
                                           ignore-partial-result-exception="true"
                                           expose-context-source-bean-as="contextSource"
-                                          attribute-repository-for-principal-resolver="attributeRepository">
+                                          attribute-repository-for-principal-resolver="attributeRepository"
+                                          metadata-populators="metadataPopulators">
 
         <cas:ldap-properties>
             <cas:ldap-prop key="com.sun.jndi.ldap.connect.timeout" value="3000"/>

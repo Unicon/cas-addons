@@ -10,8 +10,6 @@
 
     <context:property-placeholder location="classpath:/net/unicon/cas/addons/config/cas.properties"/>
 
-    <!-- <bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry"/> -->
-
     <bean id="httpClient" class="org.jasig.cas.util.HttpClient"/>
 
     <bean id="servicesManager" class="org.jasig.cas.services.DefaultServicesManagerImpl">
@@ -48,7 +46,8 @@
     <util:list id="metadataPopulators">
         <bean class="org.jasig.cas.authentication.principal.RememberMeAuthenticationMetaDataPopulator"/>
     </util:list>
-    <cas:default-test-authentication-manager metadata-populators="metadataPopulators"/>
+    <cas:default-test-authentication-manager metadata-populators="metadataPopulators"
+                                             attribute-repository-for-principal-resolver="attributeRepository"/>
 
     <cas:accept-users-authentication-handler id="acceptUsersAuthnHandler">
         <cas:user name="user1" password="pass1"/>

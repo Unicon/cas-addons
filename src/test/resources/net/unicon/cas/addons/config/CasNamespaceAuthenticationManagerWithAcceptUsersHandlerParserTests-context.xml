@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cas="http://unicon.net/schema/cas"
+       xmlns:cas="http://unicon.net/schema/cas" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://unicon.net/schema/cas http://unicon.net/schema/cas/cas-addons.xsd">
+                           http://unicon.net/schema/cas http://unicon.net/schema/cas/cas-addons.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util.xsd">
 
 
     <cas:json-attribute-repository config-file="classpath:/net/unicon/cas/addons/config/person-attributes.conf"/>
 
     <bean id="httpClient" class="org.jasig.cas.util.HttpClient"/>
 
-    <cas:authentication-manager-with-accept-users-handler attribute-repository-for-principal-resolver="attributeRepository">
+    <util:list id="metadataPopulators">
+        <bean class="org.jasig.cas.authentication.principal.RememberMeAuthenticationMetaDataPopulator"/>
+    </util:list>
+
+    <cas:authentication-manager-with-accept-users-handler attribute-repository-for-principal-resolver="attributeRepository"
+                                                          metadata-populators="metadataPopulators">
         <cas:user name="u1" password="p1"/>
     </cas:authentication-manager-with-accept-users-handler>
 

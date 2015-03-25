@@ -19,9 +19,9 @@ import net.unicon.cas.addons.web.flow.ServiceRedirectionAction;
 import net.unicon.cas.addons.web.view.RequestParameterCasLoginViewSelector;
 import org.jasig.cas.adaptors.generic.AcceptUsersAuthenticationHandler;
 import org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler;
-import org.jasig.cas.authentication.AbstractAuthenticationManager;
 import org.jasig.cas.authentication.AuthenticationManager;
 import org.jasig.cas.monitor.HealthCheckMonitor;
+import org.jasig.services.persondir.support.StubPersonAttributeDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -173,6 +173,11 @@ public class CasNamespaceParsersTests {
             return true;
         }
     }
+
+    /**
+     * Used in unit tests - wiring via Spring XML context
+     */
+    public static final class DummyIPersonAttributeDaoUsedForTestingXmlSchemaParsing extends StubPersonAttributeDao{}
 
     @Test
     public void hazelcastTicketRegistryBeanDefinitionCorrectlyParsed() {
