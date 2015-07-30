@@ -1,5 +1,10 @@
 ## CAS-Addons Changelog
 
+###Changes in version 1.16 (2015-07-30)
+=======================================
+
+* updated Hazelcast dependency to version `3.5.1`
+
 ###Changes in version 1.16 (2015-03-25)
 ========================================
 
