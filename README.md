@@ -12,6 +12,8 @@ Professional Support / Integration Assistance for this module is available. For 
 Minimum supported version of CAS in versions of the `1.x` series of `cas-addons` is `3.5.1`.
 `1.x` series of cas-addons is not supported on CAS `4.x`. For CAS `4.x` support look for the series of [micro addons](https://github.com/unicon-cas-addons) libraries grouped by distinct features in upcoming months.
 
+As of CAS 5, this project is no longer maintained and supported.
+
 ## Project Information
 
 * [About](http://unicon.github.io/cas-addons/)
